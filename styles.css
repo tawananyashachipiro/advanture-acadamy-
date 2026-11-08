@@ -169,3 +169,18 @@ dialog h2{font-size:27px;margin:0 0 10px}
 .quiz-option.is-correct{background:#e8f7f2}
 .reward-badge b{color:#b17b35}
 .reward-badge.is-earned b{color:#287b70}
+
+
+/* Academy-wide progress dashboard */
+.progress-dashboard{margin:22px 0 8px;padding:20px 22px;border:1px solid #dce8df;border-radius:12px;background:#f1f7f1}
+.dashboard-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dashboard-heading .eyebrow{margin-bottom:5px}
+.dashboard-heading h3{margin:0;font-size:20px}
+.dashboard-heading>span{color:var(--teal);font-size:10px;font-weight:800;letter-spacing:1px}
+.progress-track{height:12px;margin:17px 0 15px;overflow:hidden;border-radius:20px;background:#dce7dd}
+.progress-track>span{display:block;width:0;height:100%;border-radius:20px;background:var(--teal);transition:width .35s ease}
+.dashboard-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.dashboard-stats>div{display:flex;flex-direction:column;gap:4px}
+.dashboard-stats strong{font-size:23px;color:var(--navy)}
+.dashboard-stats span{font-size:9px;color:var(--muted);font-weight:700;letter-spacing:.8px}
+@media(max-width:500px){.progress-dashboard{padding:16px}.dashboard-heading h3{font-size:18px}.dashboard-stats{gap:6px}.dashboard-stats strong{font-size:20px}.dashboard-stats span{font-size:8px}}
