@@ -72,6 +72,16 @@ const campusSections = [
 
 function updateProgress() {
   count.textContent = String(visited.size);
+  const completedCount = document.querySelector("#completed-count");
+  if (completedCount) completedCount.textContent = String(completed.size);
+
+  Object.keys(stations).forEach(key => {
+    const badge = document.querySelector("#badge-" + key);
+    if (!badge) return;
+    badge.classList.toggle("is-earned", completed.has(key));
+    const status = badge.querySelector("b");
+    if (status) status.textContent = completed.has(key) ? "EARNED ✓" : "LOCKED";
+  });
 }
 
 function showInterior() {
@@ -129,6 +139,9 @@ function openStation(key) {
         button.setAttribute("aria-pressed", "true");
         button.classList.add("is-correct");
         feedback.textContent = station.correct + " Challenge completed!";
+        updateProgress();
+        const guideMessage = document.querySelector("#guide-message");
+        if (guideMessage) guideMessage.textContent = "Brilliant work! You earned a discovery badge. Choose another room or ask me for your next mission.";
       } else {
         button.classList.add("is-incorrect");
         feedback.textContent = station.retry;
@@ -157,6 +170,17 @@ function openStation(key) {
 
 document.querySelector("#enter-academy").addEventListener("click", showInterior);
 document.querySelector("#back-campus").addEventListener("click", showCampus);
+
+document.querySelector("#next-mission").addEventListener("click", () => {
+  const nextKey = Object.keys(stations).find(key => !completed.has(key));
+  const guideMessage = document.querySelector("#guide-message");
+  if (!nextKey) {
+    if (guideMessage) guideMessage.textContent = "Amazing explorer! You have earned all three discovery badges. More adventures are coming soon.";
+    return;
+  }
+  if (guideMessage) guideMessage.textContent = "Let's explore the " + stations[nextKey].label.toLowerCase() + "! Complete its challenge to earn a badge.";
+  openStation(nextKey);
+});
 
 document.querySelectorAll(".station").forEach(button => {
   button.addEventListener("click", () => openStation(button.dataset.station));
