@@ -224,4 +224,68 @@ profileForm.addEventListener("submit", event => {
     profileFeedback.textContent = "This browser could not save your profile. Your lessons can still be explored.";
   }
 });
+
+const exportButton = document.querySelector("#export-progress");
+const importInput = document.querySelector("#import-progress");
+const backupFeedback = document.querySelector("#backup-feedback");
+function makeBackup() {
+  const profile = JSON.parse(localStorage.getItem(profileStorageKey) || "{}");
+  return {format:"adventure-academy-backup",version:1,createdAt:new Date().toISOString(),profile,progress:{visited:[...visited],levels:{...levels}}};
+}
+exportButton.addEventListener("click", () => {
+  try {
+    const blob = new Blob([JSON.stringify(makeBackup(), null, 2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url; link.download = "adventure-academy-backup.json";
+    document.body.append(link); link.click(); link.remove(); URL.revokeObjectURL(url);
+    backupFeedback.textContent = "Backup downloaded. Keep that file somewhere safe.";
+  } catch (error) {
+    backupFeedback.textContent = "The backup could not be created in this browser.";
+  }
+});
+importInput.addEventListener("change", () => {
+  const file = importInput.files && importInput.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(String(reader.result || ""));
+      if (!data || data.format !== "adventure-academy-backup" || data.version !== 1 ||
+          !data.progress || !Array.isArray(data.progress.visited) ||
+          !data.progress.levels || typeof data.progress.levels !== "object") throw new Error("Invalid backup");
+      const validVisited = data.progress.visited.filter(key => stations[key]);
+      const restoredLevels = {};
+      Object.keys(stations).forEach(key => {
+        const value = Number(data.progress.levels[key] || 0);
+        if (!Number.isInteger(value) || value < 0 || value > 3) throw new Error("Invalid lesson progress");
+        restoredLevels[key] = value;
+      });
+      const savedProfile = data.profile && typeof data.profile === "object" ? data.profile : {};
+      const nickname = typeof savedProfile.nickname === "string" ? savedProfile.nickname.trim().replace(/\s+/g," ").slice(0,20) : "";
+      const allowedAvatars = ["🧭","🚀","🦊","🦉","🐼","🦁","🌟","🎨"];
+      const avatar = allowedAvatars.includes(savedProfile.avatar) ? savedProfile.avatar : "🧭";
+      if (!window.confirm("Restore this backup? It will replace the progress currently saved in this browser.")) {
+        backupFeedback.textContent = "Restore cancelled. Your current progress is unchanged.";
+        importInput.value = ""; return;
+      }
+      visited.clear(); validVisited.forEach(key => visited.add(key));
+      Object.keys(stations).forEach(key => { levels[key] = restoredLevels[key]; });
+      completed.clear(); Object.keys(stations).forEach(key => { if (levels[key] === 3) completed.add(key); });
+      saveProgress();
+      localStorage.setItem(profileStorageKey, JSON.stringify({nickname,avatar}));
+      renderProfile(nickname,avatar);
+      document.querySelector("#learner-nickname").value = nickname;
+      document.querySelector("#learner-avatar").value = avatar;
+      updateProgress();
+      backupFeedback.textContent = "Backup restored successfully on this device.";
+    } catch (error) {
+      backupFeedback.textContent = "That file is not a valid Adventure Academy backup. Your saved progress was not changed.";
+    }
+    importInput.value = "";
+  };
+  reader.onerror = () => { backupFeedback.textContent = "The selected file could not be read."; importInput.value = ""; };
+  reader.readAsText(file);
+});
+
 loadProfile(); loadProgress(); updateProgress();
