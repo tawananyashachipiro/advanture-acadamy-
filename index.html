@@ -43,11 +43,31 @@
 
     <section id="academy-interior" class="interior" hidden>
       <div class="interior-top"><div><p class="eyebrow">WELCOME INSIDE</p><h2>You made it, explorer!</h2><p class="interior-intro">Your academy adventure starts here. Choose a room to continue learning.</p></div><button class="back-campus" id="back-campus" type="button">← BACK TO CAMPUS</button></div>
+      <section class="guide-panel" aria-label="Academy guide">
+        <div class="guide-avatar" aria-hidden="true">🧭</div>
+        <div class="guide-copy">
+          <p class="eyebrow">YOUR ACADEMY GUIDE</p>
+          <h3>Meet Scout!</h3>
+          <p id="guide-message">Hello, explorer! I'm Scout. I'll help you discover lessons and collect badges. Ready for your next challenge?</p>
+        </div>
+        <button class="guide-action" id="next-mission" type="button">FIND MY NEXT MISSION ↗</button>
+      </section>
       <div class="room-grid">
         <button class="room-card" type="button" data-room="science"><span class="room-icon">⚗</span><strong>Science Lab</strong><span>Ask questions and investigate the world.</span><b>EXPLORE ROOM ↗</b></button>
         <button class="room-card" type="button" data-room="library"><span class="room-icon">▤</span><strong>Knowledge Library</strong><span>Discover words, stories and new ideas.</span><b>EXPLORE ROOM ↗</b></button>
         <button class="room-card" type="button" data-room="maths"><span class="room-icon">∑</span><strong>Maths Garden</strong><span>Find patterns and solve number puzzles.</span><b>EXPLORE ROOM ↗</b></button>
       </div>
+      <section class="rewards-panel" aria-label="Your rewards">
+        <div class="rewards-heading">
+          <div><p class="eyebrow">YOUR COLLECTION</p><h3>Discovery badges</h3></div>
+          <p><strong id="completed-count">0</strong> / 3 earned</p>
+        </div>
+        <div class="badge-grid">
+          <div class="reward-badge" id="badge-science"><span>⚗</span><strong>Curious Scientist</strong><small>Complete the Science Lab challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-library"><span>📚</span><strong>Word Explorer</strong><small>Complete the Library challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-maths"><span>∑</span><strong>Pattern Finder</strong><small>Complete the Maths Garden challenge</small><b>LOCKED</b></div>
+        </div>
+      </section>
     </section>
   </main>
   <footer>ADVENTURE ACADEMY · A WORLD OF CURIOSITY</footer>
