@@ -191,4 +191,37 @@ document.querySelectorAll(".station, .room-card").forEach(button => button.addEv
 document.querySelector(".close").addEventListener("click",() => { if (typeof dialog.close === "function") dialog.close(); else dialog.removeAttribute("open"); });
 dialog.addEventListener("click",event => { if (event.target === dialog && typeof dialog.close === "function") dialog.close(); });
 dialog.addEventListener("cancel",event => { event.preventDefault(); if (typeof dialog.close === "function") dialog.close(); });
-loadProgress(); updateProgress();
+const profileForm = document.querySelector("#profile-form");
+const profileName = document.querySelector("#profile-name");
+const profileAvatar = document.querySelector("#profile-avatar");
+const profileSubtitle = document.querySelector("#profile-subtitle");
+const profileFeedback = document.querySelector("#profile-feedback");
+const profileStorageKey = "adventure-academy-learner-profile";
+function loadProfile() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(profileStorageKey) || "{}");
+    const nickname = typeof saved.nickname === "string" ? saved.nickname.slice(0,20) : "";
+    const avatar = ["🧭","🚀","🦊","🦉","🐼","🦁","🌟","🎨"].includes(saved.avatar) ? saved.avatar : "🧭";
+    document.querySelector("#learner-nickname").value = nickname;
+    document.querySelector("#learner-avatar").value = avatar;
+    renderProfile(nickname, avatar);
+  } catch (error) { renderProfile("", "🧭"); }
+}
+function renderProfile(nickname, avatar) {
+  profileName.textContent = nickname ? "Welcome, " + nickname + "!" : "Welcome, Explorer!";
+  profileAvatar.textContent = avatar;
+  profileSubtitle.textContent = "Your learning journey is saved on this device.";
+}
+profileForm.addEventListener("submit", event => {
+  event.preventDefault();
+  const nickname = document.querySelector("#learner-nickname").value.trim().replace(/\s+/g, " ").slice(0,20);
+  const avatar = document.querySelector("#learner-avatar").value;
+  try {
+    localStorage.setItem(profileStorageKey, JSON.stringify({nickname, avatar}));
+    renderProfile(nickname, avatar);
+    profileFeedback.textContent = "Profile saved on this device.";
+  } catch (error) {
+    profileFeedback.textContent = "This browser could not save your profile. Your lessons can still be explored.";
+  }
+});
+loadProfile(); loadProgress(); updateProgress();
