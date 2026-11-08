@@ -197,3 +197,17 @@ dialog h2{font-size:27px;margin:0 0 10px}
 .profile-form button{grid-column:1/-1;padding:10px;border:0;border-radius:7px;background:var(--navy);color:white;font-size:10px;font-weight:bold;letter-spacing:.8px;cursor:pointer}
 .profile-feedback{grid-column:1/-1;margin:0;color:var(--muted);font-size:10px}
 @media(max-width:700px){.learner-profile{grid-template-columns:auto 1fr}.profile-form{grid-column:1/-1}.profile-avatar{width:56px;height:56px}}
+
+
+/* Portable learner progress backups */
+.backup-panel{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:18px 0;padding:18px 20px;border:1px solid #dce8df;border-radius:12px;background:#f7f8f3}
+.backup-panel h3{margin:0 0 5px;font-size:17px}
+.backup-panel p:not(.eyebrow){max-width:470px;margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+.backup-panel .eyebrow{margin-bottom:5px}
+.backup-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.backup-actions button,.import-label{display:inline-block;padding:11px 13px;border:0;border-radius:7px;background:var(--navy);color:white;font-size:9px;font-weight:bold;letter-spacing:.6px;cursor:pointer}
+.backup-actions button:hover,.import-label:hover{background:#244b65}
+#import-progress{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+#import-progress:focus-visible+.import-label{outline:3px solid var(--teal);outline-offset:3px}
+.backup-feedback{flex-basis:100%;margin:0;color:var(--muted);font-size:10px}
+@media(max-width:700px){.backup-panel{display:block}.backup-actions{margin:13px 0}.backup-panel p:not(.eyebrow){max-width:none}}
