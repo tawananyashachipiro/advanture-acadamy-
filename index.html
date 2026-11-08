@@ -56,6 +56,10 @@
           <p id="profile-feedback" class="profile-feedback" aria-live="polite">Use a nickname, not your full name.</p>
         </form>
       </section>
+      <section class="backup-panel cloud-panel" aria-label="Cloud progress sync">
+        <div><p class="eyebrow">OPTIONAL CLOUD BACKUP</p><h3>Sync your progress</h3><p>Sign in with Google to keep your lessons and badges available on other devices. Local saving and downloadable backups remain available.</p><p id="cloud-sync-status" class="backup-feedback" role="status" aria-live="polite">Checking cloud sync…</p></div>
+        <div class="backup-actions"><button id="cloud-sign-in" type="button">SIGN IN WITH GOOGLE</button><button id="cloud-sign-out" type="button" hidden>SIGN OUT</button></div>
+      </section>
       <section class="backup-panel" aria-label="Save or restore learning progress">
         <div><p class="eyebrow">KEEP YOUR PROGRESS SAFE</p><h3>Progress backup</h3><p>Save a copy of your profile, lessons and badges. You can restore it on another browser or device.</p></div>
         <div class="backup-actions">
@@ -126,5 +130,6 @@
     <h2 id="dialog-title">Welcome, explorer!</h2><p id="dialog-description"></p><div id="quiz-area"></div>
   </dialog>
   <script src="script.js"></script>
+  <script type="module" src="firebase-sync.js"></script>
 </body>
 </html>
