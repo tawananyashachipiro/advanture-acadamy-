@@ -95,6 +95,14 @@ let activeKey = null;
 function updateProgress() {
   count.textContent = String(visited.size);
   document.querySelector("#completed-count").textContent = String(completed.size);
+  const lessonTotal = Object.values(levels).reduce((sum, level) => sum + level, 0);
+  const percent = Math.round((lessonTotal / 36) * 100);
+  document.querySelector("#lessons-completed").textContent = String(lessonTotal);
+  document.querySelector("#subjects-mastered").textContent = String(completed.size);
+  document.querySelector("#lessons-remaining").textContent = String(36 - lessonTotal);
+  document.querySelector("#overall-percent").textContent = percent + "% COMPLETE";
+  document.querySelector("#overall-progress").setAttribute("aria-valuenow", String(lessonTotal));
+  document.querySelector("#overall-progress-fill").style.width = percent + "%";
   Object.keys(stations).forEach(key => {
     const badge = document.querySelector("#badge-" + key);
     if (!badge) return;
