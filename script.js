@@ -7,7 +7,12 @@ const visited = new Set();
 const dialog = document.querySelector("#station-dialog");
 const count = document.querySelector("#visited-count");
 const quiz = document.querySelector("#quiz-area");
-document.querySelectorAll(".station").forEach(button => button.addEventListener("click", () => openStation(button.dataset.station)));\nconst campusSections = [document.querySelector(".hero"), document.querySelector(".campus-section"), document.querySelector(".mission")];\nconst interior = document.querySelector("#academy-interior");\ndocument.querySelector("#enter-academy").addEventListener("click", () => { campusSections.forEach(section => section.hidden = true); interior.hidden = false; interior.scrollIntoView({behavior:"smooth", block:"start"}); });\ndocument.querySelector("#back-campus").addEventListener("click", () => { interior.hidden = true; campusSections.forEach(section => section.hidden = false); document.querySelector(".campus-section").scrollIntoView({behavior:"smooth", block:"start"}); });\ndocument.querySelectorAll(".room-card").forEach(button => button.addEventListener("click", () => openStation(button.dataset.room)));
+document.querySelectorAll(".station").forEach(button => button.addEventListener("click", () => openStation(button.dataset.station)));
+const campusSections = [document.querySelector(".hero"), document.querySelector(".campus-section"), document.querySelector(".mission")];
+const interior = document.querySelector("#academy-interior");
+document.querySelector("#enter-academy").addEventListener("click", () => { campusSections.forEach(section => section.hidden = true); interior.hidden = false; interior.scrollIntoView({behavior:"smooth", block:"start"}); });
+document.querySelector("#back-campus").addEventListener("click", () => { interior.hidden = true; campusSections.forEach(section => section.hidden = false); document.querySelector(".campus-section").scrollIntoView({behavior:"smooth", block:"start"}); });
+document.querySelectorAll(".room-card").forEach(button => button.addEventListener("click", () => openStation(button.dataset.room)));
 document.querySelector(".close").addEventListener("click", () => dialog.close());
 dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
 function openStation(key) {
