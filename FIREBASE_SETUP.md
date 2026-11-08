@@ -1,45 +1,35 @@
-# Firebase setup for Adventure Academy (zero-cost preparation)
+# Firebase setup for Adventure Academy
 
-This repository is designed to stay on GitHub Pages. Firebase is an optional next step for syncing learner progress between devices.
+Firebase cloud sync is optional. GitHub Pages continues to host the site, and browser-local saving plus JSON backup remain available if Firebase is unavailable.
 
 ## Cost guardrails
-
-- Keep the Firebase project on the Spark (no-cost) plan.
-- Do not link a billing account or upgrade to Blaze during setup.
+- Keep the project on the Spark (no-cost) plan.
+- Do not link a billing account or upgrade to Blaze.
 - Do not enable paid services such as Cloud Functions, phone/SMS authentication, or paid storage.
-- Firestore has a limited free quota. If it is reached, pause and review usage rather than adding billing.
-- GitHub Pages remains the website host; Firebase is only for learner progress when configured.
+- Firestore has limited free quotas. If a quota is reached, pause and review usage rather than adding billing.
 
-A parent or guardian should create and manage the Google/Firebase project and review its settings. Do not share account passwords, private keys, or service-account files in chat or commit them to this repository.
+## What the first version stores
+The app stores only a nickname (maximum 20 characters), a built-in avatar, visited room IDs, and lesson levels (0–3). It does not intentionally store a learner's full name, phone number, school, home address, precise location, or date of birth. Google sign-in establishes the account identity; the app does not copy the Google profile name or email into the learner progress document.
 
-## What the first version will store
+## One-time Firebase Console setup
+1. Open https://console.firebase.google.com/ and select project `adventure-academy-822b6`.
+2. Confirm the project is on the Spark plan. Do not add billing.
+3. Open **Build → Authentication → Get started → Sign-in method**.
+4. Enable **Google** as a sign-in provider and save.
+5. In Authentication settings, open **Authorized domains** and confirm `tawananyashachipiro.github.io` is listed. Add it if it is missing.
+6. Open **Build → Firestore Database** and create the database if it does not exist. Choose a region carefully; it cannot be changed later.
+7. In Firestore **Rules**, publish the complete contents of this repository's `firestore.rules` file.
+8. Wait for GitHub Pages to deploy, open the live site, enter the academy, and select **Sign in with Google**.
 
-Only the minimum learning data:
-- A nickname (maximum 20 characters)
-- One of the academy's built-in avatars
-- Which of the 12 rooms have been visited
-- Progress level (0–3) in each room
+## How sync works
+- Google sign-in provides a stable Firebase user ID so the same account can sync across devices.
+- Progress is stored at `learners/{userId}/progress/current`.
+- On sign-in, the app combines local and cloud progress, keeping the highest lesson level per subject and combining visited rooms.
+- Changes are sent to Firestore after local saves.
+- If sign-in, network access, or Firebase is unavailable, local browser storage and JSON backup continue to work.
 
-Do not collect a learner's full name, home address, phone number, school, precise location, or date of birth in this first version.
+## Security notes
+The Firestore rules restrict each signed-in account to its own progress document and validate the expected fields. Review and test rules before public launch. Never place service-account private keys, Admin SDK credentials, passwords, or other private secrets in browser code or GitHub. The web configuration identifies the Firebase project; it is not an admin credential. Restrict the API key to required Firebase APIs and review authorised domains.
 
-## Setup steps for the parent or guardian
-
-1. Open https://console.firebase.google.com/ using the adult-managed Google account.
-2. Create a project named Adventure Academy.
-3. If asked about Google Analytics, it can be left off for this first version.
-4. Confirm the project is on Spark. Do not add a payment method or upgrade the plan.
-5. Open Build → Firestore Database and create the database. Choose a location carefully because the location cannot be changed later.
-6. Open the Firestore Rules tab. Copy the complete contents of the repository's firestore.rules file into the editor and publish them.
-7. Stop there. Do not enable sign-in providers yet. We will choose an age-appropriate, guardian-managed sign-in approach before enabling accounts.
-
-Official console: https://console.firebase.google.com/
-
-## What happens next
-
-After the adult-managed project and rules are ready, we can add the Firebase web configuration and a small optional sync adapter. The current browser-based saving and JSON backup will remain as a fallback. The site must continue to work when Firebase is not configured or the network is unavailable.
-
-Firebase web configuration identifies the project; it is not an admin credential. Never use a service-account private key or Admin SDK secret in browser code.
-
-## Important status
-
-Firebase is not connected yet. The site continues to save progress in the current browser and supports downloading/restoring a backup. These files prepare and protect the database setup; they do not create a Firebase project or deploy rules automatically.
+## Current status
+The website code includes optional Google sign-in and Firestore sync. Cloud sync will not become active until Authentication, Firestore, and the rules are configured in Firebase Console. Local saving and downloadable backups remain the fallback.
