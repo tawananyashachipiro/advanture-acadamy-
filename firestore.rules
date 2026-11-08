@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /learners/{userId}/progress/{documentId} {
+      allow read, create, update: if request.auth != null
+        && request.auth.uid == userId
+        && documentId == 'current'
+        && validProgress(request.resource.data);
+      allow delete: if false;
+    }
+
+    function validProgress(data) {
+      return data.keys().hasOnly([
+          'schemaVersion', 'nickname', 'avatar', 'visited', 'levels', 'updatedAt'
+        ])
+        && data.keys().hasAll([
+          'schemaVersion', 'nickname', 'avatar', 'visited', 'levels', 'updatedAt'
+        ])
+        && data.schemaVersion == 1
+        && data.nickname is string
+        && data.nickname.size() <= 20
+        && data.avatar in ['🧭', '🚀', '🦊', '🦉', '🐼', '🦁', '🌟', '🎨']
+        && data.visited is list
+        && data.visited.size() <= 12
+        && data.visited.toSet().hasOnly([
+          'science', 'library', 'maths', 'biology', 'chemistry', 'physics',
+          'geography', 'history', 'computing', 'business', 'shona', 'art'
+        ])
+        && data.levels is map
+        && data.levels.keys().hasOnly([
+          'science', 'library', 'maths', 'biology', 'chemistry', 'physics',
+          'geography', 'history', 'computing', 'business', 'shona', 'art'
+        ])
+        && data.levels.keys().hasAll([
+          'science', 'library', 'maths', 'biology', 'chemistry', 'physics',
+          'geography', 'history', 'computing', 'business', 'shona', 'art'
+        ])
+        && validLevel(data.levels.science)
+        && validLevel(data.levels.library)
+        && validLevel(data.levels.maths)
+        && validLevel(data.levels.biology)
+        && validLevel(data.levels.chemistry)
+        && validLevel(data.levels.physics)
+        && validLevel(data.levels.geography)
+        && validLevel(data.levels.history)
+        && validLevel(data.levels.computing)
+        && validLevel(data.levels.business)
+        && validLevel(data.levels.shona)
+        && validLevel(data.levels.art)
+        && data.updatedAt == request.time;
+    }
+
+    function validLevel(value) {
+      return value is int && value >= 0 && value <= 3;
+    }
+  }
+}
