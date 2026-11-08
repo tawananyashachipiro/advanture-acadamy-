@@ -53,6 +53,15 @@
         <button class="guide-action" id="next-mission" type="button">FIND MY NEXT MISSION ↗</button>
       </section>
       <div class="subject-intro"><p class="eyebrow">12 LEARNING ROOMS</p><h3>Choose your next subject</h3><p>Every room has three progressive lessons. Pass each knowledge check to unlock the next level.</p></div>
+      <section class="progress-dashboard" aria-label="Your learning progress">
+        <div class="dashboard-heading"><div><p class="eyebrow">YOUR LEARNING JOURNEY</p><h3>Academy progress</h3></div><span id="overall-percent">0% COMPLETE</span></div>
+        <div class="progress-track" role="progressbar" aria-label="Lessons completed" aria-valuemin="0" aria-valuemax="36" aria-valuenow="0" id="overall-progress"><span id="overall-progress-fill"></span></div>
+        <div class="dashboard-stats">
+          <div><strong id="lessons-completed">0</strong><span>OF 36 LESSONS</span></div>
+          <div><strong id="subjects-mastered">0</strong><span>OF 12 SUBJECTS</span></div>
+          <div><strong id="lessons-remaining">36</strong><span>LESSONS TO GO</span></div>
+        </div>
+      </section>
       <div class="room-grid">
         <button class="room-card" type="button" data-room="science"><span class="room-icon">⚗️</span><strong>Science Lab</strong><span>Explore scientific questions and discoveries.</span><b>EXPLORE LESSON ↗</b></button>
         <button class="room-card" type="button" data-room="library"><span class="room-icon">📚</span><strong>Knowledge Library</strong><span>Build reading, research and vocabulary skills.</span><b>EXPLORE LESSON ↗</b></button>
