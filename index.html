@@ -43,6 +43,18 @@
 
     <section id="academy-interior" class="interior" hidden>
       <div class="interior-top"><div><p class="eyebrow">WELCOME INSIDE</p><h2>You made it, explorer!</h2><p class="interior-intro">Your academy adventure starts here. Choose a room to continue learning.</p></div><button class="back-campus" id="back-campus" type="button">← BACK TO CAMPUS</button></div>
+      <section class="learner-profile" aria-label="Learner profile">
+        <div class="profile-avatar" id="profile-avatar" aria-hidden="true">🧭</div>
+        <div class="profile-details"><p class="eyebrow">YOUR EXPLORER PROFILE</p><h3 id="profile-name">Welcome, Explorer!</h3><p id="profile-subtitle">Your learning journey is saved on this device.</p></div>
+        <form id="profile-form" class="profile-form">
+          <label for="learner-nickname">Choose a nickname</label>
+          <input id="learner-nickname" name="nickname" maxlength="20" autocomplete="nickname" placeholder="e.g. Star Explorer">
+          <label for="learner-avatar">Choose an avatar</label>
+          <select id="learner-avatar" name="avatar"><option value="🧭">🧭 Compass</option><option value="🚀">🚀 Rocket</option><option value="🦊">🦊 Fox</option><option value="🦉">🦉 Owl</option><option value="🐼">🐼 Panda</option><option value="🦁">🦁 Lion</option><option value="🌟">🌟 Star</option><option value="🎨">🎨 Artist</option></select>
+          <button type="submit">SAVE PROFILE</button>
+          <p id="profile-feedback" class="profile-feedback" aria-live="polite">Use a nickname, not your full name.</p>
+        </form>
+      </section>
       <section class="guide-panel" aria-label="Academy guide">
         <div class="guide-avatar" aria-hidden="true">🧭</div>
         <div class="guide-copy">
