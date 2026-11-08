@@ -159,3 +159,13 @@ dialog h2{font-size:27px;margin:0 0 10px}
 .room-card{min-height:190px}
 .badge-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:700px){.room-grid,.badge-grid{grid-template-columns:1fr}}
+
+
+/* Level 2 lesson progression */
+.room-progress{margin-top:2px;color:#b17b35;font-size:10px;font-weight:800;letter-spacing:.8px}
+.lesson-next{display:block;width:100%;margin-top:14px;padding:13px 16px;border:0;border-radius:8px;background:var(--navy);color:white;font-size:11px;font-weight:bold;letter-spacing:.8px;cursor:pointer}
+.lesson-next:hover{background:#244b65}
+.quiz-option.is-incorrect{background:#fff5e7}
+.quiz-option.is-correct{background:#e8f7f2}
+.reward-badge b{color:#b17b35}
+.reward-badge.is-earned b{color:#287b70}
