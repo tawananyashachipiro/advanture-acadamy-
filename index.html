@@ -55,6 +55,15 @@
           <p id="profile-feedback" class="profile-feedback" aria-live="polite">Use a nickname, not your full name.</p>
         </form>
       </section>
+      <section class="backup-panel" aria-label="Save or restore learning progress">
+        <div><p class="eyebrow">KEEP YOUR PROGRESS SAFE</p><h3>Progress backup</h3><p>Save a copy of your profile, lessons and badges. You can restore it on another browser or device.</p></div>
+        <div class="backup-actions">
+          <button id="export-progress" type="button">DOWNLOAD MY BACKUP</button>
+          <label class="import-label" for="import-progress">CHOOSE BACKUP FILE</label>
+          <input id="import-progress" type="file" accept="application/json,.json">
+        </div>
+        <p id="backup-feedback" class="backup-feedback" aria-live="polite">Your progress stays in this browser unless you export a backup.</p>
+      </section>
       <section class="guide-panel" aria-label="Academy guide">
         <div class="guide-avatar" aria-hidden="true">🧭</div>
         <div class="guide-copy">
