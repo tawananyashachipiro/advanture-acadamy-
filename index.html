@@ -19,7 +19,7 @@
         <p class="eyebrow">LEARN BY EXPLORING</p>
         <h1>Every discovery<br><span>starts with you.</span></h1>
         <p class="intro">Welcome, explorer. Choose a place in the academy, uncover something new and collect knowledge along the way.</p>
-        <a class="enter" href="#campus">ENTER THE ACADEMY <span>↗</span></a>
+        <button class="enter" id="enter-academy" type="button">ENTER THE ACADEMY <span>↗</span></button>
       </div>
       <div class="hero-art" aria-hidden="true"><div class="planet"></div><div class="orbit"></div><div class="book">Aa</div><span class="spark">✦</span></div>
     </section>
@@ -40,7 +40,15 @@
       <div class="mission-icon">✧</div><div><p class="eyebrow">YOUR FIRST MISSION</p><h3>Explore the campus</h3><p>Visit any station to unlock a mini challenge.</p></div>
       <div class="progress"><strong id="visited-count">0</strong><span>/ 3 VISITED</span></div>
     </section>
-  </main>
+
+    <section id="academy-interior" class="interior" hidden>
+      <div class="interior-top"><div><p class="eyebrow">WELCOME INSIDE</p><h2>You made it, explorer!</h2><p class="interior-intro">Your academy adventure starts here. Choose a room to continue learning.</p></div><button class="back-campus" id="back-campus" type="button">← BACK TO CAMPUS</button></div>
+      <div class="room-grid">
+        <button class="room-card" data-room="science"><span class="room-icon">⚗</span><strong>Science Lab</strong><span>Ask questions and investigate the world.</span><b>EXPLORE ROOM ↗</b></button>
+        <button class="room-card" data-room="library"><span class="room-icon">▤</span><strong>Knowledge Library</strong><span>Discover words, stories and new ideas.</span><b>EXPLORE ROOM ↗</b></button>
+        <button class="room-card" data-room="maths"><span class="room-icon">∑</span><strong>Maths Garden</strong><span>Find patterns and solve number puzzles.</span><b>EXPLORE ROOM ↗</b></button>
+      </div>
+    </section>\n  </main>
   <footer>ADVENTURE ACADEMY · A WORLD OF CURIOSITY</footer>
   <dialog id="station-dialog">
     <button class="close" aria-label="Close">×</button><p class="eyebrow" id="dialog-eyebrow">LEARNING STATION</p>
