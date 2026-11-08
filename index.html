@@ -38,7 +38,7 @@
     </section>
     <section class="mission">
       <div class="mission-icon">✧</div><div><p class="eyebrow">YOUR FIRST MISSION</p><h3>Explore the campus</h3><p>Visit any station to unlock a mini challenge.</p></div>
-      <div class="progress"><strong id="visited-count">0</strong><span>/ 3 VISITED</span></div>
+      <div class="progress"><strong id="visited-count">0</strong><span>/ 12 VISITED</span></div>
     </section>
 
     <section id="academy-interior" class="interior" hidden>
@@ -52,20 +52,39 @@
         </div>
         <button class="guide-action" id="next-mission" type="button">FIND MY NEXT MISSION ↗</button>
       </section>
+      <div class="subject-intro"><p class="eyebrow">12 LEARNING ROOMS</p><h3>Choose your next subject</h3><p>Every room has a short lesson and an interactive knowledge check.</p></div>
       <div class="room-grid">
-        <button class="room-card" type="button" data-room="science"><span class="room-icon">⚗</span><strong>Science Lab</strong><span>Ask questions and investigate the world.</span><b>EXPLORE ROOM ↗</b></button>
-        <button class="room-card" type="button" data-room="library"><span class="room-icon">▤</span><strong>Knowledge Library</strong><span>Discover words, stories and new ideas.</span><b>EXPLORE ROOM ↗</b></button>
-        <button class="room-card" type="button" data-room="maths"><span class="room-icon">∑</span><strong>Maths Garden</strong><span>Find patterns and solve number puzzles.</span><b>EXPLORE ROOM ↗</b></button>
+        <button class="room-card" type="button" data-room="science"><span class="room-icon">⚗️</span><strong>Science Lab</strong><span>Explore scientific questions and discoveries.</span><b>EXPLORE LESSON ↗</b></button>
+        <button class="room-card" type="button" data-room="library"><span class="room-icon">📚</span><strong>Knowledge Library</strong><span>Build reading, research and vocabulary skills.</span><b>EXPLORE LESSON ↗</b></button>
+        <button class="room-card" type="button" data-room="maths"><span class="room-icon">∑</span><strong>Maths Garden</strong><span>Solve number problems and discover patterns.</span><b>EXPLORE LESSON ↗</b></button>
+        <button class="room-card" type="button" data-room="biology"><span class="room-icon">🧬</span><strong>Biology</strong><span>Explore living things, cells and ecosystems.</span><b>EXPLORE LESSON ↗</b></button>
+        <button class="room-card" type="button" data-room="chemistry"><span class="room-icon">⚗️</span><strong>Chemistry</strong><span>Discover matter, elements and reactions.</span><b>EXPLORE LESSON ↗</b></button>
+        <button class="room-card" type="button" data-room="physics"><span class="room-icon">🪐</span><strong>Physics</strong><span>Investigate forces, energy, light and motion.</span><b>EXPLORE LESSON ↗</b></button>
+        <button class="room-card" type="button" data-room="geography"><span class="room-icon">🌍</span><strong>Geography</strong><span>Explore maps, landscapes, climate and people.</span><b>EXPLORE LESSON ↗</b></button>
+        <button class="room-card" type="button" data-room="history"><span class="room-icon">🏛️</span><strong>History</strong><span>Study people, events and the past.</span><b>EXPLORE LESSON ↗</b></button>
+        <button class="room-card" type="button" data-room="computing"><span class="room-icon">💻</span><strong>Computer Science</strong><span>Learn algorithms, data and digital thinking.</span><b>EXPLORE LESSON ↗</b></button>
+        <button class="room-card" type="button" data-room="business"><span class="room-icon">📈</span><strong>Business Studies</strong><span>Explore enterprise, money and decision-making.</span><b>EXPLORE LESSON ↗</b></button>
+        <button class="room-card" type="button" data-room="shona"><span class="room-icon">🗣️</span><strong>Shona</strong><span>Grow Shona vocabulary, reading and language skills.</span><b>EXPLORE LESSON ↗</b></button>
+        <button class="room-card" type="button" data-room="art"><span class="room-icon">🎨</span><strong>Art and Design</strong><span>Explore colour, drawing, design and creativity.</span><b>EXPLORE LESSON ↗</b></button>
       </div>
       <section class="rewards-panel" aria-label="Your rewards">
         <div class="rewards-heading">
           <div><p class="eyebrow">YOUR COLLECTION</p><h3>Discovery badges</h3></div>
-          <p><strong id="completed-count">0</strong> / 3 earned</p>
+          <p><strong id="completed-count">0</strong> / 12 earned</p>
         </div>
         <div class="badge-grid">
-          <div class="reward-badge" id="badge-science"><span>⚗</span><strong>Curious Scientist</strong><small>Complete the Science Lab challenge</small><b>LOCKED</b></div>
-          <div class="reward-badge" id="badge-library"><span>📚</span><strong>Word Explorer</strong><small>Complete the Library challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-science"><span>⚗️</span><strong>Curious Scientist</strong><small>Complete the Science Lab challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-library"><span>📚</span><strong>Word Explorer</strong><small>Complete the Knowledge Library challenge</small><b>LOCKED</b></div>
           <div class="reward-badge" id="badge-maths"><span>∑</span><strong>Pattern Finder</strong><small>Complete the Maths Garden challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-biology"><span>🧬</span><strong>Life Scientist</strong><small>Complete the Biology challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-chemistry"><span>⚗️</span><strong>Matter Maker</strong><small>Complete the Chemistry challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-physics"><span>🪐</span><strong>Force Finder</strong><small>Complete the Physics challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-geography"><span>🌍</span><strong>World Explorer</strong><small>Complete the Geography challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-history"><span>🏛️</span><strong>Time Detective</strong><small>Complete the History challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-computing"><span>💻</span><strong>Code Creator</strong><small>Complete the Computer Science challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-business"><span>📈</span><strong>Young Entrepreneur</strong><small>Complete the Business Studies challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-shona"><span>🗣️</span><strong>Mutauro Master</strong><small>Complete the Shona challenge</small><b>LOCKED</b></div>
+          <div class="reward-badge" id="badge-art"><span>🎨</span><strong>Creative Designer</strong><small>Complete the Art and Design challenge</small><b>LOCKED</b></div>
         </div>
       </section>
     </section>
