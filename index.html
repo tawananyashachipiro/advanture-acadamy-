@@ -10,7 +10,7 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#"><span class="brand-mark">✦</span> ADVENTURE <b>ACADEMY</b></a>
+    <a class="brand" href="#campus"><span class="brand-mark">✦</span> ADVENTURE <b>ACADEMY</b></a>
     <span class="top-note">YOUR LEARNING WORLD</span>
   </header>
   <main>
@@ -30,9 +30,9 @@
         <div class="hills"></div><div class="ground"></div><div class="path"></div>
         <div class="academy"><div class="roof"></div><div class="building"><div class="sign">ADVENTURE<br>ACADEMY</div><div class="win left"></div><div class="win right"></div><div class="door"></div></div></div>
         <div class="tree tree-left"></div><div class="tree tree-right"></div>
-        <button class="station science" data-station="science"><span>⚗</span> SCIENCE LAB</button>
-        <button class="station library" data-station="library"><span>▤</span> KNOWLEDGE LIBRARY</button>
-        <button class="station maths" data-station="maths"><span>∑</span> MATHS GARDEN</button>
+        <button class="station science" type="button" data-station="science"><span>⚗</span> SCIENCE LAB</button>
+        <button class="station library" type="button" data-station="library"><span>▤</span> KNOWLEDGE LIBRARY</button>
+        <button class="station maths" type="button" data-station="maths"><span>∑</span> MATHS GARDEN</button>
         <p class="world-caption">YOUR WORLD IS WAITING ✦</p>
       </div>
     </section>
@@ -44,14 +44,15 @@
     <section id="academy-interior" class="interior" hidden>
       <div class="interior-top"><div><p class="eyebrow">WELCOME INSIDE</p><h2>You made it, explorer!</h2><p class="interior-intro">Your academy adventure starts here. Choose a room to continue learning.</p></div><button class="back-campus" id="back-campus" type="button">← BACK TO CAMPUS</button></div>
       <div class="room-grid">
-        <button class="room-card" data-room="science"><span class="room-icon">⚗</span><strong>Science Lab</strong><span>Ask questions and investigate the world.</span><b>EXPLORE ROOM ↗</b></button>
-        <button class="room-card" data-room="library"><span class="room-icon">▤</span><strong>Knowledge Library</strong><span>Discover words, stories and new ideas.</span><b>EXPLORE ROOM ↗</b></button>
-        <button class="room-card" data-room="maths"><span class="room-icon">∑</span><strong>Maths Garden</strong><span>Find patterns and solve number puzzles.</span><b>EXPLORE ROOM ↗</b></button>
+        <button class="room-card" type="button" data-room="science"><span class="room-icon">⚗</span><strong>Science Lab</strong><span>Ask questions and investigate the world.</span><b>EXPLORE ROOM ↗</b></button>
+        <button class="room-card" type="button" data-room="library"><span class="room-icon">▤</span><strong>Knowledge Library</strong><span>Discover words, stories and new ideas.</span><b>EXPLORE ROOM ↗</b></button>
+        <button class="room-card" type="button" data-room="maths"><span class="room-icon">∑</span><strong>Maths Garden</strong><span>Find patterns and solve number puzzles.</span><b>EXPLORE ROOM ↗</b></button>
       </div>
-    </section>\n  </main>
+    </section>
+  </main>
   <footer>ADVENTURE ACADEMY · A WORLD OF CURIOSITY</footer>
-  <dialog id="station-dialog">
-    <button class="close" aria-label="Close">×</button><p class="eyebrow" id="dialog-eyebrow">LEARNING STATION</p>
+  <dialog id="station-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+    <button class="close" type="button" aria-label="Close">×</button><p class="eyebrow" id="dialog-eyebrow">LEARNING STATION</p>
     <h2 id="dialog-title">Welcome, explorer!</h2><p id="dialog-description"></p><div id="quiz-area"></div>
   </dialog>
   <script src="script.js"></script>
