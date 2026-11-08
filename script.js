@@ -83,7 +83,7 @@ function loadProgress() {
   } catch (error) { console.warn("Could not load saved academy progress.", error); }
 }
 function saveProgress() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({visited:[...visited],levels})); }
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({visited:[...visited],levels})); window.dispatchEvent(new Event("academy:progress-changed")); }
   catch (error) { console.warn("Could not save academy progress.", error); }
 }
 const dialog = document.querySelector("#station-dialog");
@@ -218,6 +218,7 @@ profileForm.addEventListener("submit", event => {
   const avatar = document.querySelector("#learner-avatar").value;
   try {
     localStorage.setItem(profileStorageKey, JSON.stringify({nickname, avatar}));
+    window.dispatchEvent(new Event("academy:profile-changed"));
     renderProfile(nickname, avatar);
     profileFeedback.textContent = "Profile saved on this device.";
   } catch (error) {
@@ -274,6 +275,7 @@ importInput.addEventListener("change", () => {
       completed.clear(); Object.keys(stations).forEach(key => { if (levels[key] === 3) completed.add(key); });
       saveProgress();
       localStorage.setItem(profileStorageKey, JSON.stringify({nickname,avatar}));
+      window.dispatchEvent(new Event("academy:profile-changed"));
       renderProfile(nickname,avatar);
       document.querySelector("#learner-nickname").value = nickname;
       document.querySelector("#learner-avatar").value = avatar;
@@ -286,6 +288,25 @@ importInput.addEventListener("change", () => {
   };
   reader.onerror = () => { backupFeedback.textContent = "The selected file could not be read."; importInput.value = ""; };
   reader.readAsText(file);
+});
+
+
+window.addEventListener("academy:cloud-progress-loaded", event => {
+  const data = event.detail || {};
+  visited.clear();
+  (Array.isArray(data.visited) ? data.visited : []).forEach(key => { if (stations[key]) visited.add(key); });
+  Object.keys(stations).forEach(key => {
+    const value = Number(data.levels && data.levels[key] || 0);
+    levels[key] = Number.isFinite(value) ? Math.max(0, Math.min(3, Math.floor(value))) : 0;
+  });
+  completed.clear();
+  Object.keys(stations).forEach(key => { if (levels[key] >= 3) completed.add(key); });
+  const nickname = typeof data.nickname === "string" ? data.nickname.slice(0,20) : "";
+  const avatar = ["🧭","🚀","🦊","🦉","🐼","🦁","🌟","🎨"].includes(data.avatar) ? data.avatar : "🧭";
+  document.querySelector("#learner-nickname").value = nickname;
+  document.querySelector("#learner-avatar").value = avatar;
+  renderProfile(nickname, avatar);
+  updateProgress();
 });
 
 loadProfile(); loadProgress(); updateProgress();
