@@ -2,7 +2,7 @@
 // The site keeps working locally if Firebase is unavailable or not configured.
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import { initializeFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyADuJvpPkuaVQG0J8Su84hjV_cwbjwi6Og",
@@ -14,7 +14,8 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+// Use long polling for networks that interrupt Firestore streaming connections.
+const db = initializeFirestore(app, { experimentalForceLongPolling: true });
 const provider = new GoogleAuthProvider();
 const progressKey = "adventure-academy-level-progress";
 const profileKey = "adventure-academy-learner-profile";
