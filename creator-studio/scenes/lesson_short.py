@@ -41,7 +41,7 @@ class AcademyLessonShort(Scene):
         lesson = json.loads(Path(lesson_path).read_text(encoding="utf-8"))
         self.camera.background_color = NAVY
 
-        brand = fit_line("ADVENTURE ACADEMY", 20, TEAL, BOLD, 4.0)
+        brand = fit_line("ADVENTURE OF EDUCATION", 20, TEAL, BOLD, 4.0)
         brand.to_edge(UP, buff=0.42)
         self.add(brand)
 
