@@ -16,7 +16,7 @@ permissions:
 
 concurrency:
   group: academy-security-check
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   security:
@@ -70,6 +70,11 @@ jobs:
               sys.exit(1)
           print("No common secret patterns detected in tracked text files.")
           PY
+
+      - name: Install native libraries for Manim dependency checks
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes pkg-config libcairo2-dev libpango1.0-dev
 
       - name: Audit Python dependencies
         run: |
