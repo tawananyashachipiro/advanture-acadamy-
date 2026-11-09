@@ -1,6 +1,11 @@
 name: Adventure Academy Clip Factory
 
 on:
+  push:
+    paths:
+      - 'creator-studio/lessons/curriculum.json'
+      - 'creator-studio/build_clip.py'
+      - 'creator-studio/scenes/lesson_short.py'
   workflow_dispatch:
     inputs:
       lesson_id:
@@ -54,14 +59,14 @@ jobs:
 
       - name: Build selected lesson package
         env:
-          LESSON_ID: ${{ inputs.lesson_id }}
+          LESSON_ID: ${{ inputs.lesson_id || 'apollo-13-rescue' }}
         run: |
           python creator-studio/build_clip.py --lesson "$LESSON_ID"
 
       - name: Save video and creator pack
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.2
         with:
-          name: academy-clip-${{ inputs.lesson_id }}
-          path: creator-studio/dist/${{ inputs.lesson_id }}/
+          name: academy-clip-${{ inputs.lesson_id || 'apollo-13-rescue' }}
+          path: creator-studio/dist/${{ inputs.lesson_id || 'apollo-13-rescue' }}/
           if-no-files-found: error
           retention-days: 14
