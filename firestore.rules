@@ -2,10 +2,15 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /learners/{userId}/progress/{documentId} {
-      allow read, create, update: if request.auth != null
+      allow read: if request.auth != null
+        && request.auth.uid == userId
+        && documentId == 'current';
+
+      allow create, update: if request.auth != null
         && request.auth.uid == userId
         && documentId == 'current'
         && validProgress(request.resource.data);
+
       allow delete: if false;
     }
 
