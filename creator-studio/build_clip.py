@@ -116,7 +116,7 @@ def main():
 <rect width="1280" height="720" fill="#0F2238"/>
 <circle cx="1080" cy="120" r="210" fill="#2F9E92" opacity=".25"/>
 <circle cx="150" cy="650" r="260" fill="#FFD27A" opacity=".15"/>
-<text x="90" y="150" fill="#2F9E92" font-family="Arial,sans-serif" font-size="42" font-weight="bold">ADVENTURE ACADEMY</text>
+<text x="90" y="150" fill="#2F9E92" font-family="Arial,sans-serif" font-size="42" font-weight="bold">ADVENTURE OF EDUCATION</text>
 <text x="90" y="310" fill="#FFD27A" font-family="Arial,sans-serif" font-size="48" font-weight="bold">{title}</text>
 <text x="90" y="420" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="54" font-weight="bold">{subtitle}</text>
 <text x="90" y="610" fill="#D8F1EC" font-family="Arial,sans-serif" font-size="34">PAUSE • THINK • DISCOVER</text>
