@@ -1,0 +1,44 @@
+name: Render Adventure Academy video
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: creator-studio/requirements.txt
+
+      - name: Install rendering dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libcairo2-dev libpango1.0-dev pkg-config
+          python -m pip install --upgrade pip
+          python -m pip install -r creator-studio/requirements.txt
+
+      - name: Render video
+        run: |
+          python -m manim -qm \
+            --media_dir creator-studio/output \
+            --output_file AdventureAcademyIntro \
+            creator-studio/scenes/academy_intro.py AcademyIntro
+
+      - name: Save MP4 as a downloadable workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: academy-video
+          path: creator-studio/output/**/*.mp4
+          if-no-files-found: error
+          retention-days: 7
