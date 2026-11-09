@@ -2,6 +2,11 @@ name: Render Adventure Academy video
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'creator-studio/**'
+      - '.github/workflows/render-academy-video.yml'
 
 permissions:
   contents: read
