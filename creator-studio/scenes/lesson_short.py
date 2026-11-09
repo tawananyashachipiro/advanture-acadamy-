@@ -19,7 +19,7 @@ PALE = "#EAF3F8"
 
 
 def fit_line(text, size=34, color=WHITE, weight=NORMAL, max_width=3.8):
-    mob = Text(str(text), font_size=size, color=color, weight=weight, text_align="center")
+    mob = Text(str(text), font_size=size, color=color, weight=weight)
     if mob.width > max_width:
         mob.scale_to_fit_width(max_width)
     return mob
