@@ -89,13 +89,20 @@ def main():
     (out / "captions.srt").write_text(make_srt(lesson), encoding="utf-8")
 
     hashtags = "#AdventureOfEducation #LearnWithMe #Education #" + re.sub(r"[^A-Za-z0-9]", "", lesson["subject"].title())
+    sources = lesson.get("sources", [])
+    source_lines = [f"- {source['organization']}: {source['title']} — {source['url']}" for source in sources]
+    sources_text = "Sources checked:\\n" + "\\n".join(source_lines) if source_lines else "No source list supplied for this lesson."
+    if sources:
+        (out / "sources.txt").write_text(sources_text + "\\n", encoding="utf-8")
+
     description = (
-        f"{lesson['title']}\n\n{lesson['concept']}\n\n"
+        f"{lesson['title']}\\n\\n{lesson['concept']}\\n\\n"
         "Pause at the challenge, choose your answer, then watch the explanation. "
         "Continue learning with the matching lesson and quiz at Adventure Academy: "
-        "https://tawananyashachipiro.github.io/advanture-acadamy-/\n\n"
-        f"{hashtags}\n\n"
-        "Educational content: review the lesson and captions before publishing."
+        "https://tawananyashachipiro.github.io/advanture-acadamy-/\\n\\n"
+        f"{sources_text}\\n\\n"
+        f"{hashtags}\\n\\n"
+        "Educational content: review the lesson, sources and captions before publishing."
     )
     metadata = {
         "lesson_id": args.lesson,
@@ -104,8 +111,9 @@ def main():
         "format": "YouTube Shorts vertical 9:16",
         "description": description,
         "hashtags": hashtags,
+        "sources": sources,
         "review_before_publishing": True,
-        "publishing": "Manual upload after adult/owner review; no credentials stored in GitHub.",
+        "publishing": "Manual upload after channel-owner review; no credentials stored in GitHub.",
     }
     (out / "youtube-metadata.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (out / "youtube-description.txt").write_text(description + "\n", encoding="utf-8")
