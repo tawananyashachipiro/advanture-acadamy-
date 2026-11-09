@@ -358,5 +358,57 @@
     "answer_index": 1,
     "explanation": "Checking the source and its supporting evidence is a strong first step.",
     "voiceover": "Welcome, Information Detective! Not every online claim is reliable. Start by checking who published it and whether they have relevant expertise. Look for evidence and original sources. Check the date because information can become outdated. Ask whether the purpose is to inform, persuade or sell. Challenge: what is a useful first step? Check who published the claim and the evidence!"
+  },
+  "apollo-13-rescue": {
+    "subject": "History and Space Science",
+    "level": "Introductory",
+    "title": "Apollo 13: The Mission That Found a Way Home",
+    "hook": "What happens when a spacecraft loses its normal power and oxygen supply on the way to the Moon?",
+    "concept": "Apollo 13 launched on 11 April 1970. After an oxygen-system failure in the Service Module on 13 April, the Moon landing was cancelled. The crew used the Lunar Module Aquarius for life support during the return journey and splashed down safely on 17 April.",
+    "steps": [
+      {
+        "heading": "A mission to the Moon",
+        "body": "James Lovell, Jack Swigert and Fred Haise launched aboard Apollo 13 on 11 April 1970, aiming to land in the Fra Mauro region."
+      },
+      {
+        "heading": "A serious systems failure",
+        "body": "On 13 April, an oxygen tank in the Service Module ruptured. The Command and Service Module could no longer provide its normal power, oxygen and water supplies."
+      },
+      {
+        "heading": "A team finds a way home",
+        "body": "The crew used the Lunar Module Aquarius as a lifeboat. Flight controllers and engineers on the ground helped plan the return, and the crew splashed down safely on 17 April."
+      }
+    ],
+    "question": "What role did the Lunar Module Aquarius play after the oxygen-system failure?",
+    "options": [
+      "It became a temporary lifeboat for the crew",
+      "It landed the crew on the Moon",
+      "It replaced the Saturn V rocket"
+    ],
+    "answer_index": 0,
+    "explanation": "Aquarius provided life support, power, propulsion and guidance during the return to Earth.",
+    "voiceover": "Apollo 13 launched on 11 April 1970, carrying astronauts James Lovell, Jack Swigert and Fred Haise toward the Moon. Two days later, an oxygen tank in the Service Module ruptured. The planned Moon landing was cancelled. The crew shut down much of the Command Module and used their Lunar Module, Aquarius, as a temporary lifeboat. Teams at Mission Control worked with the astronauts to plan a safe return. On 17 April, the crew splashed down in the Pacific Ocean. Apollo 13 became a remarkable example of teamwork and problem-solving. Your challenge: what role did Aquarius play? It became a temporary lifeboat.",
+    "sources": [
+      {
+        "title": "Apollo 13 mission overview",
+        "organization": "NASA",
+        "url": "https://www.nasa.gov/mission/apollo-13/"
+      },
+      {
+        "title": "Apollo 13 Mission Details",
+        "organization": "NASA",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-13-mission-details/"
+      },
+      {
+        "title": "Apollo 13 Post-Launch Mission Operations Report (28 April 1970)",
+        "organization": "NASA",
+        "url": "https://www.nasa.gov/wp-content/uploads/static/history/afj/ap13fj/pdf/a13-postlaunch-mission-ops-report-19700428.pdf"
+      },
+      {
+        "title": "NASA commemorates 50th anniversary of Apollo 13",
+        "organization": "NASA",
+        "url": "https://www.nasa.gov/news-release/nasa-commemorates-50th-anniversary-of-apollo-13-a-successful-failure/"
+      }
+    ]
   }
 }
