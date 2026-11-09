@@ -1,0 +1,362 @@
+{
+  "biology-cell-quest": {
+    "subject": "Biology",
+    "level": "Introductory",
+    "title": "The Cell Quest: Explore the Building Blocks of Life",
+    "hook": "What tiny structure makes every living thing possible?",
+    "concept": "Cells are the basic structural and functional units of living organisms. Some organisms consist of one cell; plants and animals are made of many specialised cells.",
+    "steps": [
+      {
+        "heading": "Meet the cell",
+        "body": "A cell is the smallest unit that can carry out life processes. Think of it as a tiny living workshop."
+      },
+      {
+        "heading": "Inside the cell",
+        "body": "The cell membrane controls what enters and leaves. Cytoplasm is where many reactions happen. The nucleus contains genetic information in plant and animal cells."
+      },
+      {
+        "heading": "Plant cell clue",
+        "body": "Plant cells usually have a cell wall, chloroplasts for photosynthesis and a large permanent vacuole."
+      }
+    ],
+    "question": "Which cell structure controls what enters and leaves the cell?",
+    "options": [
+      "Cell membrane",
+      "Nucleus",
+      "Cell wall"
+    ],
+    "answer_index": 0,
+    "explanation": "The cell membrane forms a selective boundary around the cell.",
+    "voiceover": "Welcome, explorer! Today we investigate cells, the tiny building blocks of life. Cells are the smallest units that carry out life processes. The cell membrane controls what enters and leaves. The nucleus contains genetic information. Plant cells also have a cell wall, chloroplasts and a large permanent vacuole. Your challenge: which structure controls what enters and leaves? Pause and choose. The answer is the cell membrane. Great discovery!"
+  },
+  "chemistry-atoms-quest": {
+    "subject": "Chemistry",
+    "level": "Introductory",
+    "title": "Atom Adventure: What Is Everything Made Of?",
+    "hook": "Can you imagine building the world from tiny particles?",
+    "concept": "An atom is the smallest unit of an element that retains that element's chemical properties. Atoms contain protons, neutrons and electrons.",
+    "steps": [
+      {
+        "heading": "The centre",
+        "body": "The nucleus is at the centre of an atom. It contains positively charged protons and neutral neutrons."
+      },
+      {
+        "heading": "Around the nucleus",
+        "body": "Negatively charged electrons occupy regions around the nucleus called energy levels or shells in a simple model."
+      },
+      {
+        "heading": "Element identity",
+        "body": "The number of protons is the atomic number. It identifies the element."
+      }
+    ],
+    "question": "Which particle determines the atomic number?",
+    "options": [
+      "Neutron",
+      "Proton",
+      "Electron"
+    ],
+    "answer_index": 1,
+    "explanation": "The atomic number equals the number of protons in an atom's nucleus.",
+    "voiceover": "Welcome to the Atom Adventure! Everything around us is made from atoms. At the centre is a nucleus containing positive protons and neutral neutrons. Negative electrons occupy regions around the nucleus. The number of protons tells us which element an atom is. Challenge time: which particle determines the atomic number? Pause and choose. It is the proton. Keep exploring!"
+  },
+  "physics-forces-quest": {
+    "subject": "Physics",
+    "level": "Introductory",
+    "title": "Force Mission: Push, Pull and Motion",
+    "hook": "What makes a football speed up, slow down or change direction?",
+    "concept": "A force is a push or pull. Forces can change an object's motion or shape. The SI unit of force is the newton (N).",
+    "steps": [
+      {
+        "heading": "Push or pull",
+        "body": "Kicking a ball is a push. Pulling a door open is a pull. Both are forces."
+      },
+      {
+        "heading": "Balanced forces",
+        "body": "If forces are balanced, the resultant force is zero. An object's motion does not change."
+      },
+      {
+        "heading": "Unbalanced forces",
+        "body": "An unbalanced resultant force changes motion: an object may speed up, slow down or turn."
+      }
+    ],
+    "question": "What is the resultant force when forces are balanced?",
+    "options": [
+      "Zero newtons",
+      "Ten newtons",
+      "It is always moving"
+    ],
+    "answer_index": 0,
+    "explanation": "Balanced forces cancel, so the resultant force is zero newtons.",
+    "voiceover": "Welcome to Force Mission! A force is a push or a pull. A kick pushes a football; opening a door can involve a pull. Forces can be balanced or unbalanced. Balanced forces cancel and give a resultant force of zero. Unbalanced forces change motion. Your challenge: what is the resultant force when forces are balanced? Pause and choose. The answer is zero newtons!"
+  },
+  "geography-water-cycle": {
+    "subject": "Geography",
+    "level": "Introductory",
+    "title": "Water Cycle Adventure: Follow a Drop",
+    "hook": "How can the same water travel from a river to a cloud and back?",
+    "concept": "The water cycle moves water between Earth's surface and atmosphere through processes including evaporation, condensation and precipitation.",
+    "steps": [
+      {
+        "heading": "Evaporation",
+        "body": "Energy from the Sun causes liquid water to change into water vapour."
+      },
+      {
+        "heading": "Condensation",
+        "body": "As water vapour cools, it forms tiny droplets that make clouds."
+      },
+      {
+        "heading": "Precipitation",
+        "body": "Water falls from clouds as rain, snow or hail, then collects or flows across the land."
+      }
+    ],
+    "question": "What is the change from water vapour into tiny liquid droplets called?",
+    "options": [
+      "Evaporation",
+      "Condensation",
+      "Collection"
+    ],
+    "answer_index": 1,
+    "explanation": "Condensation happens when water vapour cools and changes into liquid droplets.",
+    "voiceover": "Follow one drop on a Water Cycle Adventure! The Sun provides energy for evaporation, changing liquid water into water vapour. Higher in the atmosphere, cooling vapour condenses into tiny droplets that form clouds. Then precipitation brings water back as rain, snow or hail. Water collects in rivers, lakes and oceans, and the cycle continues. Challenge: what is vapour cooling into droplets called? Condensation!"
+  },
+  "history-great-zimbabwe": {
+    "subject": "History",
+    "level": "Introductory",
+    "title": "Great Zimbabwe: City of Stone",
+    "hook": "How did people build a remarkable stone city without modern cement?",
+    "concept": "Great Zimbabwe was a major medieval African city and centre of trade and political power. Its dry-stone walls were built without mortar.",
+    "steps": [
+      {
+        "heading": "A thriving centre",
+        "body": "The settlement flourished roughly between the 11th and 15th centuries in the region of present-day Zimbabwe."
+      },
+      {
+        "heading": "Stone architecture",
+        "body": "Builders fitted granite blocks together to create impressive curved walls without mortar."
+      },
+      {
+        "heading": "Trade and connections",
+        "body": "Archaeological evidence points to long-distance trade links, including connections with the Swahili coast and the wider Indian Ocean world."
+      }
+    ],
+    "question": "What made the famous walls of Great Zimbabwe distinctive?",
+    "options": [
+      "They used modern cement",
+      "They were built with fitted stone and no mortar",
+      "They were made from glass"
+    ],
+    "answer_index": 1,
+    "explanation": "Great Zimbabwe's famous dry-stone walls were constructed without mortar.",
+    "voiceover": "Welcome to Great Zimbabwe: City of Stone. Great Zimbabwe became a major centre in southern Africa between about the eleventh and fifteenth centuries. Its builders fitted granite stones together to create impressive walls without mortar. The settlement was also connected to long-distance trade networks. Challenge: what made its famous walls distinctive? They were built from carefully fitted stone without mortar. Discover more African history!"
+  },
+  "computing-algorithms": {
+    "subject": "Computer Science",
+    "level": "Introductory",
+    "title": "Algorithm Adventure: Give the Computer a Plan",
+    "hook": "How does a computer know what to do next?",
+    "concept": "An algorithm is a finite, ordered set of instructions for solving a problem or completing a task.",
+    "steps": [
+      {
+        "heading": "Step-by-step",
+        "body": "An algorithm breaks a task into clear steps that can be followed in order."
+      },
+      {
+        "heading": "Sequence matters",
+        "body": "Changing the order of instructions can change the result. A recipe is a familiar example."
+      },
+      {
+        "heading": "Test the plan",
+        "body": "Try the algorithm, check the result and improve any unclear or incorrect steps."
+      }
+    ],
+    "question": "What is an algorithm?",
+    "options": [
+      "A random guess",
+      "A finite set of ordered instructions",
+      "A computer screen"
+    ],
+    "answer_index": 1,
+    "explanation": "An algorithm is a finite, ordered set of instructions to solve a problem.",
+    "voiceover": "Welcome to Algorithm Adventure! An algorithm is a finite set of ordered instructions for solving a problem. Think about making a sandwich: the steps need to be clear and in a sensible order. If instructions are missing or mixed up, the result may be wrong. Test your plan and improve it. Challenge: what is an algorithm? It is a finite set of ordered instructions!"
+  },
+  "business-enterprise": {
+    "subject": "Business Studies",
+    "level": "Introductory",
+    "title": "Young Entrepreneur Quest: Spot an Opportunity",
+    "hook": "Can a simple problem become a useful business idea?",
+    "concept": "An entrepreneur identifies an opportunity, organises resources and takes calculated risks to provide a product or service.",
+    "steps": [
+      {
+        "heading": "Find a need",
+        "body": "Notice a problem people want solved. Ask who needs help and what would be useful."
+      },
+      {
+        "heading": "Plan resources",
+        "body": "Consider materials, skills, time, costs and the people who may buy the product or service."
+      },
+      {
+        "heading": "Test and improve",
+        "body": "Ask potential customers for feedback and improve the idea before expanding."
+      }
+    ],
+    "question": "What does an entrepreneur do?",
+    "options": [
+      "Only spends money",
+      "Identifies opportunities and organises resources",
+      "Avoids all decisions"
+    ],
+    "answer_index": 1,
+    "explanation": "Entrepreneurs identify opportunities and organise resources to create value.",
+    "voiceover": "Welcome to Young Entrepreneur Quest! Entrepreneurs look for opportunities to solve problems. They plan the resources they need, such as materials, skills, time and money. They also listen to customers and improve their ideas. Challenge: what does an entrepreneur do? An entrepreneur identifies opportunities and organises resources to create value. What problem could you solve in your community?"
+  },
+  "shona-proverbs": {
+    "subject": "Shona",
+    "level": "Introductory",
+    "title": "Shona Language Quest: Meaning Beyond Words",
+    "hook": "Can a short proverb teach a big lesson?",
+    "concept": "Proverbs are traditional expressions that communicate shared wisdom, values and experience. Meaning depends on context and cultural understanding.",
+    "steps": [
+      {
+        "heading": "Listen carefully",
+        "body": "Notice the words, imagery and situation in which a proverb is used."
+      },
+      {
+        "heading": "Find the lesson",
+        "body": "Ask what advice or observation the proverb communicates. Avoid translating word-for-word only."
+      },
+      {
+        "heading": "Use context",
+        "body": "Discuss who might use the proverb, when it is appropriate and what values it reflects."
+      }
+    ],
+    "question": "What helps us understand the meaning of a proverb?",
+    "options": [
+      "Context and cultural understanding",
+      "Only counting its words",
+      "Ignoring the situation"
+    ],
+    "answer_index": 0,
+    "explanation": "Context and cultural knowledge help explain a proverb's intended lesson.",
+    "voiceover": "Welcome to Shona Language Quest! Proverbs carry wisdom through memorable expressions. To understand one, listen to the words and consider the situation where it is used. Ask what lesson it teaches and what values it reflects. A direct word-for-word translation may miss the deeper meaning. Challenge: what helps us understand a proverb? Context and cultural understanding!"
+  },
+  "art-colour-theory": {
+    "subject": "Art & Design",
+    "level": "Introductory",
+    "title": "Colour Quest: Build a Strong Palette",
+    "hook": "Why do some colours feel calm while others grab attention?",
+    "concept": "Colour theory describes relationships between colours. Primary colours are starting points for mixing; complementary colours sit opposite each other on a colour wheel.",
+    "steps": [
+      {
+        "heading": "Primary colours",
+        "body": "In the traditional artists' paint model, red, yellow and blue are commonly taught as primary colours."
+      },
+      {
+        "heading": "Mixing colours",
+        "body": "Mixing primary pigments can create secondary colours such as orange, green and violet."
+      },
+      {
+        "heading": "Contrast",
+        "body": "Complementary colours sit opposite each other on a colour wheel and can create strong visual contrast."
+      }
+    ],
+    "question": "Where are complementary colours found on a colour wheel?",
+    "options": [
+      "Next to each other",
+      "Opposite each other",
+      "Always in the centre"
+    ],
+    "answer_index": 1,
+    "explanation": "Complementary colours are opposite one another on the colour wheel.",
+    "voiceover": "Welcome to Colour Quest! Artists use colour relationships to create mood and contrast. In the traditional paint model, red, yellow and blue are primary colours. Mixing them can make orange, green and violet. Complementary colours sit opposite each other on a colour wheel and create strong contrast. Challenge: where do you find complementary colours? Opposite each other!"
+  },
+  "maths-fractions": {
+    "subject": "Mathematics",
+    "level": "Introductory",
+    "title": "Fraction Adventure: Parts of a Whole",
+    "hook": "If you share a pizza equally, how can you describe each piece?",
+    "concept": "A fraction represents part of a whole or a ratio. The denominator tells how many equal parts make the whole; the numerator tells how many parts are selected.",
+    "steps": [
+      {
+        "heading": "Denominator",
+        "body": "The bottom number tells how many equal parts the whole is divided into."
+      },
+      {
+        "heading": "Numerator",
+        "body": "The top number tells how many of those parts are being counted."
+      },
+      {
+        "heading": "Equivalent fractions",
+        "body": "Fractions can look different but have the same value, such as one half and two quarters."
+      }
+    ],
+    "question": "In the fraction 3/4, what does the 4 represent?",
+    "options": [
+      "Parts selected",
+      "Equal parts in the whole",
+      "The answer"
+    ],
+    "answer_index": 1,
+    "explanation": "The denominator 4 means the whole is divided into four equal parts.",
+    "voiceover": "Welcome to Fraction Adventure! A fraction describes part of a whole. The bottom number is the denominator: it tells how many equal parts make the whole. The top number is the numerator: it tells how many parts we count. Three quarters means three out of four equal parts. Challenge: in three quarters, what does four represent? The four equal parts in the whole!"
+  },
+  "science-states-matter": {
+    "subject": "General Science",
+    "level": "Introductory",
+    "title": "Matter Mission: Solid, Liquid or Gas?",
+    "hook": "Why can ice melt, water flow and steam spread out?",
+    "concept": "Matter commonly exists as solids, liquids and gases. Heating or cooling can change a substance's state.",
+    "steps": [
+      {
+        "heading": "Solid",
+        "body": "A solid has a fixed shape and volume. Its particles are close together and vibrate around fixed positions."
+      },
+      {
+        "heading": "Liquid",
+        "body": "A liquid has a fixed volume but takes the shape of its container. Its particles can move past one another."
+      },
+      {
+        "heading": "Gas",
+        "body": "A gas has no fixed shape or volume and spreads to fill its container."
+      }
+    ],
+    "question": "Which state has a fixed volume but takes the shape of its container?",
+    "options": [
+      "Solid",
+      "Liquid",
+      "Gas"
+    ],
+    "answer_index": 1,
+    "explanation": "A liquid keeps its volume but takes the shape of its container.",
+    "voiceover": "Welcome to Matter Mission! Matter commonly exists as solids, liquids and gases. A solid keeps its shape and volume. A liquid keeps its volume but takes the shape of its container. A gas spreads out to fill its container. Heating and cooling can change a substance's state. Challenge: which state has a fixed volume but takes the container's shape? Liquid!"
+  },
+  "library-source-check": {
+    "subject": "Library Skills",
+    "level": "Introductory",
+    "title": "Information Detective: Check Your Sources",
+    "hook": "How can you tell whether an online claim is trustworthy?",
+    "concept": "Evaluating information means checking its author, evidence, date, purpose and agreement with other reliable sources.",
+    "steps": [
+      {
+        "heading": "Who made it?",
+        "body": "Look for the author or organisation and ask whether they have relevant expertise."
+      },
+      {
+        "heading": "Where is the evidence?",
+        "body": "Check whether claims are supported by trustworthy evidence and links to original sources."
+      },
+      {
+        "heading": "When and why?",
+        "body": "Check the publication date and consider whether the purpose is to inform, persuade or sell."
+      }
+    ],
+    "question": "Which is a useful first step when checking an online claim?",
+    "options": [
+      "Share it immediately",
+      "Check who published it and the evidence",
+      "Trust it because it looks professional"
+    ],
+    "answer_index": 1,
+    "explanation": "Checking the source and its supporting evidence is a strong first step.",
+    "voiceover": "Welcome, Information Detective! Not every online claim is reliable. Start by checking who published it and whether they have relevant expertise. Look for evidence and original sources. Check the date because information can become outdated. Ask whether the purpose is to inform, persuade or sell. Challenge: what is a useful first step? Check who published the claim and the evidence!"
+  }
+}
