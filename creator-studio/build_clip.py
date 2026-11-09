@@ -160,6 +160,28 @@ def main():
         raise SystemExit("Manim completed but no MP4 was found.")
     final_video = out / "AdventureAcademyShort.mp4"
     shutil.copy2(videos[0], final_video)
+
+    # Generate a zero-cost offline narration track with eSpeak NG, then mux it
+    # into the rendered animation. Keep a silent copy and WAV for review.
+    espeak = shutil.which("espeak-ng")
+    ffmpeg = shutil.which("ffmpeg")
+    if not espeak or not ffmpeg:
+        raise SystemExit("Audio tools are missing. Install espeak-ng and ffmpeg.")
+    silent_video = out / "AdventureAcademyShort-silent.mp4"
+    shutil.copy2(final_video, silent_video)
+    voice_audio = out / "voiceover.wav"
+    subprocess.run([
+        espeak, "-v", lesson.get("voice_language", "en-us"), "-s", "160",
+        "-a", "170", "-f", str(out / "voiceover-script.txt"), "-w", str(voice_audio)
+    ], cwd=ROOT, check=True)
+    voiced_video = out / "AdventureAcademyShort-voiced.mp4"
+    subprocess.run([
+        ffmpeg, "-y", "-i", str(silent_video), "-i", str(voice_audio),
+        "-map", "0:v:0", "-map", "1:a:0", "-c:v", "copy", "-c:a", "aac",
+        "-b:a", "128k", "-af", "apad", "-shortest", "-movflags", "+faststart",
+        str(voiced_video)
+    ], cwd=ROOT, check=True)
+    shutil.move(str(voiced_video), str(final_video))
     shutil.rmtree(media, ignore_errors=True)
     active.unlink(missing_ok=True)
     print(f"PACKAGE_READY={out}")
