@@ -20,6 +20,7 @@ on:
           - maths-fractions
           - science-states-matter
           - library-source-check
+          - apollo-13-rescue
 
 permissions:
   contents: read
