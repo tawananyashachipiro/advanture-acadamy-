@@ -26,6 +26,11 @@ on:
           - science-states-matter
           - library-source-check
           - apollo-13-rescue
+      use_moneyprinterturbo:
+        description: "Also run the optional local-only MoneyPrinterTurbo finishing pass (uses extra Actions minutes)"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -38,7 +43,7 @@ jobs:
   build-clip:
     name: Build lesson video and publishing pack
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - name: Check out repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -62,6 +67,33 @@ jobs:
           LESSON_ID: ${{ inputs.lesson_id || 'apollo-13-rescue' }}
         run: |
           python creator-studio/build_clip.py --lesson "$LESSON_ID"
+
+      - name: Run MoneyPrinterTurbo local finishing pass
+        if: ${{ inputs.use_moneyprinterturbo == true }}
+        env:
+          MPT_HOME: ${{ runner.temp }}/moneyprinterturbo
+          LESSON_ID: ${{ inputs.lesson_id || 'apollo-13-rescue' }}
+        run: |
+          python -m pip install "mpt==1.3.10"
+          mpt cli \
+            --video-script "$(cat "creator-studio/dist/$LESSON_ID/voiceover-script.txt")" \
+            --video-source local \
+            --video-materials "creator-studio/dist/$LESSON_ID/AdventureAcademyShort-silent.mp4" \
+            --custom-audio-file "creator-studio/dist/$LESSON_ID/voiceover.wav" \
+            --voice-name no-voice \
+            --no-subtitle-enabled \
+            --bgm-type none \
+            --video-aspect 9:16 \
+            --video-count 1
+
+      - name: Save MoneyPrinterTurbo output
+        if: ${{ inputs.use_moneyprinterturbo == true }}
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.2
+        with:
+          name: moneyprinterturbo-${{ inputs.lesson_id || 'apollo-13-rescue' }}
+          path: ${{ runner.temp }}/moneyprinterturbo/storage/tasks/
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Save video and creator pack
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.2
