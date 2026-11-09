@@ -91,17 +91,17 @@ def main():
     hashtags = "#AdventureOfEducation #LearnWithMe #Education #" + re.sub(r"[^A-Za-z0-9]", "", lesson["subject"].title())
     sources = lesson.get("sources", [])
     source_lines = [f"- {source['organization']}: {source['title']} — {source['url']}" for source in sources]
-    sources_text = "Sources checked:\\n" + "\\n".join(source_lines) if source_lines else "No source list supplied for this lesson."
+    sources_text = "Sources checked:\n" + "\n".join(source_lines) if source_lines else "No source list supplied for this lesson."
     if sources:
-        (out / "sources.txt").write_text(sources_text + "\\n", encoding="utf-8")
+        (out / "sources.txt").write_text(sources_text + "\n", encoding="utf-8")
 
     description = (
-        f"{lesson['title']}\\n\\n{lesson['concept']}\\n\\n"
+        f"{lesson['title']}\n\n{lesson['concept']}\n\n"
         "Pause at the challenge, choose your answer, then watch the explanation. "
         "Continue learning with the matching lesson and quiz at Adventure Academy: "
-        "https://tawananyashachipiro.github.io/advanture-acadamy-/\\n\\n"
-        f"{sources_text}\\n\\n"
-        f"{hashtags}\\n\\n"
+        "https://tawananyashachipiro.github.io/advanture-acadamy-/\n\n"
+        f"{sources_text}\n\n"
+        f"{hashtags}\n\n"
         "Educational content: review the lesson, sources and captions before publishing."
     )
     metadata = {
