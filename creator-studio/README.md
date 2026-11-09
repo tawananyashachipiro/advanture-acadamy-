@@ -1,63 +1,61 @@
 # Adventure Academy Creator Studio
 
-A separate, free/open-source workspace for producing original educational videos. It does not change the live academy website.
+A separate, free/open-source video workspace for Adventure Academy. It creates original educational lesson clips and a review-ready YouTube publishing pack. It does not change the live academy website.
 
-## Included tool: Manim Community
+## Clip Factory (GitHub Actions)
 
-[Manim Community](https://github.com/ManimCommunity/manim) creates animated explanations, diagrams, maths and science visuals from Python. It is MIT-licensed and supports MP4 rendering.
+The **Adventure Academy Clip Factory** workflow creates a vertical 9:16 YouTube Short for any of the 12 starter lessons in `lessons/curriculum.json`.
 
-### Render on GitHub (no local installation required)
+### Run it
 
 1. Open the repository's **Actions** tab.
-2. Select **Render Adventure Academy video**.
-3. Select **Run workflow** and confirm.
-4. When the run finishes, open it and download the `academy-video` artifact.
-5. Preview the MP4 and check every fact, spelling and visual before using it.
+2. Select **Adventure Academy Clip Factory** in the left sidebar.
+3. Select **Run workflow**.
+4. Choose a lesson from the `lesson_id` list.
+5. Start the workflow and wait for the green success check.
+6. Open the completed run and download its `academy-clip-...` artifact ZIP.
 
-The workflow is manual-only. It does not publish anything to YouTube.
+### Each generated package contains
 
-### Render on your Mac
+- `AdventureAcademyShort.mp4` — vertical animated lesson clip, with a pause-and-answer challenge and answer reveal.
+- `voiceover-script.txt` — narration text ready for recording.
+- `captions.srt` — timed draft captions for review.
+- `quiz.json` — question, options, correct answer and explanation, ready for later academy integration.
+- `youtube-metadata.json` and `youtube-description.txt` — suggested title, description and hashtags.
+- `thumbnail.svg` — editable vector thumbnail artwork.
+- `REVIEW-CHECKLIST.txt` — checks to complete before publishing.
 
-Install the system dependencies first:
+The first 12 lessons cover Biology, Chemistry, Physics, Geography, History, Computer Science, Business Studies, Shona, Art & Design, Mathematics, General Science and Library Skills.
 
-```bash
-brew install cairo pango ffmpeg pkg-config
-```
+## Add or edit a lesson
 
-Then from the repository folder:
+Edit `lessons/curriculum.json`. Every lesson needs:
+- `subject`, `level`, `title`, `hook`, and `concept`
+- At least two `steps`, each with a `heading` and `body`
+- A `question`, at least two `options`, a valid `answer_index`, and an `explanation`
+- A `voiceover` script
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r creator-studio/requirements.txt
-python -m manim -qm --media_dir creator-studio/output creator-studio/scenes/academy_intro.py AcademyIntro
-```
+Add the new lesson ID to the workflow's choice list in `.github/workflows/render-academy-video.yml`.
 
-The rendered MP4 is placed under `creator-studio/output/`.
+## Safety, permissions and publishing
 
-## Suggested free creator tools
+- The workflow is manual-only. It does not run on every website commit.
+- Workflow permissions are read-only for repository contents.
+- GitHub Actions are pinned to reviewed release commit SHAs.
+- No third-party action is given write permissions or access to YouTube credentials.
+- The workflow does not upload or publish to YouTube. Review the video, facts, captions, audience setting and metadata, then upload manually through YouTube Studio using an authorised channel account.
+- Never put passwords, OAuth client secrets, access tokens or private learner data in this repository.
+- Use original, public-domain or properly licensed media and music only.
+- Review educational content for accuracy before publication.
 
-- [OBS Studio](https://github.com/obsproject/obs-studio) — record lessons, demonstrations and screen walkthroughs.
-- [Kdenlive](https://github.com/KDE/kdenlive) — edit the recordings, add transitions, narration and titles.
-- [whisper.cpp](https://github.com/ggml-org/whisper.cpp) — create draft subtitles locally; proofread them.
-- [Manim Community](https://github.com/ManimCommunity/manim) — create animated subject explanations.
+## Tools used
 
-These are separate desktop tools; GitHub Pages cannot run desktop applications inside the academy website.
+- [Manim Community](https://github.com/ManimCommunity/manim) — MIT-licensed programmatic animation.
+- [FFmpeg](https://ffmpeg.org/) — video processing.
+- [GitHub Actions](https://github.com/features/actions) — hosted build automation.
 
-## YouTube workflow
+The workflow uses GitHub-hosted runners and the repository's public source. GitHub usage limits and availability still apply; this is not a promise of unlimited free rendering.
 
-1. Create original lesson content or use media you have permission to use.
-2. Render and review the MP4.
-3. Record or create subtitles and proofread them.
-4. Upload the finished video through YouTube Studio, using an account that is permitted to manage the channel.
-5. Check the title, description, thumbnail, audience setting and visibility before publishing.
+## Important current limitation
 
-The YouTube Data API can upload videos and set metadata, but it requires OAuth authorization. Do not put Google client secrets, access tokens or passwords in this public repository. We have deliberately not enabled automatic publishing.
-
-## Safety and quality checks
-
-- Use only original, public-domain or properly licensed music, images and footage.
-- Do not include learner names, faces, email addresses or private progress data in videos.
-- Check educational facts and captions before publication.
-- Keep generated MP4s out of the website source until they have been reviewed.
-
+The generated quiz JSON is a ready-to-integrate content asset; it is not yet connected to the live website's lesson or progress system. The video itself contains an on-screen pause-and-answer moment, not clickable YouTube quiz controls. A future website integration can load the same quiz data into an interactive academy activity.
