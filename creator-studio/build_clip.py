@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 from xml.sax.saxutils import escape
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 CURRICULUM = ROOT / "creator-studio" / "lessons" / "curriculum.json"
 SCENE = ROOT / "creator-studio" / "scenes" / "lesson_short.py"
 DIST = ROOT / "creator-studio" / "dist"
