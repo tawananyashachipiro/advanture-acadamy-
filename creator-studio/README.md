@@ -59,3 +59,13 @@ The workflow uses GitHub-hosted runners and the repository's public source. GitH
 ## Important current limitation
 
 The generated quiz JSON is a ready-to-integrate content asset; it is not yet connected to the live website's lesson or progress system. The video itself contains an on-screen pause-and-answer moment, not clickable YouTube quiz controls. A future website integration can load the same quiz data into an interactive academy activity.
+
+## Optional MoneyPrinterTurbo finishing pass
+
+The Clip Factory includes an optional, manually selected MoneyPrinterTurbo pass. It is disabled by default to protect the free GitHub Actions allowance.
+
+When running **Adventure Academy Clip Factory**, tick `use_moneyprinterturbo` only if you want an additional render. This mode uses the lesson's existing silent MP4, supplied narration WAV and prepared script as local inputs. It explicitly selects local media, disables automatic voice generation, disables subtitles in this extra pass, and disables background music. It does not request an LLM, Pexels footage, paid video generation, or paid music.
+
+MoneyPrinterTurbo is installed from its official Python package at the pinned version `mpt==1.3.10`. Its output is saved as a separate artifact named `moneyprinterturbo-<lesson-id>`; the original `academy-clip-<lesson-id>` artifact remains unchanged.
+
+This optional pass uses extra GitHub Actions minutes and may take longer. GitHub-hosted runner availability and free usage limits still apply. It has been wired into the workflow but must complete a successful test run before being treated as production-verified. The ordinary Clip Factory remains the default and does not install MoneyPrinterTurbo.
