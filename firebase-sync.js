@@ -2,7 +2,7 @@
 // The site keeps working locally if Firebase is unavailable or not configured.
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { initializeFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+// Firestore is accessed through its HTTPS REST API below to avoid SDK offline-detection failures.
 
 const firebaseConfig = {
   apiKey: "AIzaSyADuJvpPkuaVQG0J8Su84hjV_cwbjwi6Og",
@@ -14,8 +14,6 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-// Use long polling for networks that interrupt Firestore streaming connections.
-const db = initializeFirestore(app, { experimentalForceLongPolling: true });
 const provider = new GoogleAuthProvider();
 const progressKey = "adventure-academy-level-progress";
 const profileKey = "adventure-academy-learner-profile";
@@ -46,27 +44,90 @@ function readLocal() {
     levels
   };
 }
+function firestoreValue(value) {
+  if (typeof value === "string") return { stringValue: value };
+  if (typeof value === "boolean") return { booleanValue: value };
+  if (typeof value === "number" && Number.isInteger(value)) return { integerValue: String(value) };
+  if (Array.isArray(value)) return { arrayValue: { values: value.map(firestoreValue) } };
+  if (value && typeof value === "object") {
+    const fields = {};
+    Object.entries(value).forEach(([key, item]) => { fields[key] = firestoreValue(item); });
+    return { mapValue: { fields } };
+  }
+  return { nullValue: null };
+}
+function plainValue(value) {
+  if (!value) return null;
+  if ("stringValue" in value) return value.stringValue;
+  if ("integerValue" in value) return Number(value.integerValue);
+  if ("doubleValue" in value) return Number(value.doubleValue);
+  if ("booleanValue" in value) return value.booleanValue;
+  if ("nullValue" in value) return null;
+  if ("arrayValue" in value) return (value.arrayValue.values || []).map(plainValue);
+  if ("mapValue" in value) {
+    const result = {};
+    Object.entries(value.mapValue.fields || {}).forEach(([key, item]) => { result[key] = plainValue(item); });
+    return result;
+  }
+  return null;
+}
+async function firestoreRequest(user, method, url, body) {
+  const token = await user.getIdToken();
+  const response = await fetch(url, {
+    method,
+    headers: { "Authorization": `Bearer ${token}`, ...(body ? { "Content-Type": "application/json" } : {}) },
+    ...(body ? { body: JSON.stringify(body) } : {})
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const error = new Error(payload.error?.message || `Firestore HTTP ${response.status}`);
+    error.code = payload.error?.status || String(response.status);
+    throw error;
+  }
+  return payload;
+}
+function documentName(user) {
+  return `projects/${firebaseConfig.projectId}/databases/(default)/documents/learners/${user.uid}/progress/current`;
+}
+async function readCloud(user) {
+  const url = `https://firestore.googleapis.com/v1/${documentName(user)}`;
+  try {
+    const result = await firestoreRequest(user, "GET", url);
+    return Object.fromEntries(Object.entries(result.fields || {}).map(([key, value]) => [key, plainValue(value)]));
+  } catch (error) {
+    if (error.code === "NOT_FOUND" || String(error.message).includes("NOT_FOUND")) return null;
+    throw error;
+  }
+}
+async function writeCloud(user, data) {
+  const fields = {};
+  Object.entries(data).forEach(([key, value]) => { fields[key] = firestoreValue(value); });
+  const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents:commit`;
+  await firestoreRequest(user, "POST", url, {
+    writes: [{
+      update: { name: documentName(user), fields },
+      updateTransforms: [{ fieldPath: "updatedAt", setToServerValue: "REQUEST_TIME" }]
+    }]
+  });
+}
 function saveCloud() {
   if (!currentUser || applyingCloud) return;
   const user = currentUser;
   const data = readLocal();
-  pendingWrite = pendingWrite.then(() => setDoc(
-    doc(db, "learners", user.uid, "progress", "current"),
-    { ...data, updatedAt: serverTimestamp() }
-  )).then(() => setStatus("Cloud sync is on. Your progress is backed up to your signed-in account."))
+  pendingWrite = pendingWrite.then(() => writeCloud(user, data))
+    .then(() => setStatus("Cloud sync is on. Your progress is backed up to your signed-in account."))
     .catch(error => {
       console.error("Adventure Academy cloud save failed:", error);
-      setStatus("Cloud save could not finish. Your progress is still saved on this device.");
+      setStatus("Cloud save failed: " + (error.message || "Please check your connection."));
     });
 }
 async function loadCloud(user) {
   currentUser = user;
   setStatus("Signed in. Checking your cloud progress…");
   try {
-    const snapshot = await getDoc(doc(db, "learners", user.uid, "progress", "current"));
+    const cloud = await readCloud(user);
     const local = readLocal();
-    if (snapshot.exists()) {
-      const cloud = snapshot.data();
+    if (cloud) {
       const levels = {};
       rooms.forEach(key => {
         const a = Math.max(0, Math.min(3, Number(local.levels[key]) || 0));
@@ -87,11 +148,12 @@ async function loadCloud(user) {
       window.dispatchEvent(new CustomEvent("academy:cloud-progress-loaded", { detail: merged }));
       applyingCloud = false;
     }
-    saveCloud();
+    await writeCloud(user, readLocal());
+    setStatus("Cloud sync is on. Your progress is backed up to your signed-in account.");
   } catch (error) {
     applyingCloud = false;
     console.error("Adventure Academy cloud load failed:", error);
-    setStatus("Cloud sync is unavailable right now. Your local progress is safe.");
+    setStatus("Cloud sync failed: " + (error.message || "Please check your connection."));
   }
 }
 if (signIn) signIn.addEventListener("click", async () => {
