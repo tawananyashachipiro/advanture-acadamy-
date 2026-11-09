@@ -88,7 +88,7 @@ def main():
     (out / "voiceover-script.txt").write_text(lesson["voiceover"].strip() + "\n", encoding="utf-8")
     (out / "captions.srt").write_text(make_srt(lesson), encoding="utf-8")
 
-    hashtags = "#AdventureAcademy #LearnWithMe #Education #" + re.sub(r"[^A-Za-z0-9]", "", lesson["subject"].title())
+    hashtags = "#AdventureOfEducation #LearnWithMe #Education #" + re.sub(r"[^A-Za-z0-9]", "", lesson["subject"].title())
     description = (
         f"{lesson['title']}\n\n{lesson['concept']}\n\n"
         "Pause at the challenge, choose your answer, then watch the explanation. "
