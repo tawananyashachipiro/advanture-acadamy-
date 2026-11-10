@@ -53,6 +53,110 @@ def pixel_sprite(pattern, palette, pixel=0.11):
     return cells
 
 
+def apollo_pixel_story(scene, index, step):
+    """Animated original pixel-art storytelling for Apollo 13."""
+    stars = VGroup(*[
+        Dot([((i * 37) % 41) / 10 - 2, ((i * 19) % 67) / 10 - 3.2, 0],
+            radius=0.012, color=PALE)
+        for i in range(42)
+    ])
+    heading = fit_line(step["heading"], 25, SAND, BOLD, max_width=4.0)
+    body = fit_paragraph(step["body"], 21, WHITE, max_width=4.0)
+    caption = VGroup(heading, body).arrange(DOWN, buff=0.2).move_to(DOWN * 2.65)
+    scene.add(stars)
+    scene.play(FadeIn(caption, shift=UP * 0.1), run_time=0.4)
+
+    if index == 1:
+        earth = Circle(radius=0.78, color="#2876B8", fill_color="#2876B8", fill_opacity=1)
+        earth.move_to(LEFT * 1.25 + DOWN * 0.05)
+        moon = pixel_sprite(["...MMMM...", ".MMMMMMMM.", "MMMMMMMMMM",
+                             "MMMMMMMMMM", "MMMMMMMMMM", ".MMMMMMMM.", "...MMMM..."],
+                            {"M": MINT}, pixel=0.09).move_to(RIGHT * 1.35 + UP * 1.0)
+        rocket = pixel_sprite(["....W....", "...WWW...", "...WRW...",
+                               "..RRRRR..", "..RWRWR..", "...WWW...",
+                               "..B...B..", ".B.....B."],
+                              {"W": WHITE, "R": SAND, "B": TEAL},
+                              pixel=0.11).move_to(LEFT * 1.2 + DOWN * 1.0)
+        date = fit_line("11 APRIL 1970", 22, TEAL, BOLD).move_to(UP * 2.0)
+        scene.play(FadeIn(earth), FadeIn(moon), FadeIn(rocket), FadeIn(date), run_time=0.7)
+        scene.play(rocket.animate.shift(RIGHT * 1.5 + UP * 1.7), run_time=1.8, rate_func=smooth)
+        scene.play(FadeOut(earth), FadeOut(moon), FadeOut(rocket), FadeOut(date), run_time=0.4)
+
+    elif index == 2:
+        module = VGroup(
+            Rectangle(width=1.25, height=0.72, fill_color="#8299A8",
+                      fill_opacity=1, stroke_color=WHITE),
+            Rectangle(width=0.55, height=0.9, fill_color="#38566D",
+                      fill_opacity=1, stroke_color=TEAL).shift(RIGHT * 0.88),
+            Rectangle(width=0.55, height=0.38, fill_color="#17334C",
+                      fill_opacity=1, stroke_color=SAND).shift(LEFT * 0.9),
+        ).move_to(UP * 1.0)
+        warning = VGroup(
+            Triangle(color=SAND, fill_color=SAND, fill_opacity=1).scale(0.48),
+            Text("!", font_size=34, color=NAVY, weight=BOLD)
+        ).move_to(DOWN * 0.1)
+        alert = fit_line("OXYGEN SYSTEM ALERT", 23, SAND, BOLD).move_to(DOWN * 0.9)
+        desk = RoundedRectangle(width=3.8, height=0.8, corner_radius=0.1,
+                                stroke_color=TEAL, fill_color="#17334C", fill_opacity=1)
+        desk.move_to(DOWN * 1.8)
+        screens = VGroup(*[
+            Rectangle(width=0.55, height=0.32, stroke_color=TEAL,
+                      fill_color="#245A70", fill_opacity=1).move_to([x, -1.8, 0])
+            for x in [-1.25, -0.42, 0.42, 1.25]
+        ])
+        operators = VGroup(*[
+            pixel_sprite([".WWW.", "WCCCW", ".WWW.", "..W..", ".W.W."],
+                         {"W": WHITE, "C": TEAL}, pixel=0.07).move_to([x, -1.1, 0])
+            for x in [-1.0, 0, 1.0]
+        ])
+        scene.play(FadeIn(module), FadeIn(warning), FadeIn(alert), run_time=0.75)
+        scene.play(Indicate(warning, color=SAND, scale_factor=1.15), run_time=0.7)
+        scene.play(FadeIn(desk), FadeIn(screens), FadeIn(operators), run_time=0.65)
+        scene.wait(0.35)
+        scene.play(FadeOut(module), FadeOut(warning), FadeOut(alert),
+                   FadeOut(desk), FadeOut(screens), FadeOut(operators), run_time=0.4)
+
+    else:
+        earth = Circle(radius=0.92, color="#2876B8", fill_color="#2876B8",
+                       fill_opacity=1).move_to(UP * 1.05)
+        lunar_module = pixel_sprite(["..WWW..", ".WSSSW.", "WWSSSWW",
+                                     "..WWW..", ".B...B."],
+                                    {"W": WHITE, "S": "#A8C8D8", "B": TEAL},
+                                    pixel=0.12).move_to(LEFT * 1.15 + DOWN * 0.1)
+        crew = VGroup(*[
+            pixel_sprite([".WWW.", "WCCCW", ".WWW.", "..W..", ".W.W."],
+                         {"W": WHITE, "C": TEAL}, pixel=0.07).move_to([x, -0.85, 0])
+            for x in [-1.0, 0, 1.0]
+        ])
+        label = fit_line("AQUARIUS • CREW LIFeboat".upper(), 19, TEAL, BOLD)
+        label.move_to(DOWN * 1.55)
+        scene.play(FadeIn(earth), FadeIn(lunar_module), FadeIn(crew), FadeIn(label), run_time=0.7)
+        scene.play(lunar_module.animate.shift(RIGHT * 1.2 + DOWN * 0.25),
+                   run_time=1.3, rate_func=smooth)
+        ocean = VGroup(*[
+            Line(LEFT * 1.8 + DOWN * (1.3 + i * 0.13),
+                 RIGHT * 1.8 + DOWN * (1.3 + i * 0.13), color=TEAL, stroke_width=2)
+            for i in range(3)
+        ])
+        capsule = pixel_sprite(["..WWW..", ".WSSSW.", "WWSSSWW", "..WWW.."],
+                               {"W": WHITE, "S": "#A8C8D8"},
+                               pixel=0.09).move_to(UP * 0.15)
+        parachutes = VGroup(*[
+            Arc(radius=0.23, angle=PI, color=WHITE, stroke_width=3).move_to([x, 0.75, 0])
+            for x in [-0.45, 0, 0.45]
+        ])
+        splash = fit_line("17 APRIL 1970 • SAFE SPLASHDOWN", 19, SAND, BOLD, max_width=4.0)
+        splash.move_to(DOWN * 1.85)
+        scene.play(FadeOut(earth), FadeOut(lunar_module), FadeOut(crew), FadeOut(label),
+                   FadeIn(ocean), FadeIn(capsule), FadeIn(parachutes), run_time=0.55)
+        scene.play(capsule.animate.shift(DOWN * 0.65),
+                   parachutes.animate.shift(DOWN * 0.5), run_time=1.1, rate_func=smooth)
+        scene.play(FadeIn(splash), run_time=0.45)
+        scene.play(FadeOut(ocean), FadeOut(capsule), FadeOut(parachutes), FadeOut(splash), run_time=0.4)
+
+    scene.play(FadeOut(caption), FadeOut(stars), run_time=0.3)
+
+
 class AcademyLessonShort(Scene):
     def construct(self):
         lesson_path = os.environ.get("ACADEMY_LESSON_FILE", "creator-studio/lessons/active-lesson.json")
@@ -121,24 +225,10 @@ class AcademyLessonShort(Scene):
         self.play(FadeOut(group), run_time=0.4)
 
         photo_dir = Path(os.environ.get("ACADEMY_ASSET_DIR", "creator-studio/assets/apollo-13"))
-        apollo_photos = [
-            photo_dir / "launch.jpg",
-            photo_dir / "mission-control.jpg",
-            photo_dir / "earth-return.jpg",
-        ] if lesson.get("title", "").startswith("Apollo 13:") else []
+        is_apollo = lesson.get("title", "").startswith("Apollo 13:")
         for index, step in enumerate(lesson["steps"], start=1):
-            if index <= len(apollo_photos) and apollo_photos[index - 1].exists():
-                photo = ImageMobject(str(apollo_photos[index - 1]))
-                photo.scale(min(4.05 / photo.width, 4.45 / photo.height))
-                photo.move_to(UP * 0.55)
-                frame = SurroundingRectangle(photo, color=TEAL, buff=0.07, stroke_width=2)
-                heading = fit_line(step["heading"], 25, SAND, BOLD, max_width=4.0)
-                body = fit_paragraph(step["body"], 22, WHITE, max_width=4.0)
-                caption = VGroup(heading, body).arrange(DOWN, buff=0.22)
-                caption.move_to(DOWN * 2.55)
-                self.play(FadeIn(photo), Create(frame), FadeIn(caption, shift=UP * 0.12), run_time=0.65)
-                self.play(photo.animate.scale(1.035), run_time=2.2)
-                self.play(FadeOut(photo), FadeOut(frame), FadeOut(caption), run_time=0.4)
+            if is_apollo:
+                apollo_pixel_story(self, index, step)
             else:
                 number = fit_line(f"DISCOVERY {index}", 23, TEAL, BOLD)
                 heading = fit_paragraph(step["heading"], 38, SAND)
@@ -167,19 +257,14 @@ class AcademyLessonShort(Scene):
         self.wait(3.8)
         self.play(FadeOut(reveal), run_time=0.4)
 
-        splashdown = photo_dir / "splashdown.jpg"
-        if lesson.get("title", "").startswith("Apollo 13:") and splashdown.exists():
-            photo = ImageMobject(str(splashdown))
-            photo.scale(min(4.15 / photo.width, 4.6 / photo.height))
-            photo.move_to(UP * 0.45)
-            frame = SurroundingRectangle(photo, color=TEAL, buff=0.07, stroke_width=2)
-            end_caption = VGroup(
-                fit_line("17 APRIL 1970", 24, SAND, BOLD),
-                fit_line("ALL THREE ASTRONAUTS HOME SAFELY", 21, WHITE, BOLD, max_width=4.0),
-            ).arrange(DOWN, buff=0.2).move_to(DOWN * 2.65)
-            self.play(FadeIn(photo), Create(frame), FadeIn(end_caption), run_time=0.8)
-            self.play(photo.animate.scale(1.035), run_time=2.0)
-            self.play(FadeOut(photo), FadeOut(frame), FadeOut(end_caption), run_time=0.35)
+        if is_apollo:
+            end_card = VGroup(
+                fit_line("THREE ASTRONAUTS. ONE SAFE RETURN.", 23, SAND, BOLD, max_width=4.0),
+                fit_line("PACIFIC OCEAN • 17 APRIL 1970", 20, WHITE, BOLD),
+            ).arrange(DOWN, buff=0.28).move_to(UP * 0.6)
+            self.play(FadeIn(end_card), run_time=0.6)
+            self.wait(0.7)
+            self.play(FadeOut(end_card), run_time=0.35)
         outro = VGroup(
             fit_line("MISSION COMPLETE!", 32, SAND, BOLD),
             fit_paragraph("Explore • Learn • Create", 30, WHITE),
