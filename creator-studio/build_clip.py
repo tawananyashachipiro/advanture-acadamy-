@@ -63,7 +63,7 @@ def download_apollo_photos(out):
     images = {
         "launch.jpg": "S70-34852",
         "mission-control.jpg": "S70-34902",
-        "earth-return.jpg": "AS13-60-8588",
+        "earth-return.jpg": "as13-60-8588",
         "splashdown.jpg": "S70-35638",
     }
     for filename, nasa_id in images.items():
