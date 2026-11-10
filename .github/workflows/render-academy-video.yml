@@ -1,6 +1,9 @@
 name: Adventure Academy Clip Factory
 
 on:
+  push:
+    paths:
+      - 'creator-studio/build_clip.py'
   workflow_dispatch:
     inputs:
       lesson_id:
