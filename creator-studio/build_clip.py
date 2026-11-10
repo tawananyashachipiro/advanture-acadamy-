@@ -238,12 +238,29 @@ def main():
     ], text=True).strip())
     (out / "captions.srt").write_text(make_srt(lesson, audio_seconds), encoding="utf-8")
     voiced_video = out / "AdventureAcademyShort-voiced.mp4"
+    # If narration is longer than the animation, hold the final frame until
+    # the voice-over ends. This prevents -shortest from cutting off narration.
     subprocess.run([
         ffmpeg, "-y", "-i", str(silent_video), "-i", str(voice_audio),
-        "-map", "0:v:0", "-map", "1:a:0", "-c:v", "copy", "-c:a", "aac",
-        "-b:a", "128k", "-af", "apad", "-shortest", "-movflags", "+faststart",
-        str(voiced_video)
+        "-map", "0:v:0", "-map", "1:a:0",
+        "-vf", f"tpad=stop_mode=clone:stop_duration={audio_seconds:.3f}",
+        "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+        "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k",
+        "-af", "apad", "-t", f"{audio_seconds:.3f}",
+        "-movflags", "+faststart", str(voiced_video)
     ], cwd=ROOT, check=True)
+
+    final_seconds = float(subprocess.check_output([
+        "ffprobe", "-v", "error", "-show_entries", "format=duration",
+        "-of", "default=noprint_wrappers=1:nokey=1", str(voiced_video)
+    ], text=True).strip())
+    if final_seconds < audio_seconds - 0.25:
+        raise SystemExit(
+            f"Final video ({final_seconds:.2f}s) is shorter than narration "
+            f"({audio_seconds:.2f}s); refusing to package a cut-off voice-over."
+        )
+    print(f"VOICEOVER_SECONDS={audio_seconds:.2f}")
+    print(f"FINAL_VIDEO_SECONDS={final_seconds:.2f}")
     shutil.move(str(voiced_video), str(final_video))
     shutil.rmtree(media, ignore_errors=True)
     active.unlink(missing_ok=True)
