@@ -238,6 +238,7 @@ def main():
     ], text=True).strip())
     (out / "captions.srt").write_text(make_srt(lesson, audio_seconds), encoding="utf-8")
     voiced_video = out / "AdventureAcademyShort-voiced.mp4"
+    # Duration sync fix: preserve the full narration through the final frame.
     # If narration is longer than the animation, hold the final frame until
     # the voice-over ends. This prevents -shortest from cutting off narration.
     subprocess.run([
