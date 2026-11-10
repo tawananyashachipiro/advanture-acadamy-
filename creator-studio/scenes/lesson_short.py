@@ -120,14 +120,33 @@ class AcademyLessonShort(Scene):
         self.wait(3.7)
         self.play(FadeOut(group), run_time=0.4)
 
+        photo_dir = Path(os.environ.get("ACADEMY_ASSET_DIR", "creator-studio/assets/apollo-13"))
+        apollo_photos = [
+            photo_dir / "launch.jpg",
+            photo_dir / "mission-control.jpg",
+            photo_dir / "earth-return.jpg",
+        ] if lesson.get("title", "").startswith("Apollo 13:") else []
         for index, step in enumerate(lesson["steps"], start=1):
-            number = fit_line(f"DISCOVERY {index}", 23, TEAL, BOLD)
-            heading = fit_paragraph(step["heading"], 38, SAND)
-            body = fit_paragraph(step["body"], 30, WHITE)
-            card = VGroup(number, heading, body).arrange(DOWN, buff=0.45).move_to(ORIGIN)
-            self.play(FadeIn(card, shift=UP * 0.18), run_time=0.7)
-            self.wait(3.5)
-            self.play(FadeOut(card), run_time=0.35)
+            if index <= len(apollo_photos) and apollo_photos[index - 1].exists():
+                photo = ImageMobject(str(apollo_photos[index - 1]))
+                photo.scale(min(4.05 / photo.width, 4.45 / photo.height))
+                photo.move_to(UP * 0.55)
+                frame = SurroundingRectangle(photo, color=TEAL, buff=0.07, stroke_width=2)
+                heading = fit_line(step["heading"], 25, SAND, BOLD, max_width=4.0)
+                body = fit_paragraph(step["body"], 22, WHITE, max_width=4.0)
+                caption = VGroup(heading, body).arrange(DOWN, buff=0.22)
+                caption.move_to(DOWN * 2.55)
+                self.play(FadeIn(photo), Create(frame), FadeIn(caption, shift=UP * 0.12), run_time=0.65)
+                self.play(photo.animate.scale(1.035), run_time=2.2)
+                self.play(FadeOut(photo), FadeOut(frame), FadeOut(caption), run_time=0.4)
+            else:
+                number = fit_line(f"DISCOVERY {index}", 23, TEAL, BOLD)
+                heading = fit_paragraph(step["heading"], 38, SAND)
+                body = fit_paragraph(step["body"], 30, WHITE)
+                card = VGroup(number, heading, body).arrange(DOWN, buff=0.45).move_to(ORIGIN)
+                self.play(FadeIn(card, shift=UP * 0.18), run_time=0.7)
+                self.wait(3.5)
+                self.play(FadeOut(card), run_time=0.35)
 
         challenge = fit_line("PAUSE & PLAY", 25, TEAL, BOLD)
         question = fit_paragraph(lesson["question"], 34, SAND)
@@ -148,6 +167,19 @@ class AcademyLessonShort(Scene):
         self.wait(3.8)
         self.play(FadeOut(reveal), run_time=0.4)
 
+        splashdown = photo_dir / "splashdown.jpg"
+        if lesson.get("title", "").startswith("Apollo 13:") and splashdown.exists():
+            photo = ImageMobject(str(splashdown))
+            photo.scale(min(4.15 / photo.width, 4.6 / photo.height))
+            photo.move_to(UP * 0.45)
+            frame = SurroundingRectangle(photo, color=TEAL, buff=0.07, stroke_width=2)
+            end_caption = VGroup(
+                fit_line("17 APRIL 1970", 24, SAND, BOLD),
+                fit_line("ALL THREE ASTRONAUTS HOME SAFELY", 21, WHITE, BOLD, max_width=4.0),
+            ).arrange(DOWN, buff=0.2).move_to(DOWN * 2.65)
+            self.play(FadeIn(photo), Create(frame), FadeIn(end_caption), run_time=0.8)
+            self.play(photo.animate.scale(1.035), run_time=2.0)
+            self.play(FadeOut(photo), FadeOut(frame), FadeOut(end_caption), run_time=0.35)
         outro = VGroup(
             fit_line("MISSION COMPLETE!", 32, SAND, BOLD),
             fit_paragraph("Explore • Learn • Create", 30, WHITE),
