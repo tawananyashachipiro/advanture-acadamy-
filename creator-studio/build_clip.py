@@ -27,24 +27,27 @@ def stamp(seconds):
     return f"{h:02}:{m:02}:{s:02},{ms:03}"
 
 
-def make_srt(lesson):
+def make_srt(lesson, duration=None):
+    """Create captions from the spoken script and pace them to the audio length."""
+    words = lesson["voiceover"].strip().split()
+    chunks = []
+    current = []
+    for word in words:
+        current.append(word)
+        if len(current) >= 8 or word.endswith((".", "?", "!")):
+            chunks.append(" ".join(current))
+            current = []
+    if current:
+        chunks.append(" ".join(current))
+    total_words = max(1, len(words))
+    duration = duration or (total_words / 2.35)
     entries = []
-    t = 0
-    entries.append((t, t + 4, lesson["title"]))
-    t += 4
-    entries.append((t, t + 4, lesson["hook"]))
-    t += 4
-    entries.append((t, t + 5, lesson["concept"]))
-    t += 5
-    for step in lesson["steps"]:
-        entries.append((t, t + 5, step["heading"] + ". " + step["body"]))
-        t += 5
-    choices = "  ".join(f"{chr(65+i)}: {v}" for i, v in enumerate(lesson["options"]))
-    entries.append((t, t + 7, "Pause and answer: " + lesson["question"] + " " + choices))
-    t += 7
-    entries.append((t, t + 5, "Answer: " + lesson["options"][lesson["answer_index"]] + ". " + lesson["explanation"]))
-    t += 5
-    entries.append((t, t + 4, "Mission complete! Explore, learn and create at Adventure Academy."))
+    cursor = 0.0
+    for chunk in chunks:
+        chunk_words = len(chunk.split())
+        end = cursor + duration * chunk_words / total_words
+        entries.append((cursor, end, chunk))
+        cursor = end
     return "\n\n".join(
         f"{i}\n{stamp(start)} --> {stamp(end)}\n{text}"
         for i, (start, end, text) in enumerate(entries, 1)
@@ -171,9 +174,14 @@ def main():
     shutil.copy2(final_video, silent_video)
     voice_audio = out / "voiceover.wav"
     subprocess.run([
-        espeak, "-v", lesson.get("voice_language", "en-us"), "-s", "160",
-        "-a", "170", "-f", str(out / "voiceover-script.txt"), "-w", str(voice_audio)
+        espeak, "-v", lesson.get("voice_language", "en-us"), "-s", "145",
+        "-a", "135", "-p", "48", "-f", str(out / "voiceover-script.txt"), "-w", str(voice_audio)
     ], cwd=ROOT, check=True)
+    audio_seconds = float(subprocess.check_output([
+        "ffprobe", "-v", "error", "-show_entries", "format=duration",
+        "-of", "default=noprint_wrappers=1:nokey=1", str(voice_audio)
+    ], text=True).strip())
+    (out / "captions.srt").write_text(make_srt(lesson, audio_seconds), encoding="utf-8")
     voiced_video = out / "AdventureAcademyShort-voiced.mp4"
     subprocess.run([
         ffmpeg, "-y", "-i", str(silent_video), "-i", str(voice_audio),
