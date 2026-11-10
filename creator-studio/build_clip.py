@@ -6,6 +6,7 @@ import re
 import shutil
 import subprocess
 import sys
+import urllib.request
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -54,6 +55,30 @@ def make_srt(lesson, duration=None):
     ) + "\n"
 
 
+
+def download_apollo_photos(out):
+    """Download official NASA Apollo 13 archive images for the Apollo lesson only."""
+    assets = out / "assets"
+    assets.mkdir(parents=True, exist_ok=True)
+    images = {
+        "launch.jpg": "S70-34852",
+        "mission-control.jpg": "S70-34902",
+        "earth-return.jpg": "AS13-60-8588",
+        "splashdown.jpg": "S70-35638",
+    }
+    for filename, nasa_id in images.items():
+        target = assets / filename
+        if target.exists() and target.stat().st_size > 20_000:
+            continue
+        url = f"https://images-assets.nasa.gov/image/{nasa_id}/{nasa_id}~large.jpg"
+        request = urllib.request.Request(url, headers={"User-Agent": "AdventureAcademyClipFactory/1.0"})
+        with urllib.request.urlopen(request, timeout=30) as response, target.open("wb") as output:
+            shutil.copyfileobj(response, output)
+        if target.stat().st_size < 20_000:
+            raise RuntimeError(f"NASA image download looks incomplete: {nasa_id}")
+    return assets
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--lesson", required=True, help="Lesson ID from curriculum.json")
@@ -75,6 +100,7 @@ def main():
         shutil.rmtree(out)
     out.mkdir(parents=True)
     active = out / "active-lesson.json"
+    assets = download_apollo_photos(out) if args.lesson == "apollo-13-rescue" else None
     active.write_text(json.dumps(lesson, ensure_ascii=False, indent=2), encoding="utf-8")
 
     quiz = {
@@ -147,6 +173,8 @@ def main():
 
     env = dict(__import__("os").environ)
     env["ACADEMY_LESSON_FILE"] = str(active)
+    if assets:
+        env["ACADEMY_ASSET_DIR"] = str(assets)
     media = out / "render"
     command = [
         sys.executable, "-m", "manim", "-ql",
@@ -164,19 +192,46 @@ def main():
     final_video = out / "AdventureAcademyShort.mp4"
     shutil.copy2(videos[0], final_video)
 
-    # Generate a zero-cost offline narration track with eSpeak NG, then mux it
-    # into the rendered animation. Keep a silent copy and WAV for review.
+    # Prefer a free, offline Piper neural voice for warmer, more natural narration.
+    # Fall back to a slower, softer eSpeak voice if the model cannot be fetched.
     espeak = shutil.which("espeak-ng")
     ffmpeg = shutil.which("ffmpeg")
-    if not espeak or not ffmpeg:
-        raise SystemExit("Audio tools are missing. Install espeak-ng and ffmpeg.")
+    if not ffmpeg:
+        raise SystemExit("ffmpeg is missing.")
     silent_video = out / "AdventureAcademyShort-silent.mp4"
     shutil.copy2(final_video, silent_video)
     voice_audio = out / "voiceover.wav"
-    subprocess.run([
-        espeak, "-v", lesson.get("voice_language", "en-us"), "-s", "145",
-        "-a", "135", "-p", "48", "-f", str(out / "voiceover-script.txt"), "-w", str(voice_audio)
-    ], cwd=ROOT, check=True)
+    spoken_script = (out / "voiceover-script.txt").read_text(encoding="utf-8")
+    piper_model = out / "en_US-amy-medium.onnx"
+    piper_config = out / "en_US-amy-medium.onnx.json"
+    try:
+        for path, url in [
+            (piper_model, "https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/amy/medium/en_US-amy-medium.onnx"),
+            (piper_config, "https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/amy/medium/en_US-amy-medium.onnx.json"),
+        ]:
+            request = urllib.request.Request(url, headers={"User-Agent": "AdventureAcademyClipFactory/1.0"})
+            with urllib.request.urlopen(request, timeout=60) as response, path.open("wb") as output:
+                shutil.copyfileobj(response, output)
+        subprocess.run([
+            sys.executable, "-m", "piper", "--model", str(piper_model),
+            "--output_file", str(voice_audio), "--length-scale", "1.12",
+            "--sentence-silence", "0.28",
+        ], input=spoken_script, text=True, cwd=ROOT, check=True)
+        (out / "voiceover-engine.txt").write_text(
+            "Piper neural voice: en_US-amy-medium (offline, open-source model).\n",
+            encoding="utf-8",
+        )
+    except Exception as error:
+        if not espeak:
+            raise SystemExit(f"Offline voice setup failed and eSpeak NG is unavailable: {error}")
+        subprocess.run([
+            espeak, "-v", "en-us+f3", "-s", "132", "-a", "112", "-p", "43",
+            "-f", str(out / "voiceover-script.txt"), "-w", str(voice_audio)
+        ], cwd=ROOT, check=True)
+        (out / "voiceover-engine.txt").write_text(
+            "Fallback voice: eSpeak NG, slower and softer settings; still synthetic.\n",
+            encoding="utf-8",
+        )
     audio_seconds = float(subprocess.check_output([
         "ffprobe", "-v", "error", "-show_entries", "format=duration",
         "-of", "default=noprint_wrappers=1:nokey=1", str(voice_audio)
