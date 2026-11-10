@@ -34,6 +34,24 @@ def fit_paragraph(text, size=29, color=WHITE, max_width=3.8):
         mob.scale_to_fit_height(3.7)
     return mob
 
+def pixel_sprite(pattern, palette, pixel=0.11):
+    """Build a small, original pixel-art sprite from a character grid."""
+    cells = VGroup()
+    height = len(pattern)
+    for row, line in enumerate(pattern):
+        for col, symbol in enumerate(line):
+            if symbol == ".":
+                continue
+            square = Square(side_length=pixel, stroke_width=0)
+            square.set_fill(palette[symbol], opacity=1)
+            square.move_to([
+                (col - (len(line) - 1) / 2) * pixel,
+                ((height - 1) / 2 - row) * pixel,
+                0,
+            ])
+            cells.add(square)
+    return cells
+
 
 class AcademyLessonShort(Scene):
     def construct(self):
@@ -44,6 +62,40 @@ class AcademyLessonShort(Scene):
         brand = fit_line("ADVENTURE OF EDUCATION", 20, TEAL, BOLD, 4.0)
         brand.to_edge(UP, buff=0.42)
         self.add(brand)
+
+        # A short visual cold-open: original pixel-art rocket and Moon.
+        # Keep it simple and locally rendered; no stock footage or paid assets.
+        rocket = pixel_sprite([
+            "....W....",
+            "...WWW...",
+            "...WRW...",
+            "..RRRRR..",
+            "..RWRWR..",
+            "..RRRRR..",
+            "...B.B...",
+            "..B...B..",
+            ".B.....B.",
+        ], {"W": WHITE, "R": SAND, "B": TEAL}, pixel=0.105)
+        moon = pixel_sprite([
+            "...MMMM...",
+            ".MMMMMMMM.",
+            "MMMMMMMMMM",
+            "MMMMMMMMMM",
+            "MMMMMMMMMM",
+            ".MMMMMMMM.",
+            "...MMMM...",
+        ], {"M": MINT}, pixel=0.105)
+        rocket.move_to(LEFT * 0.72 + UP * 0.55)
+        moon.move_to(RIGHT * 0.95 + UP * 0.55)
+        cold_open = fit_paragraph(
+            "A MOON MISSION. A SUDDEN EMERGENCY. THREE ASTRONAUTS NEED A WAY HOME.",
+            31, SAND, max_width=4.0
+        )
+        cold_open.move_to(DOWN * 1.15)
+        self.play(FadeIn(rocket), FadeIn(moon), run_time=0.55)
+        self.play(rocket.animate.shift(UP * 0.18), FadeIn(cold_open), run_time=0.75)
+        self.wait(1.7)
+        self.play(FadeOut(rocket), FadeOut(moon), FadeOut(cold_open), run_time=0.35)
 
         title = fit_paragraph(lesson["title"], 38, WHITE)
         title.move_to(UP * 1.05)
