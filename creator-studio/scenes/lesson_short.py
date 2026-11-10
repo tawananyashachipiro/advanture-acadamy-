@@ -192,8 +192,8 @@ def great_zimbabwe_pixel_story(scene, index, step):
         wall = pixel_sprite(wall_pattern, stone_palette, pixel=0.105)
         wall.move_to(DOWN * 0.45)
         tower = pixel_sprite(
-            ["....LL....", "...LS SL...", "..LSSSS L..", ".LSSSSSSL.",
-             "LSSSSSSSSL", "SSSSSSSSSS"],
+            ["....LL....", "...LLLL...", "..LLLLLL..", ".LLLLLLLL.",
+             "LLLLLLLLLL", "LLLLLLLLLL"],
             {"L": "#E0D0B8", "S": "#B9A58A"}, pixel=0.085
         ).move_to(RIGHT * 1.05 + UP * 0.45)
         bird = pixel_sprite(
