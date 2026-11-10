@@ -82,6 +82,14 @@ jobs:
             --video-aspect 9:16 \
             --video-count 1
 
+          # MoneyPrinterTurbo writes to HOME, not RUNNER_TEMP. Copy its output
+          # into the artifact staging directory used by upload-artifact.
+          mkdir -p "$RUNNER_TEMP/moneyprinterturbo/storage/tasks"
+          if [ -d "$HOME/.local/share/MoneyPrinterTurbo/storage/tasks" ]; then
+            cp -a "$HOME/.local/share/MoneyPrinterTurbo/storage/tasks/." "$RUNNER_TEMP/moneyprinterturbo/storage/tasks/"
+          fi
+          test -n "$(find "$RUNNER_TEMP/moneyprinterturbo/storage/tasks" -type f -print -quit)"
+
       - name: Save MoneyPrinterTurbo output
         if: ${{ inputs.use_moneyprinterturbo == true }}
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.2
