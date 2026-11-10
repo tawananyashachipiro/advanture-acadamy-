@@ -1,3 +1,4 @@
+# Apollo 13 storyboard includes original animated pixel-art scenes.
 import json
 import os
 from pathlib import Path
