@@ -122,32 +122,55 @@
   "history-great-zimbabwe": {
     "subject": "History",
     "level": "Introductory",
-    "title": "Great Zimbabwe: City of Stone",
-    "hook": "How did people build a remarkable stone city without modern cement?",
-    "concept": "Great Zimbabwe was a major medieval African city and centre of trade and political power. Its dry-stone walls were built without mortar.",
+    "title": "Great Zimbabwe: The Stone City That Connected Africa to the World",
+    "hook": "A city of stone. A network of ocean trade. Who built Great Zimbabwe?",
+    "concept": "Great Zimbabwe was a major Shona city and trading centre in southern Africa. Built and expanded between about 1100 and 1450, it is famous for its carefully fitted granite walls made without mortar.",
     "steps": [
       {
-        "heading": "A thriving centre",
-        "body": "The settlement flourished roughly between the 11th and 15th centuries in the region of present-day Zimbabwe."
+        "heading": "A city on the plateau",
+        "body": "Shona communities built and expanded Great Zimbabwe between about 1100 and 1450. It became a major political and trading centre in southern Africa."
       },
       {
-        "heading": "Stone architecture",
-        "body": "Builders fitted granite blocks together to create impressive curved walls without mortar."
+        "heading": "Walls without cement",
+        "body": "Builders shaped naturally splitting granite into blocks and fitted them in carefully layered, curving walls without mortar."
       },
       {
-        "heading": "Trade and connections",
-        "body": "Archaeological evidence points to long-distance trade links, including connections with the Swahili coast and the wider Indian Ocean world."
+        "heading": "Trade across the ocean",
+        "body": "Archaeologists found imported glass beads, porcelain and coins. These finds show Great Zimbabwe was linked to trade networks reaching the Indian Ocean."
       }
     ],
-    "question": "What made the famous walls of Great Zimbabwe distinctive?",
+    "question": "What is distinctive about Great Zimbabwe's famous stone walls?",
     "options": [
-      "They used modern cement",
-      "They were built with fitted stone and no mortar",
-      "They were made from glass"
+      "They were joined with modern cement",
+      "They were built from fitted stone without mortar",
+      "They were made from fired bricks"
     ],
     "answer_index": 1,
-    "explanation": "Great Zimbabwe's famous dry-stone walls were constructed without mortar.",
-    "voiceover": "Welcome to Great Zimbabwe: City of Stone. Great Zimbabwe became a major centre in southern Africa between about the eleventh and fifteenth centuries. Its builders fitted granite stones together to create impressive walls without mortar. The settlement was also connected to long-distance trade networks. Challenge: what made its famous walls distinctive? They were built from carefully fitted stone without mortar. Discover more African history!"
+    "explanation": "The builders fitted granite stones together in dry-stone walls without mortar.",
+    "voiceover": "A city of stone. A network of ocean trade. Who built Great Zimbabwe? Shona communities built and expanded this remarkable city between about eleven hundred and fourteen fifty. Its builders shaped granite into carefully fitted walls, without using mortar. And this was no isolated settlement. Archaeologists found imported glass beads, porcelain and coins, evidence of links reaching the Indian Ocean. Quick challenge: what made its walls special? They were built from fitted stone without mortar. This is Great Zimbabwe.",
+    "hashtags": [
+      "#GreatZimbabwe",
+      "#ZimbabweHistory",
+      "#AfricanHistory",
+      "#HistoryShorts",
+      "#Archaeology",
+      "#WorldHeritage",
+      "#AdventureOfEducation",
+      "#LearnOnYouTube",
+      "#History"
+    ],
+    "sources": [
+      {
+        "organization": "UNESCO World Heritage Centre",
+        "title": "Great Zimbabwe National Monument",
+        "url": "https://whc.unesco.org/en/list/364/"
+      },
+      {
+        "organization": "The Metropolitan Museum of Art",
+        "title": "Great Zimbabwe (11th–15th Century)",
+        "url": "https://www.metmuseum.org/ja/essays/great-zimbabwe-11th-15th-century"
+      }
+    ]
   },
   "computing-algorithms": {
     "subject": "Computer Science",
