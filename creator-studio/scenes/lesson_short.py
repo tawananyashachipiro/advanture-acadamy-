@@ -63,39 +63,40 @@ class AcademyLessonShort(Scene):
         brand.to_edge(UP, buff=0.42)
         self.add(brand)
 
-        # A short visual cold-open: original pixel-art rocket and Moon.
-        # Keep it simple and locally rendered; no stock footage or paid assets.
-        rocket = pixel_sprite([
-            "....W....",
-            "...WWW...",
-            "...WRW...",
-            "..RRRRR..",
-            "..RWRWR..",
-            "..RRRRR..",
-            "...B.B...",
-            "..B...B..",
-            ".B.....B.",
-        ], {"W": WHITE, "R": SAND, "B": TEAL}, pixel=0.105)
-        moon = pixel_sprite([
-            "...MMMM...",
-            ".MMMMMMMM.",
-            "MMMMMMMMMM",
-            "MMMMMMMMMM",
-            "MMMMMMMMMM",
-            ".MMMMMMMM.",
-            "...MMMM...",
-        ], {"M": MINT}, pixel=0.105)
-        rocket.move_to(LEFT * 0.72 + UP * 0.55)
-        moon.move_to(RIGHT * 0.95 + UP * 0.55)
-        cold_open = fit_paragraph(
-            "A MOON MISSION. A SUDDEN EMERGENCY. THREE ASTRONAUTS NEED A WAY HOME.",
-            31, SAND, max_width=4.0
-        )
-        cold_open.move_to(DOWN * 1.15)
-        self.play(FadeIn(rocket), FadeIn(moon), run_time=0.55)
-        self.play(rocket.animate.shift(UP * 0.18), FadeIn(cold_open), run_time=0.75)
-        self.wait(1.7)
-        self.play(FadeOut(rocket), FadeOut(moon), FadeOut(cold_open), run_time=0.35)
+        if lesson.get("title", "").startswith("Apollo 13:"):
+            # A short visual cold-open: original pixel-art rocket and Moon.
+            # Keep it simple and locally rendered; no stock footage or paid assets.
+            rocket = pixel_sprite([
+                "....W....",
+                "...WWW...",
+                "...WRW...",
+                "..RRRRR..",
+                "..RWRWR..",
+                "..RRRRR..",
+                "...B.B...",
+                "..B...B..",
+                ".B.....B.",
+            ], {"W": WHITE, "R": SAND, "B": TEAL}, pixel=0.105)
+            moon = pixel_sprite([
+                "...MMMM...",
+                ".MMMMMMMM.",
+                "MMMMMMMMMM",
+                "MMMMMMMMMM",
+                "MMMMMMMMMM",
+                ".MMMMMMMM.",
+                "...MMMM...",
+            ], {"M": MINT}, pixel=0.105)
+            rocket.move_to(LEFT * 0.72 + UP * 0.55)
+            moon.move_to(RIGHT * 0.95 + UP * 0.55)
+            cold_open = fit_paragraph(
+                "A MOON MISSION. A SUDDEN EMERGENCY. THREE ASTRONAUTS NEED A WAY HOME.",
+                31, SAND, max_width=4.0
+            )
+            cold_open.move_to(DOWN * 1.15)
+            self.play(FadeIn(rocket), FadeIn(moon), run_time=0.55)
+            self.play(rocket.animate.shift(UP * 0.18), FadeIn(cold_open), run_time=0.75)
+            self.wait(1.7)
+            self.play(FadeOut(rocket), FadeOut(moon), FadeOut(cold_open), run_time=0.35)
 
         title = fit_paragraph(lesson["title"], 38, WHITE)
         title.move_to(UP * 1.05)
