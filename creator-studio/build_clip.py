@@ -91,7 +91,7 @@ def main():
     (out / "voiceover-script.txt").write_text(lesson["voiceover"].strip() + "\n", encoding="utf-8")
     (out / "captions.srt").write_text(make_srt(lesson), encoding="utf-8")
 
-    hashtags = "#AdventureOfEducation #LearnWithMe #Education #" + re.sub(r"[^A-Za-z0-9]", "", lesson["subject"].title())
+    hashtags = " ".join(lesson.get("hashtags", ["#AdventureOfEducation", "#LearnWithMe", "#Education", "#" + re.sub(r"[^A-Za-z0-9]", "", lesson["subject"].title())]))
     sources = lesson.get("sources", [])
     source_lines = [f"- {source['organization']}: {source['title']} — {source['url']}" for source in sources]
     sources_text = "Sources checked:\n" + "\n".join(source_lines) if source_lines else "No source list supplied for this lesson."
