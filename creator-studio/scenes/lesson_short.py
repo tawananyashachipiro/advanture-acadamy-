@@ -158,6 +158,104 @@ def apollo_pixel_story(scene, index, step):
     scene.play(FadeOut(caption), FadeOut(stars), run_time=0.3)
 
 
+
+def great_zimbabwe_pixel_story(scene, index, step):
+    """Original pixel-art scenes for the Great Zimbabwe history Short."""
+    stars = VGroup(*[
+        Dot([((i * 29) % 43) / 11 - 2, ((i * 17) % 61) / 10 - 3.0, 0],
+            radius=0.012, color=PALE)
+        for i in range(36)
+    ])
+    heading = fit_line(step["heading"], 25, SAND, BOLD, max_width=4.0)
+    body = fit_paragraph(step["body"], 21, WHITE, max_width=4.0)
+    caption = VGroup(heading, body).arrange(DOWN, buff=0.2).move_to(DOWN * 2.65)
+    scene.add(stars)
+    scene.play(FadeIn(caption, shift=UP * 0.1), run_time=0.4)
+
+    stone_palette = {"S": "#B9A58A", "D": "#786A59", "L": "#E0D0B8"}
+    wall_pattern = [
+        "SSSSSSSSSSSSSSSS",
+        "DSSSDSSSDSSSDSSS",
+        "SSSSSSSSSSSSSSSS",
+        "SSSDSSSDSSSDSSSS",
+        "SSSSSSSSSSSSSSSS",
+        "DSSSDSSSDSSSDSSS",
+    ]
+
+    if index == 1:
+        hill = Polygon(
+            [-2.0, -0.9, 0], [-1.2, 0.15, 0], [-0.45, 0.85, 0],
+            [0.3, 0.35, 0], [1.25, 0.9, 0], [2.0, -0.75, 0],
+            color="#496C54", fill_color="#496C54", fill_opacity=1
+        )
+        hill.shift(UP * 0.25)
+        wall = pixel_sprite(wall_pattern, stone_palette, pixel=0.105)
+        wall.move_to(DOWN * 0.45)
+        tower = pixel_sprite(
+            ["....LL....", "...LS SL...", "..LSSSS L..", ".LSSSSSSL.",
+             "LSSSSSSSSL", "SSSSSSSSSS"],
+            {"L": "#E0D0B8", "S": "#B9A58A"}, pixel=0.085
+        ).move_to(RIGHT * 1.05 + UP * 0.45)
+        bird = pixel_sprite(
+            ["..WW..", ".WWWW.", "WW.WW.", "..WW..", ".W..W."],
+            {"W": SAND}, pixel=0.085
+        ).move_to(LEFT * 1.15 + UP * 1.25)
+        date = fit_line("SOUTHERN AFRICA • MEDIEVAL ERA", 18, TEAL, BOLD, 4.0)
+        date.move_to(UP * 2.0)
+        scene.play(FadeIn(hill), FadeIn(wall), FadeIn(tower), FadeIn(bird),
+                   FadeIn(date), run_time=0.8)
+        scene.play(wall.animate.shift(RIGHT * 0.18),
+                   tower.animate.shift(UP * 0.12), run_time=1.0, rate_func=smooth)
+        scene.play(FadeOut(hill), FadeOut(wall), FadeOut(tower),
+                   FadeOut(bird), FadeOut(date), run_time=0.45)
+
+    elif index == 2:
+        wall = pixel_sprite(wall_pattern, stone_palette, pixel=0.15)
+        wall.move_to(UP * 0.45)
+        arch = Arc(radius=0.65, angle=PI, color="#E0D0B8", stroke_width=9)
+        arch.move_to(UP * 0.9)
+        label = fit_line("GRANITE • NO MORTAR", 22, TEAL, BOLD)
+        label.move_to(DOWN * 1.15)
+        scene.play(FadeIn(wall), Create(arch), run_time=0.85)
+        scene.play(Indicate(wall, color=SAND, scale_factor=1.04), run_time=0.8)
+        scene.play(FadeIn(label), run_time=0.4)
+        scene.play(FadeOut(wall), FadeOut(arch), FadeOut(label), run_time=0.45)
+
+    else:
+        ocean = VGroup(*[
+            Line(LEFT * 1.9 + DOWN * (0.65 + i * 0.16),
+                 RIGHT * 1.9 + DOWN * (0.65 + i * 0.16),
+                 color=TEAL, stroke_width=2)
+            for i in range(4)
+        ])
+        hull = Polygon(
+            [-1.1, 0.05, 0], [1.15, 0.05, 0], [0.72, -0.35, 0],
+            [-0.65, -0.35, 0], color=SAND, fill_color=SAND, fill_opacity=1
+        )
+        sail = Polygon(
+            [-0.12, 0.1, 0], [-0.12, 1.25, 0], [0.75, 0.1, 0],
+            color=WHITE, fill_color=WHITE, fill_opacity=1
+        )
+        mast = Line([-0.12, -0.05, 0], [-0.12, 1.35, 0], color=SAND, stroke_width=4)
+        beads = VGroup(*[
+            Circle(radius=0.10, color=c, fill_color=c, fill_opacity=1).move_to([x, y, 0])
+            for x, y, c in [
+                (-1.0, 1.1, TEAL), (-0.65, 1.45, SAND), (0.95, 1.2, "#C77B55"),
+                (1.25, 0.8, MINT), (0.65, 1.65, SAND)
+            ]
+        ])
+        route = fit_line("GOLD • BEADS • INDIAN OCEAN TRADE", 18, SAND, BOLD, 4.0)
+        route.move_to(DOWN * 1.35)
+        ship = VGroup(hull, sail, mast)
+        scene.play(FadeIn(ocean), FadeIn(ship), FadeIn(beads), run_time=0.8)
+        scene.play(ship.animate.shift(RIGHT * 0.45), beads.animate.shift(LEFT * 0.12),
+                   run_time=1.25, rate_func=smooth)
+        scene.play(FadeIn(route), run_time=0.45)
+        scene.play(FadeOut(ocean), FadeOut(ship), FadeOut(beads), FadeOut(route), run_time=0.45)
+
+    scene.play(FadeOut(caption), FadeOut(stars), run_time=0.3)
+
+
 class AcademyLessonShort(Scene):
     def construct(self):
         lesson_path = os.environ.get("ACADEMY_LESSON_FILE", "creator-studio/lessons/active-lesson.json")
@@ -230,6 +328,8 @@ class AcademyLessonShort(Scene):
         for index, step in enumerate(lesson["steps"], start=1):
             if is_apollo:
                 apollo_pixel_story(self, index, step)
+            elif lesson.get("title", "").startswith("Great Zimbabwe:"):
+                great_zimbabwe_pixel_story(self, index, step)
             else:
                 number = fit_line(f"DISCOVERY {index}", 23, TEAL, BOLD)
                 heading = fit_paragraph(step["heading"], 38, SAND)
