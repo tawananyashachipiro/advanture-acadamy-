@@ -349,6 +349,112 @@ def antikythera_pixel_story(scene, index, step):
     scene.play(FadeOut(caption), FadeOut(stars), run_time=0.3)
 
 
+
+
+def lightning_physics_story(scene, index, step):
+    """Original animated science illustrations explaining lightning and thunder."""
+    stars = VGroup(*[
+        Dot([((i * 23) % 39) / 10 - 1.9, ((i * 17) % 57) / 10 - 2.8, 0],
+            radius=0.012, color=PALE)
+        for i in range(32)
+    ])
+    heading = fit_line(step["heading"], 24, SAND, BOLD, max_width=4.0)
+    body = fit_paragraph(step["body"], 20, WHITE, max_width=4.0)
+    caption = VGroup(heading, body).arrange(DOWN, buff=0.18).move_to(DOWN * 2.65)
+    scene.add(stars)
+    scene.play(FadeIn(caption, shift=UP * 0.12), run_time=0.4)
+
+    cloud_color = "#7893A8"
+    cloud = VGroup(
+        RoundedRectangle(width=2.75, height=0.72, corner_radius=0.28,
+                         fill_color=cloud_color, fill_opacity=1, stroke_color=PALE),
+        Circle(radius=0.57, fill_color=cloud_color, fill_opacity=1, stroke_color=PALE).shift(LEFT * 0.72 + UP * 0.23),
+        Circle(radius=0.72, fill_color=cloud_color, fill_opacity=1, stroke_color=PALE).shift(UP * 0.34),
+        Circle(radius=0.5, fill_color=cloud_color, fill_opacity=1, stroke_color=PALE).shift(RIGHT * 0.78 + UP * 0.18),
+    ).move_to(UP * 1.35)
+
+    if index == 1:
+        pluses = VGroup(*[
+            Text("+", font_size=34, color=SAND, weight=BOLD).move_to([x, y, 0])
+            for x, y in [(-0.8, 2.05), (0.0, 2.2), (0.8, 1.95), (-0.35, 1.65)]
+        ])
+        minuses = VGroup(*[
+            Text("−", font_size=36, color=TEAL, weight=BOLD).move_to([x, y, 0])
+            for x, y in [(-0.85, 0.85), (0.0, 0.65), (0.8, 0.9), (0.3, 1.1)]
+        ])
+        ice = VGroup(*[
+            Square(side_length=0.16, color=MINT, fill_color=MINT,
+                   fill_opacity=1).rotate(PI / 4).move_to([x, y, 0])
+            for x, y in [(-1.25, 0.2), (-0.45, 0.05), (0.55, 0.25), (1.15, 0.0)]
+        ])
+        arrows = VGroup(*[
+            Arrow([x, 0.1, 0], [x + 0.22, 0.65, 0], color=TEAL,
+                  buff=0, stroke_width=3, max_tip_length_to_length_ratio=0.25)
+            for x in [-0.9, 0.0, 0.9]
+        ])
+        label = fit_line("CHARGE SEPARATION", 21, SAND, BOLD)
+        label.move_to(DOWN * 0.65)
+        scene.play(FadeIn(cloud), run_time=0.55)
+        scene.play(FadeIn(ice), FadeIn(arrows), run_time=0.55)
+        scene.play(FadeIn(pluses), FadeIn(minuses), run_time=0.55)
+        scene.play(Indicate(pluses, color=SAND), Indicate(minuses, color=TEAL), run_time=0.65)
+        scene.play(FadeIn(label), run_time=0.35)
+        scene.play(FadeOut(cloud), FadeOut(ice), FadeOut(arrows), FadeOut(pluses),
+                   FadeOut(minuses), FadeOut(label), run_time=0.45)
+
+    elif index == 2:
+        ground = Polygon([-2.2, -1.65, 0], [2.2, -1.65, 0],
+                         [2.2, -2.0, 0], [-2.2, -2.0, 0],
+                         fill_color="#315B45", fill_opacity=1, stroke_width=0)
+        bolt = Polygon(
+            [-0.12, 0.95, 0], [0.32, 0.95, 0], [-0.02, 0.25, 0],
+            [0.42, 0.25, 0], [-0.38, -1.0, 0], [-0.22, -0.18, 0],
+            [-0.58, -0.18, 0],
+            color=SAND, fill_color=SAND, fill_opacity=1, stroke_width=2
+        )
+        branches = VGroup(
+            Line([-0.1, 0.35, 0], [-0.85, -0.1, 0], color=SAND, stroke_width=5),
+            Line([0.03, -0.05, 0], [0.72, -0.55, 0], color=SAND, stroke_width=5),
+            Line([-0.28, -0.48, 0], [-0.8, -0.9, 0], color=SAND, stroke_width=4)
+        )
+        label = fit_line("A BRANCHING ELECTRICAL DISCHARGE", 18, SAND, BOLD, 4.1)
+        label.move_to(DOWN * 1.35)
+        scene.play(FadeIn(cloud), FadeIn(ground), run_time=0.55)
+        scene.play(Create(bolt), run_time=0.45)
+        scene.play(Create(branches), run_time=0.55)
+        scene.play(Flash(bolt.get_center(), color=WHITE, flash_radius=1.0),
+                   Indicate(bolt, color=WHITE, scale_factor=1.08), run_time=0.65)
+        scene.play(FadeIn(label), run_time=0.35)
+        scene.play(FadeOut(cloud), FadeOut(ground), FadeOut(bolt),
+                   FadeOut(branches), FadeOut(label), run_time=0.45)
+
+    else:
+        bolt = Polygon(
+            [-0.1, 1.05, 0], [0.28, 1.05, 0], [-0.02, 0.35, 0],
+            [0.38, 0.35, 0], [-0.4, -0.75, 0], [-0.22, -0.02, 0],
+            [-0.56, -0.02, 0], color=SAND, fill_color=SAND,
+            fill_opacity=1, stroke_width=1
+        )
+        waves = VGroup(*[
+            Arc(radius=0.55 + i * 0.3, angle=PI * 0.8, color=TEAL,
+                stroke_width=4).move_to([0.15, 0.0, 0])
+            for i in range(4)
+        ])
+        speed_light = fit_line("LIGHT: ARRIVES FIRST", 19, SAND, BOLD)
+        speed_sound = fit_line("SOUND: FOLLOWS AS THUNDER", 18, TEAL, BOLD, 4.0)
+        speed_light.move_to(DOWN * 1.1)
+        speed_sound.move_to(DOWN * 1.55)
+        scene.play(FadeIn(cloud), FadeIn(bolt), run_time=0.6)
+        scene.play(Flash(bolt.get_center(), color=WHITE, flash_radius=0.9), run_time=0.45)
+        scene.play(Create(waves), run_time=1.0)
+        scene.play(waves.animate.scale(1.18), FadeIn(speed_light), run_time=0.65)
+        scene.play(FadeIn(speed_sound), run_time=0.4)
+        scene.play(FadeOut(cloud), FadeOut(bolt), FadeOut(waves),
+                   FadeOut(speed_light), FadeOut(speed_sound), run_time=0.45)
+
+    scene.play(FadeOut(caption), FadeOut(stars), run_time=0.3)
+
+
 class AcademyLessonShort(Scene):
     def construct(self):
         lesson_path = os.environ.get("ACADEMY_LESSON_FILE", "creator-studio/lessons/active-lesson.json")
@@ -425,6 +531,8 @@ class AcademyLessonShort(Scene):
                 great_zimbabwe_pixel_story(self, index, step)
             elif lesson.get("title", "").startswith("The Antikythera Mechanism:"):
                 antikythera_pixel_story(self, index, step)
+            elif lesson.get("title", "").startswith("Lightning Explained:"):
+                lightning_physics_story(self, index, step)
             else:
                 number = fit_line(f"DISCOVERY {index}", 23, TEAL, BOLD)
                 heading = fit_paragraph(step["heading"], 38, SAND)
