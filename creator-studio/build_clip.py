@@ -149,9 +149,9 @@ def main():
 
     pinned_comment = lesson.get("pinned_comment")
     if pinned_comment:
-        (out / "pinned-comment.txt").write_text(pinned_comment + "\\n", encoding="utf-8")
+        (out / "pinned-comment.txt").write_text(pinned_comment + "\n", encoding="utf-8")
     metadata["pinned_comment"] = pinned_comment
-    (out / "youtube-metadata.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    (out / "youtube-metadata.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
     if args.lesson == "physics-lightning-explained":
