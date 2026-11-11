@@ -195,6 +195,32 @@ def main():
 </svg>'''
         (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
 
+    if args.lesson == "physics-lightning-explained":
+        from PIL import Image, ImageDraw, ImageFont
+        photo = Image.open(assets / "lightning-noaa.jpg").convert("RGB")
+        target_ratio = 16 / 9
+        width, height = photo.size
+        if width / height > target_ratio:
+            crop_w = int(height * target_ratio)
+            left = (width - crop_w) // 2
+            photo = photo.crop((left, 0, left + crop_w, height))
+        else:
+            crop_h = int(width / target_ratio)
+            top = (height - crop_h) // 2
+            photo = photo.crop((0, top, width, top + crop_h))
+        photo = photo.resize((1280, 720))
+        overlay = Image.new("RGBA", photo.size, (3, 15, 32, 105))
+        photo = Image.alpha_composite(photo.convert("RGBA"), overlay)
+        draw = ImageDraw.Draw(photo)
+        draw.rectangle((0, 0, 1280, 112), fill=(3, 15, 32, 190))
+        draw.text((58, 35), "ADVENTURE OF EDUCATION", fill=(139, 226, 210, 255))
+        draw.text((58, 475), "LIGHTNING!", fill=(255, 255, 255, 255),
+                  stroke_width=3, stroke_fill=(4, 18, 35, 255))
+        draw.text((62, 565), "THE SCIENCE BEHIND THE FLASH",
+                  fill=(255, 212, 92, 255), stroke_width=2,
+                  stroke_fill=(4, 18, 35, 255))
+        photo.convert("RGB").save(out / "thumbnail.jpg", quality=92)
+
     (out / "REVIEW-CHECKLIST.txt").write_text(
         "Before uploading:\n"
         "[ ] Watch the complete MP4.\n"
