@@ -34,6 +34,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Compile creator Python and validate lesson curriculum
+        run: |
+          python -m compileall -q creator-studio
+          python -m json.tool creator-studio/lessons/curriculum.json > /dev/null
+
       - name: Scan tracked files for common secret patterns
         shell: bash
         run: |
