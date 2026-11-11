@@ -579,6 +579,7 @@ def sky_blue_pixel_story(scene, index, step):
     heading = fit_line(step["heading"], 24, SAND, BOLD, max_width=4.0)
     body = fit_paragraph(step["body"], 20, WHITE, max_width=3.95)
     caption = VGroup(heading, body).arrange(DOWN, buff=0.16).move_to(DOWN * 2.62)
+    scene.play(FadeIn(caption, shift=UP * 0.12), run_time=0.45)
 
     if index == 1:
         sun = Circle(radius=0.48, color=SAND, fill_color=SAND, fill_opacity=1)
@@ -677,7 +678,6 @@ def sky_blue_pixel_story(scene, index, step):
         scene.play(FadeOut(sun), FadeOut(horizon), FadeOut(path),
                    FadeOut(blue_dots), FadeOut(label), run_time=0.4)
 
-    scene.play(FadeIn(caption, shift=UP * 0.12), run_time=0.45)
     scene.wait(1.0)
     scene.play(FadeOut(caption), run_time=0.35)
 
