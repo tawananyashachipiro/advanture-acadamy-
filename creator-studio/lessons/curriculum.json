@@ -568,5 +568,71 @@
       }
     ],
     "pinned_comment": "⚡ Did you know thunder is caused by super-heated air expanding around a lightning channel? What other weather mystery should we explain next?"
+  },
+  "hubble-repair-mission": {
+    "subject": "Space Science & Engineering",
+    "level": "Intermediate",
+    "title": "Hubble's Blurry Vision: The Space Repair That Saved a Telescope",
+    "hook": "Hubble sent blurry pictures from space. Could astronauts fix its vision without bringing it home?",
+    "concept": "Soon after launch, Hubble's primary mirror was found to have spherical aberration. During the 1993 STS-61 servicing mission, astronauts installed corrective optics that restored the telescope's ability to make sharp images.",
+    "steps": [
+      {
+        "heading": "A tiny flaw, a huge blur",
+        "body": "After Hubble's 1990 deployment, investigators found its main mirror's outer edge was 2.2 microns too flat—about one-fiftieth the thickness of a human hair. This spherical aberration made incoming light miss a single focus."
+      },
+      {
+        "heading": "A repair crew in orbit",
+        "body": "On 2 December 1993, Space Shuttle Endeavour launched mission STS-61. Astronauts completed five spacewalks totalling 35 hours and 28 minutes while replacing and upgrading telescope instruments."
+      },
+      {
+        "heading": "Hubble sees clearly",
+        "body": "The new Wide Field and Planetary Camera 2 included built-in corrective optics. COSTAR used small mirrors to correct light for other instruments. Together, the optical fixes brought Hubble's images into focus."
+      }
+    ],
+    "question": "What was the optical flaw in Hubble's original mirror called?",
+    "options": [
+      "Spherical aberration",
+      "Solar parallax",
+      "Chromatic dispersion"
+    ],
+    "answer_index": 0,
+    "explanation": "Spherical aberration happens when a mirror's shape causes incoming light to focus at more than one point, making images blurry.",
+    "voiceover": "A telescope in space sent back blurry images. Could astronauts fix it without bringing it home? Hubble's main mirror had a tiny curve error: its outer edge was just 2.2 microns too flat, about one-fiftieth the thickness of a human hair. NASA called the problem spherical aberration. On December second, 1993, Space Shuttle Endeavour launched mission STS-sixty-one. Astronauts completed five spacewalks, totalling thirty-five hours and twenty-eight minutes. They installed a new camera with built-in corrective optics and COSTAR, a package of small mirrors that corrected light for other instruments. Hubble's images came into focus. Quick challenge: what was the flaw called? Spherical aberration. A tiny mirror error, an extraordinary repair.",
+    "hashtags": [
+      "#Hubble",
+      "#NASA",
+      "#SpaceHistory",
+      "#SpaceScience",
+      "#Astronomy",
+      "#Engineering",
+      "#STEM",
+      "#AdventureOfEducation",
+      "#YouTubeShorts"
+    ],
+    "pinned_comment": "A tiny mirror error caused a huge blur. Which part of the repair surprised you most: the new camera, the corrective mirrors, or five spacewalks?",
+    "thumbnail_guidance": "Use the original pixel-art Hubble telescope and one astronaut silhouette. Main headline: FIXING HUBBLE IN SPACE. Small supporting line: FIVE SPACEWALKS • 35H 28M. Keep the headline large, high-contrast and inside safe margins. Do not imply the astronauts physically reshaped the mirror; they installed corrective optics.",
+    "fact_check_notes": "FACT CHECK\n- The primary mirror's outer edge was 2.2 microns too flat (about one-fiftieth of a human hair's thickness); NASA identifies the optical flaw as spherical aberration. Source: NASA Science, Hubble Servicing Mission 1 and Hubble's Mirror Flaw.\n- STS-61 launched aboard Space Shuttle Endeavour on 2 December 1993. The mission involved five spacewalks totalling 35 hours and 28 minutes. Source: NASA Science, Servicing Mission 1; NASA History, 30 Years Ago: STS-61.\n- WFPC2 included built-in corrective optics; COSTAR used corrective mirrors for other instruments. The astronauts installed both during the first servicing mission. Sources: NASA Science, Servicing Mission 1 and Hubble's Mirror Flaw.\n- NASA/JPL reported in January 1994 that the telescope's desired imaging performance had been restored. Source: NASA Jet Propulsion Laboratory, Hubble Adjustments and Tests Completed.",
+    "sources": [
+      {
+        "organization": "NASA Science",
+        "title": "Servicing Mission 1 (SM1)",
+        "url": "https://science.nasa.gov/mission/hubble/observatory/missions-to-hubble/servicing-mission-1/"
+      },
+      {
+        "organization": "NASA Science",
+        "title": "Hubble's Mirror Flaw",
+        "url": "https://science.nasa.gov/mission/hubble/observatory/design/optics/hubbles-mirror-flaw/"
+      },
+      {
+        "organization": "NASA History",
+        "title": "30 Years Ago: STS-61, the First Hubble Servicing Mission",
+        "url": "https://www.nasa.gov/history/30-years-ago-sts-61-the-first-hubble-servicing-mission/"
+      },
+      {
+        "organization": "NASA Jet Propulsion Laboratory",
+        "title": "Hubble Adjustments and Tests Completed (13 January 1994)",
+        "url": "https://www.jpl.nasa.gov/news/hubble-adjustments-and-tests-completed/"
+      }
+    ]
   }
 }

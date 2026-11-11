@@ -461,6 +461,117 @@ def lightning_physics_story(scene, index, step):
     scene.play(FadeOut(caption), run_time=0.4)
 
 
+
+
+def hubble_pixel_story(scene, index, step):
+    """Original pixel-art scenes for Hubble's first in-orbit repair."""
+    stars = VGroup(*[
+        Dot([((i * 31) % 41) / 10 - 2, ((i * 17) % 59) / 10 - 3.0, 0],
+            radius=0.012, color=PALE)
+        for i in range(38)
+    ])
+    heading = fit_line(step["heading"], 25, SAND, BOLD, max_width=4.0)
+    body = fit_paragraph(step["body"], 21, WHITE, max_width=4.0)
+    caption = VGroup(heading, body).arrange(DOWN, buff=0.2).move_to(DOWN * 2.55)
+    scene.add(stars)
+    scene.play(FadeIn(caption, shift=UP * 0.1), run_time=0.4)
+
+    if index == 1:
+        mirror = pixel_sprite(
+            ["....SSSS....", "...SSSSSS...", "..SSSSSSSS..",
+             ".SSSSSSSSSS.", "SSSSSSSSSSSS"],
+            {"S": "#C9D8E5"}, pixel=0.12
+        ).move_to(UP * 0.78)
+        incoming = VGroup(*[
+            Line([x, 2.35, 0], [x, 1.15, 0], color=SAND, stroke_width=3)
+            for x in [-0.82, 0, 0.82]
+        ])
+        foci = VGroup(
+            Dot(LEFT * 0.36 + DOWN * 0.12, radius=0.09, color=TEAL),
+            Dot(RIGHT * 0.36 + DOWN * 0.12, radius=0.09, color=TEAL)
+        )
+        blur = VGroup(*[
+            Circle(radius=0.14 + i * 0.09, color=WHITE, stroke_width=2)
+            .move_to(DOWN * 0.12)
+            for i in range(3)
+        ])
+        label = fit_line("2.2 MICRONS TOO FLAT", 21, TEAL, BOLD, 4.0)
+        label.move_to(DOWN * 1.25)
+        scene.play(FadeIn(incoming), FadeIn(mirror), run_time=0.75)
+        scene.play(FadeIn(foci), FadeIn(blur), run_time=0.65)
+        scene.play(Indicate(mirror, color=SAND), FadeIn(label), run_time=0.75)
+        scene.play(FadeOut(incoming), FadeOut(mirror), FadeOut(foci),
+                   FadeOut(blur), FadeOut(label), run_time=0.45)
+
+    elif index == 2:
+        body_sprite = pixel_sprite(
+            ["..BBBBBBBB..", "BBBBBBBBBBBB", "..BBBBBBBB.."],
+            {"B": "#DCE6EF"}, pixel=0.09
+        ).move_to(RIGHT * 0.45 + UP * 0.78)
+        left_panel = pixel_sprite(
+            ["PPPPPP", "LLLLLL", "PPPPPP", "LLLLLL"],
+            {"P": "#1D5C7A", "L": "#72C9D8"}, pixel=0.12
+        ).move_to(LEFT * 0.88 + UP * 0.78)
+        right_panel = pixel_sprite(
+            ["PPPPPP", "LLLLLL", "PPPPPP", "LLLLLL"],
+            {"P": "#1D5C7A", "L": "#72C9D8"}, pixel=0.12
+        ).move_to(RIGHT * 1.75 + UP * 0.78)
+        telescope = VGroup(body_sprite, left_panel, right_panel)
+        shuttle = pixel_sprite(
+            ["....WW....", "...WWWW...", "WWWWWWWWWW",
+             ".WWWWWWWW.", "..W....W.."],
+            {"W": WHITE}, pixel=0.075
+        ).move_to(UP * 2.0 + LEFT * 0.1)
+        astronaut = pixel_sprite(
+            ["..WWW..", ".WSSSW.", "WSSSSSW", ".WWWWW.",
+             "..W.W..", ".W...W."],
+            {"W": WHITE, "S": SAND}, pixel=0.11
+        ).move_to(LEFT * 1.25 + DOWN * 0.12)
+        arm = Line(astronaut.get_right(), telescope.get_left(),
+                   color=TEAL, stroke_width=4)
+        label = fit_line("STS-61 • FIVE SPACEWALKS", 20, SAND, BOLD, 4.0)
+        label.move_to(DOWN * 1.35)
+        scene.play(FadeIn(shuttle), FadeIn(telescope), FadeIn(astronaut),
+                   Create(arm), run_time=0.85)
+        scene.play(astronaut.animate.shift(RIGHT * 0.28), run_time=0.9,
+                   rate_func=smooth)
+        scene.play(Indicate(telescope, color=SAND), FadeIn(label), run_time=0.7)
+        scene.play(FadeOut(shuttle), FadeOut(telescope), FadeOut(astronaut),
+                   FadeOut(arm), FadeOut(label), run_time=0.45)
+
+    else:
+        telescope = pixel_sprite(
+            ["....BBBBBBBB....", "...BBBBBBBBBB...",
+             "BBBBBBBBBBBBBBBB", "...BBBBBBBBBB...",
+             "....BBBBBBBB...."],
+            {"B": "#C9D8E5"}, pixel=0.075
+        ).move_to(LEFT * 0.72 + UP * 0.95)
+        lens = Circle(radius=0.38, color=TEAL, stroke_width=6).move_to(RIGHT * 0.78 + UP * 0.95)
+        rays = VGroup(*[
+            Line([x, 1.9, 0], [0.35, 0.95, 0], color=SAND, stroke_width=3)
+            for x in [-1.55, -1.1, -0.65]
+        ])
+        focus = VGroup(
+            Circle(radius=0.12, color=SAND, fill_color=SAND, fill_opacity=1)
+                .move_to(RIGHT * 1.55 + UP * 0.95),
+            Line(RIGHT * 1.25 + UP * 0.95, RIGHT * 1.85 + UP * 0.95,
+                 color=WHITE, stroke_width=3),
+            Line(RIGHT * 1.55 + UP * 0.65, RIGHT * 1.55 + UP * 1.25,
+                 color=WHITE, stroke_width=3)
+        )
+        label = fit_line("WFPC2 + COSTAR • LIGHT IN FOCUS", 18, SAND, BOLD, 4.0)
+        label.move_to(DOWN * 1.35)
+        scene.play(FadeIn(telescope), FadeIn(lens), run_time=0.75)
+        scene.play(Create(rays), run_time=0.85)
+        scene.play(FadeIn(focus), Indicate(lens, color=TEAL), run_time=0.75)
+        scene.play(FadeIn(label), run_time=0.4)
+        scene.play(FadeOut(telescope), FadeOut(lens), FadeOut(rays),
+                   FadeOut(focus), FadeOut(label), run_time=0.45)
+
+    scene.play(FadeOut(caption), FadeOut(stars), run_time=0.3)
+
+
+
 class AcademyLessonShort(Scene):
     def construct(self):
         lesson_path = os.environ.get("ACADEMY_LESSON_FILE", "creator-studio/lessons/active-lesson.json")
@@ -471,7 +582,9 @@ class AcademyLessonShort(Scene):
         brand.to_edge(UP, buff=0.42)
         self.add(brand)
 
-        if lesson.get("title", "").startswith("Apollo 13:"):
+        is_apollo = lesson.get("title", "").startswith("Apollo 13:")
+        is_hubble = lesson.get("title", "").startswith("Hubble's Blurry Vision:")
+        if is_apollo:
             # A short visual cold-open: original pixel-art rocket and Moon.
             # Keep it simple and locally rendered; no stock footage or paid assets.
             rocket = pixel_sprite([
@@ -505,6 +618,28 @@ class AcademyLessonShort(Scene):
             self.play(rocket.animate.shift(UP * 0.18), FadeIn(cold_open), run_time=0.75)
             self.wait(1.7)
             self.play(FadeOut(rocket), FadeOut(moon), FadeOut(cold_open), run_time=0.35)
+        elif is_hubble:
+            telescope = pixel_sprite(
+                ["....BBBBBBBB....", "...BBBBBBBBBB...",
+                 "BBBBBBBBBBBBBBBB", "...BBBBBBBBBB...",
+                 "....BBBBBBBB...."],
+                {"B": "#C9D8E5"}, pixel=0.085
+            ).move_to(UP * 0.8)
+            astronaut = pixel_sprite(
+                ["..WWW..", ".WSSSW.", "WSSSSSW", ".WWWWW.",
+                 "..W.W..", ".W...W."],
+                {"W": WHITE, "S": SAND}, pixel=0.12
+            ).move_to(LEFT * 1.15 + DOWN * 0.45)
+            cold_open = fit_paragraph(
+                "BLURRY SPACE IMAGES. A REPAIR CREW IN ORBIT.",
+                30, SAND, max_width=4.0
+            ).move_to(DOWN * 1.55)
+            self.play(FadeIn(telescope), FadeIn(astronaut), run_time=0.65)
+            self.play(astronaut.animate.shift(RIGHT * 0.25), FadeIn(cold_open),
+                      run_time=0.85, rate_func=smooth)
+            self.wait(1.3)
+            self.play(FadeOut(telescope), FadeOut(astronaut), FadeOut(cold_open),
+                      run_time=0.35)
 
         title = fit_paragraph(lesson["title"], 38, WHITE)
         title.move_to(UP * 1.05)
@@ -537,6 +672,8 @@ class AcademyLessonShort(Scene):
                 great_zimbabwe_pixel_story(self, index, step)
             elif lesson.get("title", "").startswith("The Antikythera Mechanism:"):
                 antikythera_pixel_story(self, index, step)
+            elif is_hubble:
+                hubble_pixel_story(self, index, step)
             elif lesson.get("title", "").startswith("Lightning Explained:"):
                 lightning_physics_story(self, index, step)
             else:
@@ -571,6 +708,14 @@ class AcademyLessonShort(Scene):
             end_card = VGroup(
                 fit_line("THREE ASTRONAUTS. ONE SAFE RETURN.", 23, SAND, BOLD, max_width=4.0),
                 fit_line("PACIFIC OCEAN • 17 APRIL 1970", 20, WHITE, BOLD),
+            ).arrange(DOWN, buff=0.28).move_to(UP * 0.6)
+            self.play(FadeIn(end_card), run_time=0.6)
+            self.wait(0.7)
+            self.play(FadeOut(end_card), run_time=0.35)
+        elif is_hubble:
+            end_card = VGroup(
+                fit_line("FIVE SPACEWALKS. A CLEARER VIEW.", 22, SAND, BOLD, max_width=4.0),
+                fit_line("STS-61 • DECEMBER 1993", 20, WHITE, BOLD),
             ).arrange(DOWN, buff=0.28).move_to(UP * 0.6)
             self.play(FadeIn(end_card), run_time=0.6)
             self.wait(0.7)

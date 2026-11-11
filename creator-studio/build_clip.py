@@ -140,6 +140,12 @@ def main():
     sources_text = "Sources checked:\n" + "\n".join(source_lines) if source_lines else "No source list supplied for this lesson."
     if sources:
         (out / "sources.txt").write_text(sources_text + "\n", encoding="utf-8")
+    fact_check_notes = lesson.get("fact_check_notes")
+    if fact_check_notes:
+        (out / "FACT-CHECK-NOTES.txt").write_text(fact_check_notes.strip() + "\n", encoding="utf-8")
+    thumbnail_guidance = lesson.get("thumbnail_guidance")
+    if thumbnail_guidance:
+        (out / "thumbnail-guidance.txt").write_text(thumbnail_guidance.strip() + "\n", encoding="utf-8")
 
     description = (
         f"{lesson['title']}\n\n{lesson['concept']}\n\n"
@@ -158,6 +164,9 @@ def main():
         "description": description,
         "hashtags": hashtags,
         "sources": sources,
+        "hook": lesson.get("hook"),
+        "fact_check_notes": fact_check_notes,
+        "thumbnail_guidance": thumbnail_guidance,
         "review_before_publishing": True,
         "publishing": "Manual upload after channel-owner review; no credentials stored in GitHub.",
     }
@@ -180,6 +189,19 @@ def main():
 <text x="75" y="90" fill="#8BE2D2" font-family="Arial,sans-serif" font-size="40" font-weight="bold">ADVENTURE OF EDUCATION</text>
 <text x="75" y="590" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="72" font-weight="bold">LIGHTNING!</text>
 <text x="80" y="660" fill="#FFD45C" font-family="Arial,sans-serif" font-size="36" font-weight="bold">THE SCIENCE BEHIND THE FLASH</text>
+</svg>"""
+        (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
+    elif args.lesson == "hubble-repair-mission":
+        svg = """<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<defs><linearGradient id="space" x2="0" y2="1"><stop stop-color="#06172B"/><stop offset="1" stop-color="#163A59"/></linearGradient></defs>
+<rect width="1280" height="720" fill="url(#space)"/>
+<g fill="#D8F1EC" opacity=".8"><circle cx="105" cy="180" r="4"/><circle cx="330" cy="110" r="5"/><circle cx="560" cy="230" r="3"/><circle cx="1120" cy="160" r="5"/><circle cx="990" cy="510" r="4"/><circle cx="760" cy="95" r="3"/></g>
+<g stroke="#D8F1EC" stroke-width="7" fill="none"><rect x="770" y="235" width="260" height="82" rx="8" fill="#AFC2D1"/><rect x="650" y="220" width="105" height="112" fill="#1D5C7A"/><rect x="1045" y="220" width="105" height="112" fill="#1D5C7A"/></g>
+<g fill="#72C9D8"><path d="M665 230h76v12h-76zm0 28h76v12h-76zm0 28h76v12h-76zm392-56h76v12h-76zm0 28h76v12h-76zm0 28h76v12h-76z"/></g>
+<g fill="#FFFFFF" stroke="#0F2238" stroke-width="5"><circle cx="540" cy="300" r="42"/><rect x="510" y="342" width="60" height="120" rx="12"/><path d="M510 375l-60 60 18 18 65-47zm60 0l58 58-18 18-62-45z"/></g>
+<text x="70" y="92" fill="#8BE2D2" font-family="Arial,sans-serif" font-size="38" font-weight="bold">ADVENTURE OF EDUCATION</text>
+<text x="70" y="545" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="78" font-weight="bold">FIXING HUBBLE</text>
+<text x="74" y="625" fill="#FFD27A" font-family="Arial,sans-serif" font-size="42" font-weight="bold">IN SPACE • FIVE SPACEWALKS</text>
 </svg>"""
         (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
     else:

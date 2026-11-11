@@ -23,6 +23,7 @@ on:
           - science-states-matter
           - library-source-check
           - apollo-13-rescue
+          - hubble-repair-mission
       use_moneyprinterturbo:
         description: "Also run the optional local-only MoneyPrinterTurbo finishing pass (uses extra Actions minutes)"
         required: false
