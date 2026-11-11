@@ -445,5 +445,63 @@
       "#HistoryShorts",
       "#ScienceShorts"
     ]
+  },
+  "history-antikythera-mechanism": {
+    "subject": "History and Technology",
+    "level": "Introductory",
+    "title": "The Antikythera Mechanism: A 2,000-Year-Old Computer",
+    "hook": "A shipwreck hides a 2,000-year-old machine. Could it predict the sky?",
+    "concept": "The Antikythera Mechanism was an ancient Greek geared device, built around 150–100 BCE. It used interlocking bronze gears and dials to calculate astronomical cycles, including the movements of the Sun and Moon and the timing of eclipses.",
+    "steps": [
+      {
+        "heading": "A discovery beneath the sea",
+        "body": "In 1901, sponge divers recovered strange bronze fragments from an ancient shipwreck near the Greek island of Antikythera."
+      },
+      {
+        "heading": "A machine of tiny gears",
+        "body": "Researchers identified about 30 toothed gears, dials and Greek inscriptions. The surviving device is preserved in 82 fragments."
+      },
+      {
+        "heading": "Predicting the sky",
+        "body": "Turning its mechanism moved pointers that displayed astronomical cycles, including the Sun, Moon and eclipse predictions."
+      }
+    ],
+    "question": "What made the Antikythera Mechanism so remarkable?",
+    "options": [
+      "It used gears to calculate astronomical cycles",
+      "It was powered by electricity",
+      "It sent messages across the sea"
+    ],
+    "answer_index": 0,
+    "explanation": "Its interlocking gears converted cycles into useful calendar and astronomical predictions.",
+    "voiceover": "A shipwreck hides a two-thousand-year-old machine. Could it predict the sky? In 1901, sponge divers found strange bronze fragments in an ancient shipwreck near the Greek island of Antikythera. Scientists discovered a complex device with about thirty toothed gears, dials and Greek inscriptions. Its moving pointers displayed astronomical cycles, including the movements of the Sun and Moon, and helped predict eclipses. It was built more than two thousand years ago, yet it worked like a mechanical calculator. Quick challenge: what made it remarkable? Interlocking gears that calculated the sky. Ancient engineering was astonishing!",
+    "hashtags": [
+      "#AntikytheraMechanism",
+      "#AncientTechnology",
+      "#AncientGreece",
+      "#HistoryShorts",
+      "#ScienceHistory",
+      "#Engineering",
+      "#Archaeology",
+      "#AdventureOfEducation",
+      "#LearnOnYouTube"
+    ],
+    "sources": [
+      {
+        "organization": "Hellenic Ministry of Culture",
+        "title": "The Antikythera Mechanism",
+        "url": "https://olympicgames.culture.gov.gr/en/texnologia/1_Mixanismos-Antikithirwn.html"
+      },
+      {
+        "organization": "Nature Astronomy",
+        "title": "Our current knowledge of the Antikythera Mechanism",
+        "url": "https://www.nature.com/articles/s41550-017-0347-2"
+      },
+      {
+        "organization": "Nature",
+        "title": "Decoding the ancient Greek astronomical calculator known as the Antikythera Mechanism",
+        "url": "https://www.nature.com/articles/nature05357"
+      }
+    ]
   }
 }
