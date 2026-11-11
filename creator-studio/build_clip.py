@@ -79,6 +79,22 @@ def download_apollo_photos(out):
     return assets
 
 
+def download_lightning_photo(out):
+    """Fetch a public-domain NOAA lightning photograph from Wikimedia Commons."""
+    assets = out / "assets"
+    assets.mkdir(parents=True, exist_ok=True)
+    target = assets / "lightning-noaa.jpg"
+    if target.exists() and target.stat().st_size > 50_000:
+        return assets
+    url = "https://commons.wikimedia.org/wiki/Special:FilePath/Lightning_NOAA.jpg"
+    request = urllib.request.Request(url, headers={"User-Agent": "AdventureAcademyClipFactory/1.0 (educational video)"})
+    with urllib.request.urlopen(request, timeout=45) as response, target.open("wb") as output:
+        shutil.copyfileobj(response, output)
+    if target.stat().st_size < 50_000:
+        raise RuntimeError("Lightning photograph download is incomplete.")
+    return assets
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--lesson", required=True, help="Lesson ID from curriculum.json")
@@ -100,7 +116,7 @@ def main():
         shutil.rmtree(out)
     out.mkdir(parents=True)
     active = out / "active-lesson.json"
-    assets = download_apollo_photos(out) if args.lesson == "apollo-13-rescue" else None
+    assets = (download_apollo_photos(out) if args.lesson == "apollo-13-rescue" else\n              download_lightning_photo(out) if args.lesson == "physics-lightning-explained" else None)
     active.write_text(json.dumps(lesson, ensure_ascii=False, indent=2), encoding="utf-8")
 
     quiz = {
