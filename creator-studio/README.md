@@ -4,7 +4,7 @@ A separate, free/open-source video workspace for Adventure Academy. It creates o
 
 ## Clip Factory (GitHub Actions)
 
-The **Adventure Academy Clip Factory** workflow creates a vertical 9:16 YouTube Short for any of the 12 starter lessons in `lessons/curriculum.json`.
+The **Adventure Academy Clip Factory** workflow creates a vertical 9:16 YouTube Short at 1080×1920 and 30 fps for any of the 12 starter lessons in `lessons/curriculum.json`.
 
 ### Run it
 
@@ -22,7 +22,8 @@ The **Adventure Academy Clip Factory** workflow creates a vertical 9:16 YouTube 
 - `captions.srt` — timed draft captions for review.
 - `quiz.json` — question, options, correct answer and explanation, ready for later academy integration.
 - `youtube-metadata.json` and `youtube-description.txt` — suggested title, description and hashtags.
-- `thumbnail.svg` — editable vector thumbnail artwork.
+- `thumbnail.svg` and `thumbnail.jpg` — editable vector and upload-ready thumbnail artwork.
+- `background-music.wav` — original, locally generated ambient music mixed quietly under narration.
 - `REVIEW-CHECKLIST.txt` — checks to complete before publishing.
 
 The first 12 lessons cover Biology, Chemistry, Physics, Geography, History, Computer Science, Business Studies, Shona, Art & Design, Mathematics, General Science and Library Skills.
