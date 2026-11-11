@@ -1,1 +1,1 @@
-FINAL REBUILD: use the latest text-wrapping and burned-in caption renderer. Verify 1080x1920 at 30 fps, readable multi-line text, synced captions, complete neural narration, original ambient music, and a mobile-readable thumbnail. Build and package only; do not publish.
+FINAL REBUILD: mobile-wrapped lesson text and correctly scaled bottom-safe burned-in captions. Verify output resolution, frame rate, complete narration, caption placement, and thumbnail. Package only; do not publish.
