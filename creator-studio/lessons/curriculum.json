@@ -503,5 +503,65 @@
         "url": "https://www.nature.com/articles/nature05357"
       }
     ]
+  },
+  "physics-lightning-explained": {
+    "subject": "Physics",
+    "level": "Introductory",
+    "title": "Lightning Explained: Nature's Giant Electric Spark!",
+    "hook": "A flash brighter than the sky. What actually happens inside a lightning bolt?",
+    "concept": "Lightning is a giant electrical discharge. In a thunderstorm, collisions among ice particles help separate electric charges. When the electric field becomes strong enough, a discharge can travel through the air. The rapid heating of air creates the sound wave we hear as thunder.",
+    "steps": [
+      {
+        "heading": "A storm builds electric charge",
+        "body": "Inside a thundercloud, moving ice crystals and soft hail collide. These interactions help separate electric charge, often leaving the cloud's upper region more positive and its lower region more negative."
+      },
+      {
+        "heading": "The air becomes a pathway",
+        "body": "As the electric field grows stronger, the insulating air can break down. A branching electrical channel develops between regions of opposite charge, producing the brilliant lightning flash."
+      },
+      {
+        "heading": "Why thunder follows",
+        "body": "The lightning channel heats nearby air extremely quickly. The air expands and creates a pressure wave. That sound wave travels outward as thunder, arriving after the flash because sound moves much more slowly than light."
+      }
+    ],
+    "question": "What creates the sound we hear as thunder?",
+    "options": [
+      "Clouds rubbing together",
+      "Rapid heating and expansion of air around lightning",
+      "Rain hitting the ground"
+    ],
+    "answer_index": 1,
+    "explanation": "Lightning rapidly heats the surrounding air. Its expansion creates a pressure wave that we hear as thunder.",
+    "voiceover": "That flash in the sky is more than a bright light. It is a giant electrical discharge! Inside a storm cloud, ice particles collide and help separate electric charges. As the electric field grows stronger, the air can no longer insulate the charge. A branching electrical channel forms, and we see lightning. The lightning heats the air incredibly fast. That air expands and sends out a pressure wave: thunder! We see the flash before hearing the thunder because light travels much faster than sound. Quick challenge: what creates thunder? Rapid heating and expansion of air around the lightning channel. Nature is electric!",
+    "hashtags": [
+      "#Lightning",
+      "#Physics",
+      "#ScienceShorts",
+      "#WeatherScience",
+      "#Thunderstorm",
+      "#STEM",
+      "#LearnPhysics",
+      "#AdventureOfEducation",
+      "#ScienceExplained",
+      "#YouTubeShorts"
+    ],
+    "sources": [
+      {
+        "organization": "National Weather Service",
+        "title": "How Lightning Forms",
+        "url": "https://www.weather.gov/safety/lightning-science"
+      },
+      {
+        "organization": "NOAA National Severe Storms Laboratory",
+        "title": "Severe Weather 101: Lightning",
+        "url": "https://www.nssl.noaa.gov/education/svrwx101/lightning/"
+      },
+      {
+        "organization": "NASA Earth Observatory",
+        "title": "Lightning",
+        "url": "https://earthobservatory.nasa.gov/features/Lightning"
+      }
+    ],
+    "pinned_comment": "⚡ Did you know thunder is caused by super-heated air expanding around a lightning channel? What other weather mystery should we explain next?"
   }
-}
+}\n
