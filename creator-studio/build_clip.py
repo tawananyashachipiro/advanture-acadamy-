@@ -116,7 +116,8 @@ def main():
         shutil.rmtree(out)
     out.mkdir(parents=True)
     active = out / "active-lesson.json"
-    assets = (download_apollo_photos(out) if args.lesson == "apollo-13-rescue" else\n              download_lightning_photo(out) if args.lesson == "physics-lightning-explained" else None)
+    assets = (download_apollo_photos(out) if args.lesson == "apollo-13-rescue" else
+              download_lightning_photo(out) if args.lesson == "physics-lightning-explained" else None)
     active.write_text(json.dumps(lesson, ensure_ascii=False, indent=2), encoding="utf-8")
 
     quiz = {
