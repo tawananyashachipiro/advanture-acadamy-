@@ -1,1 +1,1 @@
-Build the fact-checked Sky Blue science Short using the latest committed renderer, animated diagrams, neural voice, original ambient music, 1080x1920 at 30 fps, captions and upload-ready thumbnail.
+REBUILD REQUEST: create the default why-sky-blue Short using the latest renderer. Verify 1080x1920, 30 fps, full narration, synced readable captions, original low-volume music, and a legible thumbnail. Build and package only; never publish automatically.
