@@ -1,6 +1,9 @@
 name: Adventure Academy Clip Factory
 
 on:
+  push:
+    paths:
+      - "creator-studio/trigger/sky-blue.txt"
   workflow_dispatch:
     inputs:
       lesson_id:
@@ -63,14 +66,14 @@ jobs:
 
       - name: Build selected lesson package
         env:
-          LESSON_ID: ${{ inputs.lesson_id || 'apollo-13-rescue' }}
+          LESSON_ID: ${{ inputs.lesson_id || 'why-sky-blue' }}
         run: |
           python creator-studio/build_clip.py --lesson "$LESSON_ID"
 
       - name: Run MoneyPrinterTurbo local finishing pass
         if: ${{ inputs.use_moneyprinterturbo == true }}
         env:
-          LESSON_ID: ${{ inputs.lesson_id || 'apollo-13-rescue' }}
+          LESSON_ID: ${{ inputs.lesson_id || 'why-sky-blue' }}
         run: |
           python -m pip install "mpt==1.3.10"
           mkdir -p "$RUNNER_TEMP/moneyprinterturbo"
@@ -98,7 +101,7 @@ jobs:
         if: ${{ inputs.use_moneyprinterturbo == true }}
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.2
         with:
-          name: moneyprinterturbo-${{ inputs.lesson_id || 'apollo-13-rescue' }}
+          name: moneyprinterturbo-${{ inputs.lesson_id || 'why-sky-blue' }}
           path: ${{ runner.temp }}/moneyprinterturbo/storage/tasks/
           if-no-files-found: error
           retention-days: 14
@@ -106,7 +109,7 @@ jobs:
       - name: Save video and creator pack
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.2
         with:
-          name: academy-clip-${{ inputs.lesson_id || 'apollo-13-rescue' }}
-          path: creator-studio/dist/${{ inputs.lesson_id || 'apollo-13-rescue' }}/
+          name: academy-clip-${{ inputs.lesson_id || 'why-sky-blue' }}
+          path: creator-studio/dist/${{ inputs.lesson_id || 'why-sky-blue' }}/
           if-no-files-found: error
           retention-days: 14
