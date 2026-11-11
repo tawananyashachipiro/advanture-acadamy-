@@ -95,6 +95,30 @@ def download_lightning_photo(out):
     return assets
 
 
+
+def make_background_music(duration, destination):
+    """Generate a quiet, original ambient pad without external music assets."""
+    import wave
+    import numpy as np
+    sample_rate = 44100
+    count = max(1, int(sample_rate * duration))
+    t = np.arange(count, dtype=np.float64) / sample_rate
+    notes = (130.81, 164.81, 196.00, 261.63)
+    signal = sum(np.sin(2 * np.pi * hz * t + phase)
+                 for hz, phase in zip(notes, (0.0, 0.7, 1.4, 2.1))) / len(notes)
+    pulse = 0.78 + 0.22 * np.sin(2 * np.pi * 0.075 * t)
+    fade_in = np.minimum(1.0, t / 1.8)
+    fade_out = np.minimum(1.0, np.maximum(0.0, (duration - t) / 2.2))
+    mono = signal * pulse * fade_in * fade_out * 0.12
+    stereo = np.column_stack((mono, mono))
+    pcm = np.clip(stereo * 32767, -32768, 32767).astype("<i2")
+    with wave.open(str(destination), "wb") as audio:
+        audio.setnchannels(2)
+        audio.setsampwidth(2)
+        audio.setframerate(sample_rate)
+        audio.writeframes(pcm.tobytes())
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--lesson", required=True, help="Lesson ID from curriculum.json")
@@ -262,8 +286,8 @@ def main():
         env["ACADEMY_ASSET_DIR"] = str(assets)
     media = out / "render"
     command = [
-        sys.executable, "-m", "manim", "-ql",
-        "--resolution", "720,1280",
+        sys.executable, "-m", "manim", "-qh",
+        "--resolution", "1080,1920",
         "--media_dir", str(media),
         "--output_file", "AdventureAcademyShort",
         str(SCENE), "AcademyLessonShort",
@@ -323,16 +347,30 @@ def main():
     ], text=True).strip())
     (out / "captions.srt").write_text(make_srt(lesson, audio_seconds), encoding="utf-8")
     voiced_video = out / "AdventureAcademyShort-voiced.mp4"
-    # Duration sync fix: preserve the full narration through the final frame.
-    # If narration is longer than the animation, hold the final frame until
-    # the voice-over ends. This prevents -shortest from cutting off narration.
+    silent_seconds = float(subprocess.check_output([
+        "ffprobe", "-v", "error", "-show_entries", "format=duration",
+        "-of", "default=noprint_wrappers=1:nokey=1", str(silent_video)
+    ], text=True).strip())
+    target_seconds = max(audio_seconds, silent_seconds)
+    music_audio = out / "background-music.wav"
+    make_background_music(target_seconds, music_audio)
+    pad_seconds = max(0.0, target_seconds - silent_seconds)
+
+    # Original ambient music is mixed quietly beneath the complete narration.
     subprocess.run([
         ffmpeg, "-y", "-i", str(silent_video), "-i", str(voice_audio),
-        "-map", "0:v:0", "-map", "1:a:0",
-        "-vf", f"tpad=stop_mode=clone:stop_duration={audio_seconds:.3f}",
+        "-i", str(music_audio),
+        "-map", "0:v:0",
+        "-filter_complex",
+        "[1:a]volume=1.0[voice];[2:a]volume=0.15[music];"
+        "[voice][music]amix=inputs=2:duration=longest:dropout_transition=2[a]",
+        "-map", "[a]",
+        "-vf", f"tpad=stop_mode=clone:stop_duration={pad_seconds:.3f},"
+               "scale=1080:1920:flags=lanczos,fps=30,format=yuv420p",
         "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
-        "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k",
-        "-af", "apad", "-t", f"{audio_seconds:.3f}",
+        "-pix_fmt", "yuv420p", "-r", "30",
+        "-c:a", "aac", "-b:a", "160k",
+        "-t", f"{target_seconds:.3f}",
         "-movflags", "+faststart", str(voiced_video)
     ], cwd=ROOT, check=True)
 
@@ -340,11 +378,23 @@ def main():
         "ffprobe", "-v", "error", "-show_entries", "format=duration",
         "-of", "default=noprint_wrappers=1:nokey=1", str(voiced_video)
     ], text=True).strip())
+    video_stream = json.loads(subprocess.check_output([
+        "ffprobe", "-v", "error", "-select_streams", "v:0",
+        "-show_entries", "stream=width,height,r_frame_rate",
+        "-of", "json", str(voiced_video)
+    ], text=True))["streams"][0]
+    if (video_stream["width"], video_stream["height"]) != (1080, 1920):
+        raise SystemExit(f"Wrong export dimensions: {video_stream}")
+    if video_stream["r_frame_rate"] != "30/1":
+        raise SystemExit(f"Wrong export frame rate: {video_stream}")
     if final_seconds < audio_seconds - 0.25:
         raise SystemExit(
             f"Final video ({final_seconds:.2f}s) is shorter than narration "
             f"({audio_seconds:.2f}s); refusing to package a cut-off voice-over."
         )
+    print("VIDEO_RESOLUTION=1080x1920")
+    print("VIDEO_FPS=30")
+    print("BACKGROUND_MUSIC=original ambient bed at 15 percent")
     print(f"VOICEOVER_SECONDS={audio_seconds:.2f}")
     print(f"FINAL_VIDEO_SECONDS={final_seconds:.2f}")
     shutil.move(str(voiced_video), str(final_video))
