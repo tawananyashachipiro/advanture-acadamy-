@@ -1,1 +1,1 @@
-REBUILD REQUEST: create the default why-sky-blue Short using the latest renderer. Verify 1080x1920, 30 fps, full narration, synced readable captions, original low-volume music, and a legible thumbnail. Build and package only; never publish automatically.
+FINAL REBUILD: use the latest text-wrapping and burned-in caption renderer. Verify 1080x1920 at 30 fps, readable multi-line text, synced captions, complete neural narration, original ambient music, and a mobile-readable thumbnail. Build and package only; do not publish.
