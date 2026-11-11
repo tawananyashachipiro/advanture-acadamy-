@@ -1,1 +1,1 @@
-One-time trigger for the Sky Blue science Short build.
+Build the fact-checked Sky Blue science Short using the latest committed renderer, animated diagrams, neural voice, original ambient music, 1080x1920 at 30 fps, captions and upload-ready thumbnail.
