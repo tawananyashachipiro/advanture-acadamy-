@@ -256,6 +256,99 @@ def great_zimbabwe_pixel_story(scene, index, step):
     scene.play(FadeOut(caption), FadeOut(stars), run_time=0.3)
 
 
+def antikythera_pixel_story(scene, index, step):
+    """Original pixel-art scenes for the Antikythera Mechanism history Short."""
+    stars = VGroup(*[
+        Dot([((i * 31) % 41) / 10 - 2, ((i * 17) % 59) / 10 - 3.0, 0],
+            radius=0.012, color=PALE)
+        for i in range(34)
+    ])
+    heading = fit_line(step["heading"], 25, SAND, BOLD, max_width=4.0)
+    body = fit_paragraph(step["body"], 21, WHITE, max_width=4.0)
+    caption = VGroup(heading, body).arrange(DOWN, buff=0.2).move_to(DOWN * 2.65)
+    scene.add(stars)
+    scene.play(FadeIn(caption, shift=UP * 0.1), run_time=0.4)
+
+    bronze = "#B98248"
+    dark_bronze = "#68452F"
+    if index == 1:
+        sea = Rectangle(width=4.3, height=3.3, fill_color="#123B59",
+                        fill_opacity=1, stroke_width=0).move_to(UP * 0.45)
+        waves = VGroup(*[
+            Arc(radius=0.28 + i * 0.05, angle=PI * 0.8, color=TEAL,
+                stroke_width=2).move_to([x, y, 0])
+            for i, (x, y) in enumerate([(-1.4, 1.5), (-0.6, 1.15),
+                                         (0.5, 1.55), (1.25, 1.0)])
+        ])
+        hull = Polygon([-1.45, -0.25, 0], [1.35, -0.25, 0],
+                       [0.9, -0.75, 0], [-0.9, -0.75, 0],
+                       color=dark_bronze, fill_color=dark_bronze, fill_opacity=1)
+        mast = Line([0, -0.2, 0], [0, 0.95, 0], color=SAND, stroke_width=4)
+        fragment = VGroup(*[
+            Square(side_length=0.28, fill_color=bronze, fill_opacity=1,
+                   stroke_color=SAND).move_to([x, y, 0])
+            for x, y in [(-0.45, -1.0), (0.1, -1.05), (0.58, -0.95)]
+        ])
+        label = fit_line("ANTIKYTHERA • 1901", 20, SAND, BOLD)
+        label.move_to(UP * 1.95)
+        scene.play(FadeIn(sea), FadeIn(waves), FadeIn(hull), Create(mast),
+                   FadeIn(fragment), FadeIn(label), run_time=0.85)
+        scene.play(fragment.animate.shift(UP * 0.18), run_time=0.7, rate_func=smooth)
+        scene.play(FadeOut(sea), FadeOut(waves), FadeOut(hull), FadeOut(mast),
+                   FadeOut(fragment), FadeOut(label), run_time=0.45)
+
+    elif index == 2:
+        gear_a = Circle(radius=0.78, color=bronze, stroke_width=8).move_to(LEFT * 0.72 + UP * 0.55)
+        gear_b = Circle(radius=0.48, color=SAND, stroke_width=7).move_to(RIGHT * 0.72 + UP * 0.55)
+        spokes_a = VGroup(*[
+            Line(gear_a.get_center(), gear_a.get_center() + 0.68 * np.array([np.cos(a), np.sin(a), 0]),
+                 color=bronze, stroke_width=5)
+            for a in np.linspace(0, TAU, 10, endpoint=False)
+        ])
+        spokes_b = VGroup(*[
+            Line(gear_b.get_center(), gear_b.get_center() + 0.4 * np.array([np.cos(a), np.sin(a), 0]),
+                 color=SAND, stroke_width=4)
+            for a in np.linspace(0, TAU, 8, endpoint=False)
+        ])
+        hub_a = Dot(gear_a.get_center(), radius=0.12, color=SAND)
+        hub_b = Dot(gear_b.get_center(), radius=0.1, color=bronze)
+        label = fit_line("ABOUT 30 TOOTHED GEARS", 20, TEAL, BOLD)
+        label.move_to(DOWN * 1.0)
+        scene.play(Create(gear_a), Create(gear_b), FadeIn(spokes_a), FadeIn(spokes_b),
+                   FadeIn(hub_a), FadeIn(hub_b), run_time=0.9)
+        scene.play(Rotate(VGroup(spokes_a, hub_a), angle=PI / 3, about_point=gear_a.get_center()),
+                   Rotate(VGroup(spokes_b, hub_b), angle=-PI / 2, about_point=gear_b.get_center()),
+                   run_time=1.2, rate_func=smooth)
+        scene.play(FadeIn(label), run_time=0.4)
+        scene.play(FadeOut(gear_a), FadeOut(gear_b), FadeOut(spokes_a),
+                   FadeOut(spokes_b), FadeOut(hub_a), FadeOut(hub_b),
+                   FadeOut(label), run_time=0.45)
+
+    else:
+        dial = Circle(radius=1.12, color=bronze, stroke_width=8).move_to(UP * 0.55)
+        ring = Circle(radius=0.82, color=SAND, stroke_width=3).move_to(dial.get_center())
+        sun = Circle(radius=0.22, color=SAND, fill_color=SAND, fill_opacity=1).move_to(LEFT * 0.48 + UP * 0.55)
+        moon = Circle(radius=0.2, color=MINT, fill_color=MINT, fill_opacity=1).move_to(RIGHT * 0.48 + UP * 0.55)
+        hand = Line(dial.get_center(), dial.get_center() + UP * 0.88,
+                    color=WHITE, stroke_width=5)
+        ticks = VGroup(*[
+            Line(dial.get_center() + 0.9 * np.array([np.cos(a), np.sin(a), 0]),
+                 dial.get_center() + 1.02 * np.array([np.cos(a), np.sin(a), 0]),
+                 color=WHITE, stroke_width=3)
+            for a in np.linspace(0, TAU, 12, endpoint=False)
+        ])
+        label = fit_line("SUN • MOON • ECLIPSE CYCLES", 19, SAND, BOLD, 4.0)
+        label.move_to(DOWN * 1.25)
+        scene.play(Create(dial), Create(ring), FadeIn(ticks), FadeIn(sun),
+                   FadeIn(moon), Create(hand), run_time=0.85)
+        scene.play(Rotate(hand, angle=PI * 0.7, about_point=dial.get_center()),
+                   FadeIn(label), run_time=1.2, rate_func=smooth)
+        scene.play(FadeOut(dial), FadeOut(ring), FadeOut(ticks), FadeOut(sun),
+                   FadeOut(moon), FadeOut(hand), FadeOut(label), run_time=0.45)
+
+    scene.play(FadeOut(caption), FadeOut(stars), run_time=0.3)
+
+
 class AcademyLessonShort(Scene):
     def construct(self):
         lesson_path = os.environ.get("ACADEMY_LESSON_FILE", "creator-studio/lessons/active-lesson.json")
@@ -330,6 +423,8 @@ class AcademyLessonShort(Scene):
                 apollo_pixel_story(self, index, step)
             elif lesson.get("title", "").startswith("Great Zimbabwe:"):
                 great_zimbabwe_pixel_story(self, index, step)
+            elif lesson.get("title", "").startswith("The Antikythera Mechanism:"):
+                antikythera_pixel_story(self, index, step)
             else:
                 number = fit_line(f"DISCOVERY {index}", 23, TEAL, BOLD)
                 heading = fit_paragraph(step["heading"], 38, SAND)
