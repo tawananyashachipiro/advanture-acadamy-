@@ -634,5 +634,70 @@
         "url": "https://www.jpl.nasa.gov/news/hubble-adjustments-and-tests-completed/"
       }
     ]
+  },
+  "why-sky-blue": {
+    "subject": "Physics",
+    "level": "Introductory",
+    "title": "Why Is the Sky Blue: The Science of Scattered Light",
+    "hook": "Sunlight looks white. So why does the whole sky look blue?",
+    "concept": "Sunlight contains all the colours of visible light. Air molecules scatter shorter blue and violet wavelengths more strongly than longer red wavelengths. The sky appears blue because our eyes are more sensitive to blue than violet. This wavelength-dependent scattering is called Rayleigh scattering.",
+    "steps": [
+      {
+        "heading": "Sunlight contains many colours",
+        "body": "White sunlight is a mixture of visible colours. Each colour has a different wavelength, from long red waves to shorter blue and violet waves."
+      },
+      {
+        "heading": "Air scatters shorter waves",
+        "body": "Tiny nitrogen and oxygen molecules scatter blue and violet light much more strongly than red light. This is called Rayleigh scattering."
+      },
+      {
+        "heading": "Why do we see blue?",
+        "body": "Violet is scattered even more strongly, but human eyes are more sensitive to blue and sunlight contains less violet. The scattered light makes the sky look blue."
+      },
+      {
+        "heading": "Why are sunsets red?",
+        "body": "At sunset, sunlight travels through more atmosphere. Much of the blue light is scattered out of the direct path, so more red and orange light reaches your eyes."
+      }
+    ],
+    "question": "Which process makes blue and violet light scatter strongly in Earth's atmosphere?",
+    "options": [
+      "Rayleigh scattering",
+      "Reflection from clouds",
+      "Refraction through rain"
+    ],
+    "answer_index": 0,
+    "explanation": "Rayleigh scattering is stronger for shorter wavelengths, so blue and violet light are scattered much more than red light by tiny air molecules.",
+    "voiceover": "Sunlight looks white, but it contains every colour of the rainbow. When it enters Earth's atmosphere, tiny nitrogen and oxygen molecules scatter the shorter blue and violet wavelengths much more strongly than red. This is called Rayleigh scattering. So why isn't the sky violet? Our eyes are more sensitive to blue, and sunlight contains less violet. The scattered blue light reaches us from every direction, making the sky look blue. At sunset, sunlight travels through more atmosphere. Much of the blue light is scattered away from the direct path, leaving more reds and oranges. Quick challenge: what is this scattering process called? Rayleigh scattering!",
+    "hashtags": [
+      "#WhyIsTheSkyBlue",
+      "#RayleighScattering",
+      "#Physics",
+      "#ScienceShorts",
+      "#ScienceExplained",
+      "#LearnPhysics",
+      "#STEM",
+      "#AdventureOfEducation",
+      "#YouTubeShorts"
+    ],
+    "sources": [
+      {
+        "organization": "NASA Space Place",
+        "title": "Why Is the Sky Blue?",
+        "url": "https://spaceplace.nasa.gov/blue-sky/en/"
+      },
+      {
+        "organization": "National Weather Service",
+        "title": "Why Is The Sky Blue?",
+        "url": "https://www.weather.gov/fgz/SkyBlue"
+      },
+      {
+        "organization": "NOAA NESDIS",
+        "title": "Why Is the Sky Blue?",
+        "url": "https://www.nesdis.noaa.gov/about/k-12-education/atmosphere/why-the-sky-blue"
+      }
+    ],
+    "fact_check_notes": "Violet is scattered at least as strongly as blue, but human vision is more sensitive to blue and sunlight contains less violet. Do not claim blue is scattered more than violet.",
+    "thumbnail_guidance": "Bright blue sky, a white sunlight beam splitting into coloured rays, and bold text: WHY IS THE SKY BLUE? Keep text large and high contrast.",
+    "pinned_comment": "💙 Violet is scattered strongly too, but our eyes are more sensitive to blue. What science mystery should we explore next?"
   }
 }
