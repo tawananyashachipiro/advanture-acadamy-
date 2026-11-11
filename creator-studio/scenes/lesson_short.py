@@ -1,6 +1,7 @@
 # Apollo 13 storyboard includes original animated pixel-art scenes.
 import json
 import os
+import textwrap
 from pathlib import Path
 
 from manim import *
@@ -28,8 +29,14 @@ def fit_line(text, size=34, color=WHITE, weight=NORMAL, max_width=3.8):
 
 
 def fit_paragraph(text, size=29, color=WHITE, max_width=3.8):
-    mob = Paragraph(*str(text).split("\n"), font_size=size, color=color,
-                    alignment="center", line_spacing=0.72)
+    # Wrap long narration/lesson copy before creating the text object. A single
+    # unbroken line gets scaled down until it fits, making mobile captions tiny.
+    wrap_width = max(18, int(42 * 29 / max(1, size)))
+    lines = []
+    for paragraph in str(text).splitlines() or [""]:
+        lines.extend(textwrap.wrap(paragraph, width=wrap_width) or [""])
+    mob = Paragraph(*lines, font_size=size, color=color,
+                    alignment="center", line_spacing=0.82)
     if mob.width > max_width:
         mob.scale_to_fit_width(max_width)
     if mob.height > 3.7:
@@ -63,7 +70,7 @@ def apollo_pixel_story(scene, index, step):
         for i in range(42)
     ])
     heading = fit_line(step["heading"], 25, SAND, BOLD, max_width=4.0)
-    body = fit_paragraph(step["body"], 21, WHITE, max_width=4.0)
+    body = fit_paragraph(step["body"], 28, WHITE, max_width=4.0)
     caption = VGroup(heading, body).arrange(DOWN, buff=0.2).move_to(DOWN * 2.65)
     scene.add(stars)
     scene.play(FadeIn(caption, shift=UP * 0.1), run_time=0.4)
@@ -367,7 +374,7 @@ def lightning_physics_story(scene, index, step):
 
     photo_frame = SurroundingRectangle(photo, color=TEAL, buff=0.07, stroke_width=3)
     heading = fit_line(step["heading"], 24, SAND, BOLD, max_width=4.0)
-    body = fit_paragraph(step["body"], 20, WHITE, max_width=3.95)
+    body = fit_paragraph(step["body"], 28, WHITE, max_width=3.95)
     caption = VGroup(heading, body).arrange(DOWN, buff=0.16).move_to(DOWN * 2.55)
 
     scene.play(FadeIn(photo, scale=1.03), Create(photo_frame), run_time=0.9)
