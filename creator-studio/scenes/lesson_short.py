@@ -7,7 +7,8 @@ from manim import *
 
 # Vertical 9:16 canvas for YouTube Shorts.
 config.pixel_width = 720
-config.pixel_height = 1280
+config.pixel_height = 1920
+config.frame_rate = 30
 config.frame_width = 4.5
 config.frame_height = 8
 
@@ -572,6 +573,116 @@ def hubble_pixel_story(scene, index, step):
 
 
 
+
+def sky_blue_pixel_story(scene, index, step):
+    """Original animated science diagrams for Rayleigh scattering."""
+    heading = fit_line(step["heading"], 24, SAND, BOLD, max_width=4.0)
+    body = fit_paragraph(step["body"], 20, WHITE, max_width=3.95)
+    caption = VGroup(heading, body).arrange(DOWN, buff=0.16).move_to(DOWN * 2.62)
+
+    if index == 1:
+        sun = Circle(radius=0.48, color=SAND, fill_color=SAND, fill_opacity=1)
+        sun.move_to(LEFT * 1.35 + UP * 1.2)
+        rays = VGroup(*[
+            Line(sun.get_center() + 0.62 * np.array([np.cos(a), np.sin(a), 0]),
+                 sun.get_center() + 0.82 * np.array([np.cos(a), np.sin(a), 0]),
+                 color=SAND, stroke_width=4)
+            for a in np.linspace(0, TAU, 12, endpoint=False)
+        ])
+        white_beam = Line(LEFT * 0.75 + UP * 1.2, RIGHT * 1.65 + UP * 1.2,
+                          color=WHITE, stroke_width=9)
+        colours = ["#FF5B55", "#FF9D45", "#FFE16B", "#65D98A",
+                   "#58B9FF", "#7188FF", "#B68CFF"]
+        spectrum = VGroup(*[
+            Line(LEFT * 0.25 + UP * (0.65 - i * 0.13),
+                 RIGHT * 1.5 + UP * (0.65 - i * 0.13),
+                 color=colour, stroke_width=5)
+            for i, colour in enumerate(colours)
+        ])
+        label = fit_line("WHITE SUNLIGHT = MANY COLOURS", 19, TEAL, BOLD, 4.0)
+        label.move_to(DOWN * 0.25)
+        scene.play(FadeIn(sun), Create(rays), run_time=0.6)
+        scene.play(Create(white_beam), run_time=0.6)
+        scene.play(Transform(white_beam, spectrum), FadeIn(label), run_time=1.0)
+        scene.play(FadeOut(sun), FadeOut(rays), FadeOut(white_beam), FadeOut(label), run_time=0.4)
+
+    elif index == 2:
+        points = [(-1.0, 1.15), (-0.45, 0.65), (0.1, 1.35),
+                  (0.72, 0.8), (1.25, 1.25), (-0.8, 0.05), (0.35, 0.05)]
+        molecules = VGroup(*[
+            Circle(radius=0.105, color=TEAL, fill_color=TEAL, fill_opacity=1)
+            .move_to([x, y, 0]) for x, y in points
+        ])
+        incoming = Line(LEFT * 1.9 + UP * 0.45, LEFT * 0.1 + UP * 0.45,
+                        color="#7188FF", stroke_width=5)
+        blue_scatter = VGroup(*[
+            Arrow(LEFT * 0.1 + UP * 0.45, end, color="#58B9FF",
+                  buff=0.05, stroke_width=4)
+            for end in [UP * 1.95, RIGHT * 1.0 + UP * 1.65,
+                        RIGHT * 1.2 + DOWN * 0.35, LEFT * 0.95 + DOWN * 0.55]
+        ])
+        red_ray = Line(LEFT * 0.1 + UP * 0.45, RIGHT * 1.9 + UP * 0.45,
+                       color="#FF5B55", stroke_width=4)
+        blue_label = fit_line("BLUE / VIOLET: SCATTERED MORE", 18, "#58B9FF", BOLD, 4.0)
+        blue_label.move_to(DOWN * 0.95)
+        red_label = fit_line("RED: PASSES THROUGH MORE", 18, "#FF8A72", BOLD, 4.0)
+        red_label.move_to(DOWN * 1.4)
+        scene.play(FadeIn(molecules), Create(incoming), run_time=0.6)
+        scene.play(Create(blue_scatter), Create(red_ray), run_time=0.9)
+        scene.play(FadeIn(blue_label), FadeIn(red_label), run_time=0.4)
+        scene.play(FadeOut(molecules), FadeOut(incoming), FadeOut(blue_scatter),
+                   FadeOut(red_ray), FadeOut(blue_label), FadeOut(red_label), run_time=0.4)
+
+    elif index == 3:
+        molecules = VGroup(*[
+            Dot([x, y, 0], radius=0.095, color=TEAL)
+            for x, y in [(-1.1, 0.9), (-0.45, 1.25), (0.3, 0.9), (0.9, 1.3)]
+        ])
+        eye = Ellipse(width=0.95, height=0.52, color=WHITE, stroke_width=4)
+        eye.move_to(RIGHT * 1.2 + DOWN * 0.15)
+        pupil = Circle(radius=0.16, color="#58B9FF", fill_color="#58B9FF",
+                       fill_opacity=1).move_to(eye.get_center())
+        rays = VGroup(*[
+            Arrow(start, eye.get_left(), color="#58B9FF", buff=0.1, stroke_width=3)
+            for start in [LEFT * 1.45 + UP * 1.1, LEFT * 0.95 + UP * 0.25,
+                          LEFT * 1.25 + DOWN * 0.65]
+        ])
+        note = fit_line("OUR EYES RESPOND MORE TO BLUE THAN VIOLET",
+                        17, SAND, BOLD, 4.0).move_to(DOWN * 1.1)
+        scene.play(FadeIn(molecules), Create(rays), run_time=0.7)
+        scene.play(FadeIn(eye), FadeIn(pupil), run_time=0.5)
+        scene.play(FadeIn(note), run_time=0.4)
+        scene.play(FadeOut(molecules), FadeOut(rays), FadeOut(eye),
+                   FadeOut(pupil), FadeOut(note), run_time=0.4)
+
+    else:
+        sun = Circle(radius=0.38, color="#FF9D45", fill_color="#FF9D45",
+                     fill_opacity=1).move_to(LEFT * 1.45 + UP * 1.15)
+        horizon = Line(LEFT * 2.0 + DOWN * 0.65, RIGHT * 2.0 + DOWN * 0.65,
+                       color=TEAL, stroke_width=4)
+        path = VGroup(*[
+            Line(LEFT * 1.1 + UP * 1.1, RIGHT * 1.35 + DOWN * 0.4,
+                 color=colour, stroke_width=4)
+            for colour in ["#FF9D45", "#FF5B55"]
+        ])
+        blue_dots = VGroup(*[
+            Dot([x, y, 0], radius=0.07, color="#58B9FF")
+            for x, y in [(-0.45, 0.65), (0.15, 0.38), (0.75, 0.1)]
+        ])
+        label = fit_line("LONGER AIR PATH = REDDER SUNSET",
+                         18, SAND, BOLD, 4.0).move_to(DOWN * 1.25)
+        scene.play(FadeIn(sun), Create(horizon), run_time=0.6)
+        scene.play(Create(path), FadeIn(blue_dots), run_time=0.8)
+        scene.play(FadeIn(label), run_time=0.4)
+        scene.play(FadeOut(sun), FadeOut(horizon), FadeOut(path),
+                   FadeOut(blue_dots), FadeOut(label), run_time=0.4)
+
+    scene.play(FadeIn(caption, shift=UP * 0.12), run_time=0.45)
+    scene.wait(1.0)
+    scene.play(FadeOut(caption), run_time=0.35)
+
+
+
 class AcademyLessonShort(Scene):
     def construct(self):
         lesson_path = os.environ.get("ACADEMY_LESSON_FILE", "creator-studio/lessons/active-lesson.json")
@@ -676,6 +787,8 @@ class AcademyLessonShort(Scene):
                 hubble_pixel_story(self, index, step)
             elif lesson.get("title", "").startswith("Lightning Explained:"):
                 lightning_physics_story(self, index, step)
+            elif lesson.get("title", "").startswith("Why Is the Sky Blue:"):
+                sky_blue_pixel_story(self, index, step)
             else:
                 number = fit_line(f"DISCOVERY {index}", 23, TEAL, BOLD)
                 heading = fit_paragraph(step["heading"], 38, SAND)
