@@ -147,6 +147,25 @@ def main():
     (out / "youtube-metadata.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (out / "youtube-description.txt").write_text(description + "\n", encoding="utf-8")
 
+    pinned_comment = lesson.get("pinned_comment")
+    if pinned_comment:
+        (out / "pinned-comment.txt").write_text(pinned_comment + "\\n", encoding="utf-8")
+    metadata["pinned_comment"] = pinned_comment
+    (out / "youtube-metadata.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+
+
+    if args.lesson == "physics-lightning-explained":
+        svg = """<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#07172D"/><stop offset="1" stop-color="#234A68"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="18" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="1280" height="720" fill="url(#sky)"/>
+<g fill="#526D83"><ellipse cx="350" cy="245" rx="230" ry="105"/><ellipse cx="515" cy="190" rx="190" ry="130"/><ellipse cx="690" cy="260" rx="245" ry="110"/></g>
+<path d="M640 260 L530 430 L635 420 L555 650 L820 365 L690 385 L785 260 Z" fill="#FFD45C" stroke="#FFF4C6" stroke-width="12" filter="url(#glow)"/>
+<text x="75" y="90" fill="#8BE2D2" font-family="Arial,sans-serif" font-size="40" font-weight="bold">ADVENTURE OF EDUCATION</text>
+<text x="75" y="590" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="72" font-weight="bold">LIGHTNING!</text>
+<text x="80" y="660" fill="#FFD45C" font-family="Arial,sans-serif" font-size="36" font-weight="bold">THE SCIENCE BEHIND THE FLASH</text>
+</svg>"""
+        (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
+    else:
     title = escape(lesson["subject"].upper())
     subtitle = escape(lesson["title"])
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
