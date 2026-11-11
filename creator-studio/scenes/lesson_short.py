@@ -352,107 +352,113 @@ def antikythera_pixel_story(scene, index, step):
 
 
 def lightning_physics_story(scene, index, step):
-    """Original animated science illustrations explaining lightning and thunder."""
-    stars = VGroup(*[
-        Dot([((i * 23) % 39) / 10 - 1.9, ((i * 17) % 57) / 10 - 2.8, 0],
-            radius=0.012, color=PALE)
-        for i in range(32)
-    ])
-    heading = fit_line(step["heading"], 24, SAND, BOLD, max_width=4.0)
-    body = fit_paragraph(step["body"], 20, WHITE, max_width=4.0)
-    caption = VGroup(heading, body).arrange(DOWN, buff=0.18).move_to(DOWN * 2.65)
-    scene.add(stars)
-    scene.play(FadeIn(caption, shift=UP * 0.12), run_time=0.4)
+    """Photo-led, animated lightning explainer with clear, sustained visuals."""
+    asset_dir = Path(os.environ.get("ACADEMY_ASSET_DIR", "creator-studio/assets/lightning"))
+    photo_path = asset_dir / "lightning-noaa.jpg"
+    if not photo_path.exists():
+        raise FileNotFoundError(f"Required lightning photo missing: {photo_path}")
 
-    cloud_color = "#7893A8"
-    cloud = VGroup(
-        RoundedRectangle(width=2.75, height=0.72, corner_radius=0.28,
-                         fill_color=cloud_color, fill_opacity=1, stroke_color=PALE),
-        Circle(radius=0.57, fill_color=cloud_color, fill_opacity=1, stroke_color=PALE).shift(LEFT * 0.72 + UP * 0.23),
-        Circle(radius=0.72, fill_color=cloud_color, fill_opacity=1, stroke_color=PALE).shift(UP * 0.34),
-        Circle(radius=0.5, fill_color=cloud_color, fill_opacity=1, stroke_color=PALE).shift(RIGHT * 0.78 + UP * 0.18),
-    ).move_to(UP * 1.35)
+    photo = ImageMobject(str(photo_path))
+    photo.scale_to_fit_width(3.95)
+    if photo.height > 3.5:
+        photo.scale_to_fit_height(3.5)
+    photo.move_to(UP * 0.95)
+
+    photo_frame = SurroundingRectangle(photo, color=TEAL, buff=0.07, stroke_width=3)
+    heading = fit_line(step["heading"], 24, SAND, BOLD, max_width=4.0)
+    body = fit_paragraph(step["body"], 20, WHITE, max_width=3.95)
+    caption = VGroup(heading, body).arrange(DOWN, buff=0.16).move_to(DOWN * 2.55)
+
+    scene.play(FadeIn(photo, scale=1.03), Create(photo_frame), run_time=0.9)
+    scene.play(FadeIn(caption, shift=UP * 0.15), run_time=0.65)
+    scene.wait(1.1)
 
     if index == 1:
-        pluses = VGroup(*[
+        label = fit_line("INSIDE THE STORM CLOUD", 20, TEAL, BOLD)
+        label.move_to(UP * 3.0)
+        cloud = VGroup(
+            Circle(radius=0.62, color=PALE, fill_color="#7893A8", fill_opacity=1).shift(LEFT * 0.55),
+            Circle(radius=0.82, color=PALE, fill_color="#7893A8", fill_opacity=1).shift(UP * 0.18),
+            Circle(radius=0.58, color=PALE, fill_color="#7893A8", fill_opacity=1).shift(RIGHT * 0.58),
+            RoundedRectangle(width=2.15, height=0.55, corner_radius=0.2,
+                             color=PALE, fill_color="#7893A8", fill_opacity=1).shift(DOWN * 0.35),
+        ).scale(0.72).move_to(UP * 1.0)
+        positive = VGroup(*[
             Text("+", font_size=34, color=SAND, weight=BOLD).move_to([x, y, 0])
-            for x, y in [(-0.8, 2.05), (0.0, 2.2), (0.8, 1.95), (-0.35, 1.65)]
+            for x, y in [(-0.72, 1.55), (0, 1.8), (0.7, 1.55), (0.25, 1.15)]
         ])
-        minuses = VGroup(*[
+        negative = VGroup(*[
             Text("−", font_size=36, color=TEAL, weight=BOLD).move_to([x, y, 0])
-            for x, y in [(-0.85, 0.85), (0.0, 0.65), (0.8, 0.9), (0.3, 1.1)]
+            for x, y in [(-0.7, 0.35), (0, 0.2), (0.7, 0.38), (0.25, 0.65)]
         ])
         ice = VGroup(*[
-            Square(side_length=0.16, color=MINT, fill_color=MINT,
+            Square(side_length=0.14, color=MINT, fill_color=MINT,
                    fill_opacity=1).rotate(PI / 4).move_to([x, y, 0])
-            for x, y in [(-1.25, 0.2), (-0.45, 0.05), (0.55, 0.25), (1.15, 0.0)]
+            for x, y in [(-1.25, 0.9), (-0.45, 0.8), (0.55, 0.95), (1.2, 0.75)]
         ])
         arrows = VGroup(*[
-            Arrow([x, 0.1, 0], [x + 0.22, 0.65, 0], color=TEAL,
-                  buff=0, stroke_width=3, max_tip_length_to_length_ratio=0.25)
-            for x in [-0.9, 0.0, 0.9]
+            Arrow([x, 0.55, 0], [x + 0.18, 1.12, 0], color=TEAL,
+                  buff=0, stroke_width=3)
+            for x in [-0.85, 0.0, 0.85]
         ])
-        label = fit_line("CHARGE SEPARATION", 21, SAND, BOLD)
-        label.move_to(DOWN * 0.65)
-        scene.play(FadeIn(cloud), run_time=0.55)
+        scene.play(FadeOut(photo), FadeOut(photo_frame), FadeIn(cloud), FadeIn(label), run_time=0.65)
         scene.play(FadeIn(ice), FadeIn(arrows), run_time=0.55)
-        scene.play(FadeIn(pluses), FadeIn(minuses), run_time=0.55)
-        scene.play(Indicate(pluses, color=SAND), Indicate(minuses, color=TEAL), run_time=0.65)
-        scene.play(FadeIn(label), run_time=0.35)
-        scene.play(FadeOut(cloud), FadeOut(ice), FadeOut(arrows), FadeOut(pluses),
-                   FadeOut(minuses), FadeOut(label), run_time=0.45)
+        scene.play(FadeIn(positive), FadeIn(negative), run_time=0.65)
+        scene.play(Indicate(positive, color=SAND), Indicate(negative, color=TEAL), run_time=0.8)
+        scene.wait(0.9)
+        scene.play(FadeOut(cloud), FadeOut(ice), FadeOut(arrows), FadeOut(positive),
+                   FadeOut(negative), FadeOut(label), run_time=0.5)
 
     elif index == 2:
-        ground = Polygon([-2.2, -1.65, 0], [2.2, -1.65, 0],
-                         [2.2, -2.0, 0], [-2.2, -2.0, 0],
-                         fill_color="#315B45", fill_opacity=1, stroke_width=0)
         bolt = Polygon(
-            [-0.12, 0.95, 0], [0.32, 0.95, 0], [-0.02, 0.25, 0],
-            [0.42, 0.25, 0], [-0.38, -1.0, 0], [-0.22, -0.18, 0],
-            [-0.58, -0.18, 0],
-            color=SAND, fill_color=SAND, fill_opacity=1, stroke_width=2
+            [-0.1, 2.2, 0], [0.35, 2.2, 0], [0.02, 1.35, 0],
+            [0.48, 1.35, 0], [-0.35, 0.1, 0], [-0.16, 0.95, 0],
+            [-0.58, 0.95, 0], color=SAND, fill_color=SAND,
+            fill_opacity=1, stroke_width=2
         )
         branches = VGroup(
-            Line([-0.1, 0.35, 0], [-0.85, -0.1, 0], color=SAND, stroke_width=5),
-            Line([0.03, -0.05, 0], [0.72, -0.55, 0], color=SAND, stroke_width=5),
-            Line([-0.28, -0.48, 0], [-0.8, -0.9, 0], color=SAND, stroke_width=4)
+            Line([-0.05, 1.5, 0], [-1.05, 0.8, 0], color=WHITE, stroke_width=5),
+            Line([0.12, 1.2, 0], [1.0, 0.35, 0], color=WHITE, stroke_width=5),
+            Line([-0.24, 0.72, 0], [-0.9, 0.12, 0], color=WHITE, stroke_width=4),
         )
-        label = fit_line("A BRANCHING ELECTRICAL DISCHARGE", 18, SAND, BOLD, 4.1)
-        label.move_to(DOWN * 1.35)
-        scene.play(FadeIn(cloud), FadeIn(ground), run_time=0.55)
-        scene.play(Create(bolt), run_time=0.45)
-        scene.play(Create(branches), run_time=0.55)
-        scene.play(Flash(bolt.get_center(), color=WHITE, flash_radius=1.0),
-                   Indicate(bolt, color=WHITE, scale_factor=1.08), run_time=0.65)
-        scene.play(FadeIn(label), run_time=0.35)
-        scene.play(FadeOut(cloud), FadeOut(ground), FadeOut(bolt),
-                   FadeOut(branches), FadeOut(label), run_time=0.45)
+        tag = fit_line("A REAL LIGHTNING FLASH", 22, SAND, BOLD)
+        tag.move_to(DOWN * 0.95)
+        scene.play(FadeOut(photo_frame), photo.animate.scale(1.18).move_to(UP * 0.85),
+                   run_time=0.8)
+        scene.play(Create(bolt), run_time=0.55)
+        scene.play(Create(branches), run_time=0.6)
+        scene.play(Flash(bolt.get_center(), color=WHITE, flash_radius=1.15),
+                   Indicate(bolt, color=WHITE, scale_factor=1.12), run_time=0.7)
+        scene.play(FadeIn(tag), run_time=0.45)
+        scene.wait(1.1)
+        scene.play(FadeOut(photo), FadeOut(bolt), FadeOut(branches), FadeOut(tag), run_time=0.5)
 
     else:
         bolt = Polygon(
-            [-0.1, 1.05, 0], [0.28, 1.05, 0], [-0.02, 0.35, 0],
-            [0.38, 0.35, 0], [-0.4, -0.75, 0], [-0.22, -0.02, 0],
-            [-0.56, -0.02, 0], color=SAND, fill_color=SAND,
-            fill_opacity=1, stroke_width=1
+            [-0.1, 2.15, 0], [0.35, 2.15, 0], [0.02, 1.3, 0],
+            [0.48, 1.3, 0], [-0.35, 0.05, 0], [-0.16, 0.9, 0],
+            [-0.58, 0.9, 0], color=SAND, fill_color=SAND,
+            fill_opacity=1, stroke_width=2
         )
         waves = VGroup(*[
-            Arc(radius=0.55 + i * 0.3, angle=PI * 0.8, color=TEAL,
-                stroke_width=4).move_to([0.15, 0.0, 0])
+            Arc(radius=0.42 + i * 0.28, angle=PI * 0.82, color=TEAL,
+                stroke_width=5).move_to([0.18, 0.75, 0])
             for i in range(4)
         ])
-        speed_light = fit_line("LIGHT: ARRIVES FIRST", 19, SAND, BOLD)
-        speed_sound = fit_line("SOUND: FOLLOWS AS THUNDER", 18, TEAL, BOLD, 4.0)
-        speed_light.move_to(DOWN * 1.1)
-        speed_sound.move_to(DOWN * 1.55)
-        scene.play(FadeIn(cloud), FadeIn(bolt), run_time=0.6)
-        scene.play(Flash(bolt.get_center(), color=WHITE, flash_radius=0.9), run_time=0.45)
+        light_label = fit_line("FLASH: LIGHT REACHES YOU FIRST", 18, SAND, BOLD, 4.1)
+        sound_label = fit_line("THUNDER: SOUND ARRIVES LATER", 18, TEAL, BOLD, 4.1)
+        light_label.move_to(DOWN * 1.0)
+        sound_label.move_to(DOWN * 1.55)
+        scene.play(FadeIn(bolt), run_time=0.5)
+        scene.play(Flash(bolt.get_center(), color=WHITE, flash_radius=1.1), run_time=0.5)
         scene.play(Create(waves), run_time=1.0)
-        scene.play(waves.animate.scale(1.18), FadeIn(speed_light), run_time=0.65)
-        scene.play(FadeIn(speed_sound), run_time=0.4)
-        scene.play(FadeOut(cloud), FadeOut(bolt), FadeOut(waves),
-                   FadeOut(speed_light), FadeOut(speed_sound), run_time=0.45)
+        scene.play(waves.animate.scale(1.16), FadeIn(light_label), run_time=0.8)
+        scene.play(FadeIn(sound_label), run_time=0.5)
+        scene.wait(1.0)
+        scene.play(FadeOut(bolt), FadeOut(waves), FadeOut(light_label),
+                   FadeOut(sound_label), run_time=0.5)
 
-    scene.play(FadeOut(caption), FadeOut(stars), run_time=0.3)
+    scene.play(FadeOut(caption), run_time=0.4)
 
 
 class AcademyLessonShort(Scene):
