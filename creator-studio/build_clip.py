@@ -395,7 +395,11 @@ def main():
         "[voice][music]amix=inputs=2:duration=longest:dropout_transition=2[a]",
         "-map", "[a]",
         "-vf", f"tpad=stop_mode=clone:stop_duration={pad_seconds:.3f},"
-               "scale=1080:1920:flags=lanczos,fps=30,format=yuv420p",
+               "scale=1080:1920:flags=lanczos,fps=30,format=yuv420p,"
+               f"subtitles='{(out / 'captions.srt').resolve().as_posix()}':"
+               "force_style='FontName=DejaVu Sans,FontSize=54,PrimaryColour=&H00FFFFFF,"
+               "OutlineColour=&H00000000,BorderStyle=1,Outline=4,Shadow=1,"
+               "Alignment=2,MarginV=270,MarginL=100,MarginR=100'",
         "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
         "-pix_fmt", "yuv420p", "-r", "30",
         "-c:a", "aac", "-b:a", "160k",
@@ -424,6 +428,7 @@ def main():
     print("VIDEO_RESOLUTION=1080x1920")
     print("VIDEO_FPS=30")
     print("BACKGROUND_MUSIC=original ambient bed at 15 percent")
+    print("CAPTIONS_BURNED_IN=white text with black outline and mobile-safe margins")
     print(f"VOICEOVER_SECONDS={audio_seconds:.2f}")
     print(f"FINAL_VIDEO_SECONDS={final_seconds:.2f}")
     shutil.move(str(voiced_video), str(final_video))
