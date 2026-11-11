@@ -215,6 +215,35 @@ def main():
 <text x="80" y="660" fill="#FFD45C" font-family="Arial,sans-serif" font-size="36" font-weight="bold">THE SCIENCE BEHIND THE FLASH</text>
 </svg>"""
         (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
+    elif args.lesson == "why-sky-blue":
+        svg = """<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#07172D"/><stop offset="1" stop-color="#1676B8"/></linearGradient></defs>
+<rect width="1280" height="720" fill="url(#sky)"/><circle cx="1010" cy="180" r="105" fill="#FFD27A"/>
+<g stroke-width="12" stroke-linecap="round"><path d="M900 220L650 360" stroke="#65C5FF"/><path d="M900 250L670 450" stroke="#65C5FF"/><path d="M900 280L760 520" stroke="#65C5FF"/><path d="M890 190L620 260" stroke="#FFFFFF"/></g>
+<text x="72" y="110" fill="#8BE2D2" font-family="Arial,sans-serif" font-size="40" font-weight="bold">ADVENTURE OF EDUCATION</text>
+<text x="72" y="430" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="94" font-weight="bold">WHY IS THE</text>
+<text x="72" y="535" fill="#FFD27A" font-family="Arial,sans-serif" font-size="112" font-weight="bold">SKY BLUE?</text>
+<text x="78" y="625" fill="#D8F1EC" font-family="Arial,sans-serif" font-size="34">THE SCIENCE OF SCATTERED LIGHT</text></svg>"""
+        (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
+        from PIL import Image, ImageDraw, ImageFont
+        thumb = Image.new("RGB", (1280, 720), (7, 23, 45))
+        draw = ImageDraw.Draw(thumb)
+        for y in range(720):
+            blend = y / 720
+            draw.line((0, y, 1280, y),
+                      fill=(int(7 + 15*blend), int(23 + 90*blend), int(45 + 145*blend)))
+        draw.ellipse((895, 65, 1125, 295), fill=(255, 190, 85))
+        try:
+            font_brand = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
+            font_title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 92)
+            font_sub = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 32)
+        except OSError:
+            font_brand = font_title = font_sub = ImageFont.load_default()
+        draw.text((72, 80), "ADVENTURE OF EDUCATION", font=font_brand, fill=(139,226,210))
+        draw.text((72, 360), "WHY IS THE", font=font_title, fill="white", stroke_width=3, stroke_fill=(4,18,35))
+        draw.text((72, 465), "SKY BLUE?", font=font_title, fill=(255,210,122), stroke_width=3, stroke_fill=(4,18,35))
+        draw.text((78, 610), "THE SCIENCE OF SCATTERED LIGHT", font=font_sub, fill=(216,241,236))
+        thumb.save(out / "thumbnail.jpg", quality=94)
     elif args.lesson == "hubble-repair-mission":
         svg = """<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
 <defs><linearGradient id="space" x2="0" y2="1"><stop stop-color="#06172B"/><stop offset="1" stop-color="#163A59"/></linearGradient></defs>
