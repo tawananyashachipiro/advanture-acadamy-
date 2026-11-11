@@ -166,9 +166,9 @@ def main():
 </svg>"""
         (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
     else:
-    title = escape(lesson["subject"].upper())
-    subtitle = escape(lesson["title"])
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+        title = escape(lesson["subject"].upper())
+        subtitle = escape(lesson["title"])
+        svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
 <rect width="1280" height="720" fill="#0F2238"/>
 <circle cx="1080" cy="120" r="210" fill="#2F9E92" opacity=".25"/>
 <circle cx="150" cy="650" r="260" fill="#FFD27A" opacity=".15"/>
@@ -177,7 +177,8 @@ def main():
 <text x="90" y="420" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="54" font-weight="bold">{subtitle}</text>
 <text x="90" y="610" fill="#D8F1EC" font-family="Arial,sans-serif" font-size="34">PAUSE • THINK • DISCOVER</text>
 </svg>'''
-    (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
+        (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
+
     (out / "REVIEW-CHECKLIST.txt").write_text(
         "Before uploading:\n"
         "[ ] Watch the complete MP4.\n"
