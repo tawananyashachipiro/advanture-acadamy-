@@ -44,7 +44,7 @@ Add the new lesson ID to the workflow's choice list in `.github/workflows/render
 - Workflow permissions are read-only for repository contents.
 - GitHub Actions are pinned to reviewed release commit SHAs.
 - No third-party action is given write permissions or access to YouTube credentials.
-- The workflow does not upload or publish to YouTube. Review the video, facts, captions, audience setting and metadata, then upload manually through YouTube Studio using an authorised channel account.
+- The Clip Factory only builds artifacts. A separate **YouTube Private Upload (Manual Approval)** workflow can upload a selected artifact as **private** after a human manually starts it and supplies reviewed metadata. It never sets a video to public. The channel owner must review the private upload and make any public-release decision in YouTube Studio.
 - Never put passwords, OAuth client secrets, access tokens or private learner data in this repository.
 - Use original, public-domain or properly licensed media and music only.
 - Review educational content for accuracy before publication.
@@ -70,3 +70,15 @@ When running **Adventure Academy Clip Factory**, tick `use_moneyprinterturbo` on
 MoneyPrinterTurbo is installed from its official Python package at the pinned version `mpt==1.3.10`. Its output is saved as a separate artifact named `moneyprinterturbo-<lesson-id>`; the original `academy-clip-<lesson-id>` artifact remains unchanged.
 
 This optional pass uses extra GitHub Actions minutes and may take longer. GitHub-hosted runner availability and free usage limits still apply. It has been wired into the workflow but must complete a successful test run before being treated as production-verified. The ordinary Clip Factory remains the default and does not install MoneyPrinterTurbo.
+
+
+## YouTube private-upload workflow
+
+The separate `.github/workflows/youtube-private-upload.yml` workflow is manually triggered. It downloads a named artifact from a successful Clip Factory run, uploads the MP4 with `privacyStatus=private`, then applies the included thumbnail and English SRT captions.
+
+Required repository Actions secrets (add only after the channel owner completes OAuth securely):
+- `YOUTUBE_CLIENT_ID`
+- `YOUTUBE_CLIENT_SECRET`
+- `YOUTUBE_REFRESH_TOKEN`
+
+Never put these values in repository files, workflow inputs, issues, or chat. The upload workflow does not offer a public privacy setting. The channel owner must review the private video in YouTube Studio before deciding whether to publish it.
