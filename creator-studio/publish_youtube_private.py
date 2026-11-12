@@ -22,12 +22,16 @@ def main():
 
     root = Path("youtube_upload_work")
     root.mkdir(exist_ok=True)
-    with zipfile.ZipFile(args.artifact) as zf:
-        for item in zf.infolist():
-            target = (root / item.filename).resolve()
-            if root.resolve() not in target.parents and target != root.resolve():
-                raise ValueError("Unsafe path in artifact")
-        zf.extractall(root)
+    artifact_path = Path(args.artifact)
+    if artifact_path.is_dir():
+        root = artifact_path.resolve()
+    else:
+        with zipfile.ZipFile(artifact_path) as zf:
+            for item in zf.infolist():
+                target = (root / item.filename).resolve()
+                if root.resolve() not in target.parents and target != root.resolve():
+                    raise ValueError("Unsafe path in artifact")
+            zf.extractall(root)
 
     videos = list(root.rglob("AdventureAcademyShort.mp4"))
     if len(videos) != 1:
