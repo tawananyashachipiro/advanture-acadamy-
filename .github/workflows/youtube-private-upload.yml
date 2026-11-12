@@ -74,7 +74,7 @@ jobs:
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
         run: |
           python creator-studio/publish_youtube_private.py \
-            --artifact "$(find incoming-artifact -maxdepth 1 -type f -name '*.zip' -print -quit)" \
+            --artifact "incoming-artifact" \
             --title "${{ inputs.title }}" \
             --description "${{ inputs.description }}" \
             --tags "${{ inputs.tags }}" \
