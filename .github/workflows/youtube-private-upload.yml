@@ -72,10 +72,14 @@ jobs:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          VIDEO_TITLE: ${{ inputs.title }}
+          VIDEO_DESCRIPTION: ${{ inputs.description }}
+          VIDEO_TAGS: ${{ inputs.tags }}
+          MADE_FOR_KIDS: ${{ inputs.made_for_kids }}
         run: |
           python creator-studio/publish_youtube_private.py \
             --artifact "incoming-artifact" \
-            --title "${{ inputs.title }}" \
-            --description "${{ inputs.description }}" \
-            --tags "${{ inputs.tags }}" \
-            --made-for-kids "${{ inputs.made_for_kids }}"
+            --title "$VIDEO_TITLE" \
+            --description "$VIDEO_DESCRIPTION" \
+            --tags "$VIDEO_TAGS" \
+            --made-for-kids "$MADE_FOR_KIDS"
