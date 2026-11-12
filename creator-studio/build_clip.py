@@ -257,6 +257,48 @@ def main():
 <text x="74" y="625" fill="#FFD27A" font-family="Arial,sans-serif" font-size="42" font-weight="bold">IN SPACE • FIVE SPACEWALKS</text>
 </svg>"""
         (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
+    elif args.lesson == "black-hole-first-image":
+        svg = """<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<defs><linearGradient id="space" x2="0" y2="1"><stop stop-color="#06101F"/><stop offset="1" stop-color="#17314B"/></linearGradient></defs>
+<rect width="1280" height="720" fill="url(#space)"/>
+<g fill="#D8F1EC" opacity=".8"><circle cx="95" cy="190" r="4"/><circle cx="330" cy="125" r="5"/><circle cx="610" cy="205" r="3"/><circle cx="1180" cy="115" r="4"/><circle cx="1080" cy="600" r="4"/><circle cx="735" cy="95" r="3"/></g>
+<circle cx="965" cy="360" r="185" fill="none" stroke="#FFD58C" stroke-width="7" opacity=".5"/>
+<circle cx="965" cy="360" r="150" fill="none" stroke="#FF9D52" stroke-width="42"/>
+<circle cx="965" cy="360" r="91" fill="#020611"/>
+<g fill="#8BE2D2"><circle cx="965" cy="150" r="8"/><circle cx="1175" cy="360" r="8"/><circle cx="965" cy="570" r="8"/><circle cx="755" cy="360" r="8"/></g>
+<text x="72" y="92" fill="#8BE2D2" font-family="Arial,sans-serif" font-size="38" font-weight="bold">ADVENTURE OF EDUCATION</text>
+<text x="72" y="345" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="76" font-weight="bold">FIRST BLACK</text>
+<text x="72" y="440" fill="#FFD27A" font-family="Arial,sans-serif" font-size="86" font-weight="bold">HOLE IMAGE</text>
+<text x="78" y="575" fill="#D8F1EC" font-family="Arial,sans-serif" font-size="31">8 TELESCOPES • ONE PLANET-SIZED EYE</text>
+</svg>"""
+        (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
+        from PIL import Image, ImageDraw, ImageFont
+        thumb = Image.new("RGB", (1280, 720), (6, 16, 31))
+        draw = ImageDraw.Draw(thumb)
+        for y in range(720):
+            blend = y / 720
+            draw.line((0, y, 1280, y),
+                      fill=(int(6 + 18*blend), int(16 + 33*blend), int(31 + 44*blend)))
+        for x, y, radius in [(95, 190, 4), (330, 125, 5), (610, 205, 3),
+                             (1180, 115, 4), (1080, 600, 4), (735, 95, 3)]:
+            draw.ellipse((x-radius, y-radius, x+radius, y+radius), fill=(216,241,236))
+        draw.ellipse((780, 175, 1150, 545), outline=(255,213,140), width=8)
+        draw.ellipse((815, 210, 1115, 510), outline=(255,157,82), width=42)
+        draw.ellipse((875, 270, 1055, 450), fill=(2,6,17))
+        try:
+            font_brand = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 34)
+            font_title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 76)
+            font_sub = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 28)
+        except OSError:
+            font_brand = font_title = font_sub = ImageFont.load_default()
+        draw.text((72, 68), "ADVENTURE OF EDUCATION", font=font_brand, fill=(139,226,210))
+        draw.text((72, 300), "FIRST BLACK", font=font_title, fill="white",
+                  stroke_width=3, stroke_fill=(4,18,35))
+        draw.text((72, 395), "HOLE IMAGE", font=font_title, fill=(255,210,122),
+                  stroke_width=3, stroke_fill=(4,18,35))
+        draw.text((78, 570), "8 TELESCOPES • ONE PLANET-SIZED EYE",
+                  font=font_sub, fill=(216,241,236))
+        thumb.save(out / "thumbnail.jpg", quality=94)
     else:
         title = escape(lesson["subject"].upper())
         subtitle = escape(lesson["title"])

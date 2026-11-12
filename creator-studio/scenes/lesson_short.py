@@ -690,6 +690,89 @@ def sky_blue_pixel_story(scene, index, step):
 
 
 
+
+def black_hole_pixel_story(scene, index, step):
+    """Original pixel-art scenes for the first Event Horizon Telescope image."""
+    heading = fit_line(step["heading"], 24, SAND, BOLD, max_width=4.0)
+    body = fit_paragraph(step["body"], 27, WHITE, max_width=4.0)
+    caption = VGroup(heading, body).arrange(DOWN, buff=0.18).move_to(DOWN * 2.65)
+    scene.play(FadeIn(caption, shift=UP * 0.12), run_time=0.45)
+
+    if index == 1:
+        earth_center = LEFT * 0.55 + UP * 0.55
+        earth = Circle(radius=0.66, color="#4A9AC2",
+                       fill_color="#164A70", fill_opacity=1).move_to(earth_center)
+        land = pixel_sprite(
+            ["...GG...", ".GGGGG..", "GG..GGG.", ".GGGG...", "...G...."],
+            {"G": "#62B889"}, pixel=0.09
+        ).move_to(earth_center)
+        stations = VGroup()
+        links = VGroup()
+        for angle in np.linspace(0, TAU, 8, endpoint=False):
+            position = earth_center + np.array([
+                1.12 * np.cos(angle), 1.12 * np.sin(angle), 0
+            ])
+            dish = pixel_sprite(
+                ["..W..", ".WWW.", "..B..", ".B.B."],
+                {"W": MINT, "B": TEAL}, pixel=0.045
+            ).move_to(position)
+            stations.add(dish)
+            links.add(Line(position, earth_center, color=TEAL, stroke_width=1.4))
+        label = fit_line("8 RADIO OBSERVATORIES • ONE VIRTUAL TELESCOPE",
+                         17, SAND, BOLD, 4.0).move_to(DOWN * 1.3)
+        scene.play(FadeIn(earth), FadeIn(land), Create(links), run_time=0.8)
+        scene.play(LaggedStart(*[FadeIn(station) for station in stations],
+                               lag_ratio=0.08), run_time=0.9)
+        scene.play(FadeIn(label), run_time=0.4)
+        scene.play(FadeOut(earth), FadeOut(land), FadeOut(links),
+                   FadeOut(stations), FadeOut(label), run_time=0.4)
+
+    elif index == 2:
+        drive = pixel_sprite(
+            ["BBBBBBBB", "BWWWWWWB", "BWWWWWWB", "BBBBBBBB"],
+            {"B": "#91AFC2", "W": "#244A65"}, pixel=0.105
+        ).move_to(LEFT * 1.25 + UP * 0.55)
+        computer = pixel_sprite(
+            ["BBBBBBBBBB", "BWWWWWWWWB", "BWWWWWWWWB",
+             "BWWWWWWWWB", "BBBBBBBBBB", "..BBBB.."],
+            {"B": "#2F9E92", "W": "#B7D6E3"}, pixel=0.085
+        ).move_to(RIGHT * 1.25 + UP * 0.55)
+        transfer = Arrow(LEFT * 0.55 + UP * 0.55,
+                         RIGHT * 0.55 + UP * 0.55,
+                         color=SAND, buff=0.08, stroke_width=4)
+        label = fit_line("≈350 TERABYTES / DAY / EACH TELESCOPE",
+                         17, SAND, BOLD, 4.0).move_to(DOWN * 1.25)
+        scene.play(FadeIn(drive), FadeIn(computer), Create(transfer), run_time=0.8)
+        scene.play(drive.animate.shift(RIGHT * 1.45), run_time=1.0, rate_func=smooth)
+        scene.play(FadeIn(label), run_time=0.4)
+        scene.play(FadeOut(drive), FadeOut(computer), FadeOut(transfer),
+                   FadeOut(label), run_time=0.4)
+
+    elif index == 3:
+        centre = UP * 0.55
+        glow = Circle(radius=1.0, color="#FFD58C", stroke_width=4).move_to(centre)
+        ring = Circle(radius=0.78, color="#FF9D52", stroke_width=24).move_to(centre)
+        shadow = Circle(radius=0.47, color="#020611",
+                        fill_color="#020611", fill_opacity=1).move_to(centre)
+        gas = VGroup(*[
+            Dot(centre + np.array([0.88 * np.cos(a), 0.88 * np.sin(a), 0]),
+                radius=0.07, color="#FFE0A5")
+            for a in np.linspace(0, TAU, 8, endpoint=False)
+        ])
+        distance = fit_line("M87* • ABOUT 55 MILLION LIGHT-YEARS AWAY",
+                            17, TEAL, BOLD, 4.0).move_to(UP * 1.75)
+        meaning = fit_line("A DARK SHADOW • GLOWING GAS AROUND IT",
+                           17, SAND, BOLD, 4.0).move_to(DOWN * 1.25)
+        scene.play(Create(glow), Create(ring), FadeIn(shadow), run_time=0.9)
+        scene.play(LaggedStart(*[FadeIn(dot) for dot in gas],
+                               lag_ratio=0.08), run_time=0.7)
+        scene.play(FadeIn(distance), FadeIn(meaning), run_time=0.4)
+        scene.play(FadeOut(glow), FadeOut(ring), FadeOut(shadow),
+                   FadeOut(gas), FadeOut(distance), FadeOut(meaning), run_time=0.4)
+
+    scene.play(FadeOut(caption), run_time=0.35)
+
+
 class AcademyLessonShort(Scene):
     def construct(self):
         lesson_path = os.environ.get("ACADEMY_LESSON_FILE", "creator-studio/lessons/active-lesson.json")
@@ -702,6 +785,7 @@ class AcademyLessonShort(Scene):
 
         is_apollo = lesson.get("title", "").startswith("Apollo 13:")
         is_hubble = lesson.get("title", "").startswith("Hubble's Blurry Vision:")
+        is_black_hole = lesson.get("title", "").startswith("The First Black Hole Image:")
         if is_apollo:
             # A short visual cold-open: original pixel-art rocket and Moon.
             # Keep it simple and locally rendered; no stock footage or paid assets.
@@ -758,6 +842,41 @@ class AcademyLessonShort(Scene):
             self.wait(1.3)
             self.play(FadeOut(telescope), FadeOut(astronaut), FadeOut(cold_open),
                       run_time=0.35)
+        elif is_black_hole:
+            earth_center = LEFT * 0.85 + UP * 0.55
+            earth = Circle(radius=0.58, color="#4A9AC2",
+                           fill_color="#164A70", fill_opacity=1).move_to(earth_center)
+            land = pixel_sprite(
+                ["...GG...", ".GGGGG..", "GG..GGG.", ".GGGG...", "...G...."],
+                {"G": "#62B889"}, pixel=0.075
+            ).move_to(earth_center)
+            stations = VGroup()
+            links = VGroup()
+            for angle in np.linspace(0, TAU, 8, endpoint=False):
+                position = earth_center + np.array([
+                    0.98 * np.cos(angle), 0.98 * np.sin(angle), 0
+                ])
+                stations.add(pixel_sprite(
+                    ["..W..", ".WWW.", "..B..", ".B.B."],
+                    {"W": MINT, "B": TEAL}, pixel=0.04
+                ).move_to(position))
+                links.add(Line(position, earth_center, color=TEAL, stroke_width=1.2))
+            ring_center = RIGHT * 1.05 + UP * 0.55
+            ring = Circle(radius=0.52, color="#FF9D52", stroke_width=18).move_to(ring_center)
+            shadow = Circle(radius=0.31, color="#020611",
+                            fill_color="#020611", fill_opacity=1).move_to(ring_center)
+            cold_open = fit_paragraph(
+                "EIGHT TELESCOPES. ONE EARTH-SIZED EYE.",
+                29, SAND, max_width=4.0
+            ).move_to(DOWN * 1.45)
+            self.play(FadeIn(earth), FadeIn(land), Create(links), run_time=0.65)
+            self.play(LaggedStart(*[FadeIn(station) for station in stations],
+                                  lag_ratio=0.07), run_time=0.8)
+            self.play(Create(ring), FadeIn(shadow), FadeIn(cold_open), run_time=0.85)
+            self.wait(1.1)
+            self.play(FadeOut(earth), FadeOut(land), FadeOut(links),
+                      FadeOut(stations), FadeOut(ring), FadeOut(shadow),
+                      FadeOut(cold_open), run_time=0.4)
 
         title = fit_paragraph(lesson["title"], 38, WHITE)
         title.move_to(UP * 1.05)
@@ -792,6 +911,8 @@ class AcademyLessonShort(Scene):
                 antikythera_pixel_story(self, index, step)
             elif is_hubble:
                 hubble_pixel_story(self, index, step)
+            elif is_black_hole:
+                black_hole_pixel_story(self, index, step)
             elif lesson.get("title", "").startswith("Lightning Explained:"):
                 lightning_physics_story(self, index, step)
             elif lesson.get("title", "").startswith("Why Is the Sky Blue:"):
@@ -836,6 +957,14 @@ class AcademyLessonShort(Scene):
             end_card = VGroup(
                 fit_line("FIVE SPACEWALKS. A CLEARER VIEW.", 22, SAND, BOLD, max_width=4.0),
                 fit_line("STS-61 • DECEMBER 1993", 20, WHITE, BOLD),
+            ).arrange(DOWN, buff=0.28).move_to(UP * 0.6)
+            self.play(FadeIn(end_card), run_time=0.6)
+            self.wait(0.7)
+            self.play(FadeOut(end_card), run_time=0.35)
+        elif is_black_hole:
+            end_card = VGroup(
+                fit_line("EIGHT TELESCOPES. ONE SHARED IMAGE.", 22, SAND, BOLD, max_width=4.0),
+                fit_line("M87* • REVEALED 10 APRIL 2019", 20, WHITE, BOLD),
             ).arrange(DOWN, buff=0.28).move_to(UP * 0.6)
             self.play(FadeIn(end_card), run_time=0.6)
             self.wait(0.7)

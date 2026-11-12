@@ -754,5 +754,69 @@
     "fact_check_notes": "Distinguish emitted frequency from observed frequency. The source's pitch need not change; relative motion changes the spacing and arrival rate of wavefronts at the observer. This introductory script describes a moving source and stationary listener.",
     "thumbnail_guidance": "Large readable text: WHY DOES THE SIREN CHANGE? Show an ambulance/siren with compressed blue wavefronts in front and wider wavefronts behind. Keep all text inside safe margins.",
     "pinned_comment": "Quick physics check: why does the siren sound lower after it passes you?"
+  },
+  "black-hole-first-image": {
+    "subject": "Astronomy",
+    "level": "Introductory",
+    "title": "The First Black Hole Image: How Eight Telescopes Worked as One",
+    "hook": "How do you photograph something light cannot escape? Eight radio telescopes solved it together.",
+    "concept": "The Event Horizon Telescope combined observations from eight radio observatories to reveal the shadow of the supermassive black hole at the centre of galaxy Messier 87. The famous image shows glowing gas around a dark central region, not the black hole's interior.",
+    "steps": [
+      {
+        "heading": "Eight telescopes, one planet-sized eye",
+        "body": "The Event Horizon Telescope linked eight existing radio observatories around Earth. By synchronising their observations with atomic clocks, the network worked like one virtual telescope the size of our planet."
+      },
+      {
+        "heading": "The data travelled by plane",
+        "body": "During the 2017 observing campaign, each telescope recorded about 350 terabytes of data per day. Researchers flew the hard drives to specialised supercomputers and combined the measurements."
+      },
+      {
+        "heading": "A shadow, not a surface",
+        "body": "On 10 April 2019, the team revealed the first image of a black hole's shadow in galaxy M87. The bright ring comes from hot gas around the dark centre—not from inside the black hole. M87 lies about 55 million light-years away."
+      }
+    ],
+    "question": "What does the famous bright ring help reveal?",
+    "options": [
+      "The black hole's shadow, outlined by hot gas",
+      "The solid surface of the black hole",
+      "Light escaping from inside the black hole"
+    ],
+    "answer_index": 0,
+    "explanation": "The Event Horizon Telescope image shows emission from hot gas near the black hole, outlining its dark shadow. It does not show a visible surface or light escaping from inside.",
+    "voiceover": "How do you photograph something that light cannot escape? In 2017, eight radio telescopes around the world observed the centre of galaxy Messier 87. By synchronising their measurements with atomic clocks, the Event Horizon Telescope made them work like one Earth-sized virtual telescope. Each site recorded enormous data sets—about 350 terabytes a day. Hard drives were flown to specialised supercomputers, where researchers combined the measurements. On 10 April 2019, the team revealed the first image of a black hole's shadow. The bright ring is light from hot gas around the dark centre—not a picture of the black hole's inside. M87's black hole is about 55 million light-years away and has the mass of 6.5 billion Suns. What did the image show? A shadow outlined by glowing gas.",
+    "hashtags": [
+      "#BlackHole",
+      "#EventHorizonTelescope",
+      "#Astronomy",
+      "#SpaceScience",
+      "#ScienceShorts",
+      "#AdventureOfEducation",
+      "#LearnOnYouTube"
+    ],
+    "sources": [
+      {
+        "organization": "U.S. National Science Foundation",
+        "title": "Astronomers capture first image of a black hole (10 April 2019)",
+        "url": "https://www.nsf.gov/news/astronomers-capture-first-image-black-hole"
+      },
+      {
+        "organization": "ALMA Observatory",
+        "title": "Astronomers Capture the First Image of a Black Hole (10 April 2019)",
+        "url": "https://www.almaobservatory.org/en/press-releases/astronomers-capture-first-image-of-a-black-hole/"
+      },
+      {
+        "organization": "U.S. National Science Foundation",
+        "title": "Why are black holes so camera shy?",
+        "url": "https://www.nsf.gov/science-matters/why-are-black-holes-so-camera-shy"
+      },
+      {
+        "organization": "NASA Science",
+        "title": "First Image of a Black Hole",
+        "url": "https://science.nasa.gov/resource/first-image-of-a-black-hole/"
+      }
+    ],
+    "fact_check_notes": "FACT-CHECK NOTES — reviewed against institutional primary sources\n\n- The Event Horizon Telescope result was announced on 10 April 2019 and showed the shadow of the supermassive black hole at the centre of galaxy Messier 87 (M87). Sources: NSF 2019 press release; ALMA Observatory/EHT partner release.\n- The EHT linked eight existing ground-based radio observatories. Very-long-baseline interferometry synchronised observations and used Earth's rotation to form an Earth-sized virtual telescope. Source: NSF 2019 press release.\n- The observations were collected in 2017. ALMA's partner release reports roughly 350 terabytes of data per telescope per day, stored on hard drives and flown to specialist supercomputers for combination. Source: ALMA Observatory.\n- The bright ring is emission from hot gas around the black hole; the dark central region is the black-hole shadow. The image is not a photograph of a solid surface or of light escaping from inside. Sources: NSF 2019 press release; NSF explainer.\n- M87's black hole is about 55 million light-years from Earth and has a mass about 6.5 billion times the Sun's. Sources: NSF 2019 press release; ALMA Observatory.\n\nEditorial guardrail: call it the first image of a black-hole shadow, not a photograph of the black hole's surface. Do not imply that the orange ring is the event horizon itself.",
+    "thumbnail_guidance": "Create a high-contrast 16:9 cover: a glowing orange ring around a dark central shadow on a deep-space background, with eight tiny radio-dish icons arranged around a subtle Earth curve. Use the large headline 'FIRST BLACK HOLE IMAGE' and the short supporting line '8 TELESCOPES. ONE PLANET-SIZED EYE.' Keep the Adventure of Education brand visible, avoid tiny text, and do not imply that the black hole itself is glowing.",
+    "pinned_comment": "What amazed you more: eight telescopes acting like one giant eye, or the hard drives travelling to supercomputers? Share your answer below. The source links are in the description."
   }
 }
