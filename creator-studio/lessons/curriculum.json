@@ -699,5 +699,60 @@
     "fact_check_notes": "Violet is scattered at least as strongly as blue, but human vision is more sensitive to blue and sunlight contains less violet. Do not claim blue is scattered more than violet.",
     "thumbnail_guidance": "Bright blue sky, a white sunlight beam splitting into coloured rays, and bold text: WHY IS THE SKY BLUE? Keep text large and high contrast.",
     "pinned_comment": "💙 Violet is scattered strongly too, but our eyes are more sensitive to blue. What science mystery should we explore next?"
+  },
+  "physics-doppler-effect": {
+    "subject": "Physics",
+    "level": "Introductory",
+    "title": "Why Does a Siren Change Pitch? The Doppler Effect",
+    "hook": "A siren sounds higher as it approaches and lower as it passes. Is the siren changing?",
+    "concept": "The Doppler effect is the change in observed frequency caused by relative motion between a wave source and an observer. For sound, wavefronts are closer together in front of an approaching source and farther apart behind a receding source.",
+    "steps": [
+      {
+        "heading": "Listen as it approaches",
+        "body": "As a sound source moves towards you, successive wavefronts arrive closer together. You hear a higher frequency, which sounds like a higher pitch."
+      },
+      {
+        "heading": "The moment it passes",
+        "body": "As the siren passes, the motion changes from approaching to moving away. The pitch you hear shifts from higher to lower."
+      },
+      {
+        "heading": "Now it moves away",
+        "body": "Behind the moving source, wavefronts are farther apart. You hear a lower frequency and a lower pitch. The siren itself does not need to change its emitted pitch."
+      }
+    ],
+    "question": "When a siren moves away from you, what happens to the frequency you hear?",
+    "options": [
+      "It becomes lower",
+      "It becomes higher",
+      "It always stays the same"
+    ],
+    "answer_index": 0,
+    "explanation": "As the source moves away, the wavefronts reaching you are farther apart, so the observed frequency is lower.",
+    "voiceover": "A siren is coming! It sounds high, then suddenly drops as it passes. Did the siren change its voice? Not necessarily. This is the Doppler effect. When a sound source moves towards you, its wavefronts arrive closer together. You hear a higher frequency, so the pitch sounds higher. As it passes and moves away, the wavefronts reaching you spread farther apart. You hear a lower frequency and a lower pitch. The siren can keep emitting the same pitch the whole time. Quick challenge: when the siren moves away, what happens to the frequency you hear? It becomes lower. That's the Doppler effect!",
+    "hashtags": [
+      "#DopplerEffect",
+      "#Physics",
+      "#SoundWaves",
+      "#ScienceExplained",
+      "#LearnPhysics",
+      "#ScienceShorts",
+      "#AdventureOfEducation",
+      "#STEM"
+    ],
+    "sources": [
+      {
+        "organization": "OpenStax",
+        "title": "University Physics Volume 1 — The Doppler Effect",
+        "url": "https://openstax.org/books/university-physics-volume-1/pages/17-7-the-doppler-effect"
+      },
+      {
+        "organization": "The Physics Classroom",
+        "title": "The Doppler Effect",
+        "url": "https://www.physicsclassroom.com/class/sound/Lesson-3/The-Doppler-Effect"
+      }
+    ],
+    "fact_check_notes": "Distinguish emitted frequency from observed frequency. The source's pitch need not change; relative motion changes the spacing and arrival rate of wavefronts at the observer. This introductory script describes a moving source and stationary listener.",
+    "thumbnail_guidance": "Large readable text: WHY DOES THE SIREN CHANGE? Show an ambulance/siren with compressed blue wavefronts in front and wider wavefronts behind. Keep all text inside safe margins.",
+    "pinned_comment": "Quick physics check: why does the siren sound lower after it passes you?"
   }
 }
