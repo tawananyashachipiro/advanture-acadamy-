@@ -1,5 +1,6 @@
 # Apollo 13 storyboard includes original animated pixel-art scenes.
 import json
+import math
 import os
 import textwrap
 from pathlib import Path
@@ -710,7 +711,7 @@ def black_hole_pixel_story(scene, index, step):
         links = VGroup()
         for angle in np.linspace(0, TAU, 8, endpoint=False):
             position = earth_center + np.array([
-                1.12 * np.cos(angle), 1.12 * np.sin(angle), 0
+                1.12 * math.cos(angle), 1.12 * math.sin(angle), 0
             ])
             dish = pixel_sprite(
                 ["..W..", ".WWW.", "..B..", ".B.B."],
