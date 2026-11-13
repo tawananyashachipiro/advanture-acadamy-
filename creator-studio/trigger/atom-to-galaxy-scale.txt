@@ -15,3 +15,5 @@ Production direction:
 Rerun after the Manim ellipse rotation compatibility fix; render and verify the complete package.
 
 Rebuild after correcting the artifact destination fallback so the video and full creator pack are attached successfully.
+
+Final caption layout fix: use 10pt libass font on its native 288px script canvas, bottom alignment and 42px native margin to avoid oversized/cropped upper captions. Rebuild the full artifact for manual upload.
