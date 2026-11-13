@@ -909,6 +909,156 @@ def voyager_pixel_story(scene, index, step):
     scene.play(FadeOut(caption), run_time=0.35)
 
 
+def atom_to_galaxy_scale_story(scene, index, step):
+    """Original animated scale comparisons for atom-to-observable-universe lesson."""
+    stars = VGroup(*[
+        Dot([((i * 31) % 43) / 10 - 2.1, ((i * 17) % 67) / 10 - 3.1, 0],
+            radius=0.012, color=PALE)
+        for i in range(42)
+    ])
+    heading = fit_line(step["heading"], 23, SAND, BOLD, max_width=4.05)
+    heading.move_to(UP * 2.15)
+    body = fit_paragraph(step["body"], 22, WHITE, max_width=3.95)
+    body.move_to(DOWN * 2.15)
+    scene.add(stars)
+    scene.play(FadeIn(heading, shift=UP * 0.12), FadeIn(body, shift=UP * 0.08),
+               run_time=0.55)
+
+    if index == 1:
+        atom_center = LEFT * 1.08 + UP * 0.25
+        cell_center = RIGHT * 1.05 + UP * 0.25
+        cloud = Circle(radius=0.58, color="#55BDE8", stroke_width=3,
+                       fill_color="#55BDE8", fill_opacity=0.08).move_to(atom_center)
+        shell = Circle(radius=0.40, color=TEAL, stroke_width=2).move_to(atom_center)
+        nucleus = Dot(atom_center, radius=0.12, color=SAND)
+        electrons = VGroup(*[
+            Dot(atom_center + np.array([0.40*np.cos(a), 0.40*np.sin(a), 0]),
+                radius=0.055, color=WHITE)
+            for a in [0.3, 2.45, 4.55]
+        ])
+        atom = VGroup(cloud, shell, nucleus, electrons)
+        membrane = Circle(radius=0.68, color="#76D6C7", stroke_width=5,
+                          fill_color="#1D6B76", fill_opacity=0.20).move_to(cell_center)
+        cell_nucleus = Circle(radius=0.18, color=SAND, stroke_width=3,
+                              fill_color="#C77B55", fill_opacity=0.85).move_to(cell_center + LEFT*0.12)
+        organelles = VGroup(*[
+            Dot(cell_center + np.array([x, y, 0]), radius=0.055, color=c)
+            for x, y, c in [(-0.35, 0.28, TEAL), (0.32, 0.32, SAND),
+                            (0.35, -0.28, "#55BDE8"), (-0.32, -0.32, WHITE)]
+        ])
+        cell = VGroup(membrane, cell_nucleus, organelles)
+        atom_label = fit_line("ATOM • ~10⁻¹⁰ m", 17, TEAL, BOLD, 1.9)
+        atom_label.move_to(atom_center + UP*0.93)
+        cell_label = fit_line("ANIMAL CELL • ~10 μm", 16, TEAL, BOLD, 2.05)
+        cell_label.move_to(cell_center + UP*1.0)
+        connector = Arrow(LEFT*0.24 + UP*0.15, RIGHT*0.22 + UP*0.15,
+                          color=SAND, buff=0.05, stroke_width=4, max_tip_length_to_length_ratio=0.22)
+        ratio = fit_line("ABOUT 100,000× WIDER", 22, SAND, BOLD, 3.9)
+        ratio.move_to(DOWN*0.95)
+        scene.play(FadeIn(atom), FadeIn(cell), FadeIn(atom_label), FadeIn(cell_label),
+                   run_time=0.85)
+        scene.play(Create(connector), FadeIn(ratio), run_time=0.65)
+        scene.play(Indicate(cell, color=TEAL, scale_factor=1.06), run_time=0.65)
+        scene.play(FadeOut(atom), FadeOut(cell), FadeOut(atom_label), FadeOut(cell_label),
+                   FadeOut(connector), FadeOut(ratio), run_time=0.4)
+
+    elif index == 2:
+        person_x = -1.48
+        person = VGroup(
+            Circle(radius=0.12, color=WHITE, fill_color=WHITE, fill_opacity=1).move_to([person_x, 0.63, 0]),
+            Line([person_x, 0.48, 0], [person_x, -0.15, 0], color=WHITE, stroke_width=6),
+            Line([person_x, 0.25, 0], [person_x-0.24, -0.02, 0], color=WHITE, stroke_width=5),
+            Line([person_x, 0.25, 0], [person_x+0.25, -0.02, 0], color=WHITE, stroke_width=5),
+            Line([person_x, -0.15, 0], [person_x-0.2, -0.55, 0], color=WHITE, stroke_width=5),
+            Line([person_x, -0.15, 0], [person_x+0.22, -0.55, 0], color=WHITE, stroke_width=5),
+        )
+        earth_center = LEFT*0.05 + UP*0.28
+        earth = Circle(radius=0.46, color="#55BDE8", stroke_width=4,
+                       fill_color="#17659A", fill_opacity=1).move_to(earth_center)
+        land = VGroup(
+            Ellipse(width=0.30, height=0.16, angle=0.4, color="#65C78C",
+                    fill_color="#65C78C", fill_opacity=1).move_to(earth_center + LEFT*0.10 + UP*0.12),
+            Ellipse(width=0.18, height=0.28, angle=-0.5, color="#65C78C",
+                    fill_color="#65C78C", fill_opacity=1).move_to(earth_center + RIGHT*0.16 + DOWN*0.08),
+        )
+        sun_center = RIGHT*1.28 + UP*0.28
+        sun_glow = Circle(radius=0.94, color="#E88D42", stroke_width=2,
+                          fill_color="#E88D42", fill_opacity=0.10).move_to(sun_center)
+        sun = Circle(radius=0.68, color="#FFCF70", stroke_width=3,
+                     fill_color="#F59C43", fill_opacity=1).move_to(sun_center)
+        rays = VGroup(*[
+            Line(sun_center + np.array([0.79*np.cos(a),0.79*np.sin(a),0]),
+                 sun_center + np.array([0.93*np.cos(a),0.93*np.sin(a),0]),
+                 color="#FFD27A", stroke_width=4)
+            for a in np.linspace(0, TAU, 12, endpoint=False)
+        ])
+        person_label = fit_line("YOU", 17, WHITE, BOLD).move_to([person_x, 1.1, 0])
+        earth_label = fit_line("EARTH", 17, "#7DD3FC", BOLD).move_to(earth_center + UP*0.78)
+        sun_label = fit_line("SUN", 17, SAND, BOLD).move_to(sun_center + UP*1.0)
+        ratio = fit_line("SUN ≈ 109 EARTH DIAMETERS", 22, SAND, BOLD, 4.0)
+        ratio.move_to(DOWN*1.10)
+        scene.play(FadeIn(person), FadeIn(earth), FadeIn(land), FadeIn(sun_glow),
+                   FadeIn(sun), Create(rays), FadeIn(person_label), FadeIn(earth_label),
+                   FadeIn(sun_label), run_time=0.95)
+        scene.play(Indicate(sun, color=SAND, scale_factor=1.04), FadeIn(ratio),
+                   run_time=0.85)
+        scene.play(FadeOut(person), FadeOut(earth), FadeOut(land), FadeOut(sun_glow),
+                   FadeOut(sun), FadeOut(rays), FadeOut(person_label),
+                   FadeOut(earth_label), FadeOut(sun_label), FadeOut(ratio), run_time=0.4)
+
+    else:
+        galaxy_center = LEFT*0.95 + UP*0.18
+        core = Circle(radius=0.20, color="#FFE0A0",
+                      fill_color="#FFE0A0", fill_opacity=0.95).move_to(galaxy_center)
+        arms = VGroup()
+        for arm in range(3):
+            dots = VGroup()
+            offset = arm * TAU / 3
+            for j in range(34):
+                t = j / 33
+                angle = offset + t * 2.7 * PI
+                radius = 0.18 + 0.78 * t
+                point = galaxy_center + np.array([radius*np.cos(angle), radius*0.53*np.sin(angle), 0])
+                dots.add(Dot(point, radius=0.018 + 0.012*(1-t),
+                             color=["#8BE2D2", "#9AC8FF", "#FFD27A"][arm]))
+            arms.add(dots)
+        galaxy_ring = Ellipse(width=2.05, height=1.10, color="#89B8D8",
+                              stroke_width=2, fill_opacity=0).move_to(galaxy_center)
+        universe_center = RIGHT*1.12 + UP*0.18
+        universe = Circle(radius=0.95, color="#9CC9E8", stroke_width=3,
+                          fill_color="#173A62", fill_opacity=0.18).move_to(universe_center)
+        universe_stars = VGroup(*[
+            Dot(universe_center + np.array([0.78*np.cos(a), 0.78*np.sin(a), 0]),
+                radius=0.027, color=[TEAL, WHITE, SAND][i % 3])
+            for i, a in enumerate(np.linspace(0, TAU, 14, endpoint=False))
+        ])
+        universe_core = Circle(radius=0.20, color="#FFE0A0", fill_color="#FFE0A0",
+                               fill_opacity=0.85).move_to(universe_center)
+        galaxy_label = fit_line("MILKY WAY", 17, TEAL, BOLD).move_to(galaxy_center + UP*0.92)
+        universe_label = fit_line("OBSERVABLE UNIVERSE", 16, "#9CC9E8", BOLD, 2.2)
+        universe_label.move_to(universe_center + UP*1.12)
+        size_a = fit_line("~100,000 LIGHT-YEARS", 15, WHITE, BOLD, 2.1)
+        size_a.move_to(galaxy_center + DOWN*0.82)
+        size_b = fit_line("~92 BILLION LIGHT-YEARS", 15, WHITE, BOLD, 2.15)
+        size_b.move_to(universe_center + DOWN*1.12)
+        ratio = fit_line("≈37 POWERS OF TEN", 25, SAND, BOLD, 3.7)
+        ratio.move_to(DOWN*1.85)
+        scene.play(FadeIn(core), LaggedStart(*[FadeIn(a) for a in arms], lag_ratio=0.08),
+                   Create(galaxy_ring), FadeIn(galaxy_label), FadeIn(size_a), run_time=1.0)
+        scene.play(FadeIn(universe), FadeIn(universe_stars), FadeIn(universe_core),
+                   FadeIn(universe_label), FadeIn(size_b), run_time=0.95)
+        scene.play(Indicate(universe, color="#9CC9E8", scale_factor=1.03),
+                   FadeIn(ratio), run_time=0.8)
+        scene.play(FadeOut(core), FadeOut(arms), FadeOut(galaxy_ring), FadeOut(galaxy_label),
+                   FadeOut(size_a), FadeOut(universe), FadeOut(universe_stars),
+                   FadeOut(universe_core), FadeOut(universe_label), FadeOut(size_b),
+                   FadeOut(ratio), run_time=0.45)
+
+    scene.play(FadeOut(heading), FadeOut(body), FadeOut(stars), run_time=0.35)
+
+
+
+
 class AcademyLessonShort(Scene):
     def construct(self):
         lesson_path = os.environ.get("ACADEMY_LESSON_FILE", "creator-studio/lessons/active-lesson.json")
@@ -923,6 +1073,7 @@ class AcademyLessonShort(Scene):
         is_hubble = lesson.get("title", "").startswith("Hubble's Blurry Vision:")
         is_black_hole = lesson.get("title", "").startswith("The First Black Hole Image:")
         is_voyager = lesson.get("title", "").startswith("Voyager's Golden Record:")
+        is_scale = lesson.get("title", "").startswith("From an Atom to the Observable Universe:")
         if is_apollo:
             # A short visual cold-open: original pixel-art rocket and Moon.
             # Keep it simple and locally rendered; no stock footage or paid assets.
@@ -1016,6 +1167,26 @@ class AcademyLessonShort(Scene):
                       FadeOut(cold_open), run_time=0.4)
 
 
+        elif is_scale:
+            atom = Circle(radius=0.42, color=TEAL, stroke_width=3,
+                          fill_color=TEAL, fill_opacity=0.12).move_to(LEFT*1.25 + UP*0.45)
+            nucleus = Dot(atom.get_center(), radius=0.10, color=SAND)
+            galaxy = VGroup(*[
+                Dot([1.15 + 0.12*j*np.cos(j*0.35), 0.45 + 0.06*j*np.sin(j*0.35), 0],
+                    radius=0.025, color=[TEAL, WHITE, SAND][j % 3])
+                for j in range(1, 24)
+            ])
+            path = Arrow(LEFT*0.65 + UP*0.45, RIGHT*0.65 + UP*0.45,
+                         color=SAND, buff=0.04, stroke_width=4)
+            headline = fit_line("HOW BIG IS BIG?", 33, WHITE, BOLD, 3.8).move_to(DOWN*1.1)
+            punch = fit_line("≈37 POWERS OF TEN", 25, SAND, BOLD, 3.8).move_to(DOWN*1.75)
+            self.play(FadeIn(atom), FadeIn(nucleus), run_time=0.55)
+            self.play(Create(path), FadeIn(galaxy), run_time=0.8)
+            self.play(FadeIn(headline), FadeIn(punch), run_time=0.55)
+            self.wait(0.7)
+            self.play(FadeOut(atom), FadeOut(nucleus), FadeOut(path), FadeOut(galaxy),
+                      FadeOut(headline), FadeOut(punch), run_time=0.35)
+
         elif is_voyager:
             earth = Circle(
                 radius=0.48, color="#4A9AC2",
@@ -1074,6 +1245,8 @@ class AcademyLessonShort(Scene):
                 black_hole_pixel_story(self, index, step)
             elif is_voyager:
                 voyager_pixel_story(self, index, step)
+            elif is_scale:
+                atom_to_galaxy_scale_story(self, index, step)
             elif lesson.get("title", "").startswith("Lightning Explained:"):
                 lightning_physics_story(self, index, step)
             elif lesson.get("title", "").startswith("Why Is the Sky Blue:"):
