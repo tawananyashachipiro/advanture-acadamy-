@@ -882,5 +882,78 @@
     "fact_check_notes": "FACT-CHECK NOTES — checked against NASA and NASA/JPL institutional sources\n\n- NASA's Voyager Fact Sheet confirms Voyager 2 launched first on 20 August 1977 and Voyager 1 followed on 5 September 1977.\n- NASA describes each record as a 12-inch gold-plated copper phonograph disc. The cover includes symbolic instructions for playing the record, locating Earth and dating how long it has been in space.\n- NASA's current Golden Record Contents page reports 115 encoded images and greetings in 55 languages. An older NASA/JPL article reports 116 pictures. To avoid repeating a disputed count, the narration and captions say “more than a hundred images.”\n- The contents include natural sounds such as surf, wind, thunder, birds and whales, music from different cultures and eras, and spoken greetings. The contents were selected by a committee chaired by Carl Sagan.\n- The record is physically attached to each spacecraft; it is not a radio broadcast or a guaranteed delivery. NASA notes it would only be encountered and played if an advanced spacefaring civilization found it.\n\nEditorial guardrails: do not claim NASA has detected a recipient, do not imply the record is transmitting a signal, and do not reproduce copyrighted music or greetings from the record. The clip uses only original narration and original background music.",
     "thumbnail_guidance": "Create a high-contrast 16:9 cover in original pixel-art style: a small Voyager probe carrying a bright gold disc against deep space, with Earth as a tiny blue planet in the distance. Large headline: “EARTH'S MESSAGE TO THE STARS”. Supporting line: “THE GOLDEN RECORD • 1977”. Keep the Adventure of Education brand visible and the text readable on a phone. Do not use alien faces or imply that NASA has received a reply.",
     "pinned_comment": "If you could add one image, sound or greeting to a message from Earth, what would you choose—and why? The NASA source links are in the description."
+  },
+  "atom-to-galaxy-scale": {
+    "subject": "Physics & Space Science",
+    "level": "Introductory",
+    "title": "From an Atom to the Observable Universe: 37 Powers of Ten",
+    "hook": "An atom is about 10⁻¹⁰ metres across. The observable universe is about 10²⁷ metres. That is roughly 37 powers of ten apart. Let's zoom out.",
+    "concept": "The universe spans an extraordinary range of sizes. A typical atom is around 10⁻¹⁰ m across, a typical animal cell is around 10⁻⁵ m, the Milky Way is about 100,000 light-years across, and the observable universe is about 92 billion light-years across. Comparing these requires logarithmic steps, not one literal-to-scale drawing. The observable universe is the region we can in principle observe; the entire universe may be larger.",
+    "steps": [
+      {
+        "heading": "ATOM → CELL",
+        "body": "A typical atom is around 10⁻¹⁰ metres across. A typical animal cell is about 10 micrometres wide: roughly 100,000 times wider. These are approximate sizes, because atoms and cells vary."
+      },
+      {
+        "heading": "EARTH → SUN",
+        "body": "Earth is about 12,756 kilometres across. The Sun is about 1.39 million kilometres wide, roughly 109 Earth diameters. The drawings are schematic, not a single true scale."
+      },
+      {
+        "heading": "GALAXY → OBSERVABLE UNIVERSE",
+        "body": "The Milky Way is about 100,000 light-years across. The observable universe is about 92 billion light-years across. The whole universe may extend beyond what we can observe."
+      }
+    ],
+    "question": "About how many Earth diameters fit across the Sun?",
+    "options": [
+      "About 109",
+      "About 11",
+      "About 1,090"
+    ],
+    "answer_index": 0,
+    "explanation": "The Sun's diameter is about 1.39 million km and Earth's is about 12,756 km. Dividing gives roughly 109 Earth diameters.",
+    "voiceover": "How many zeroes separate an atom from the universe? A typical atom is around one ten-billionth of a metre across: ten to the minus ten metres. A typical animal cell is about ten micrometres wide, roughly one hundred thousand times wider. Zoom out again. Earth is about twelve thousand seven hundred and fifty-six kilometres across. The Sun is around one hundred and nine Earths wide. Our Milky Way galaxy stretches roughly one hundred thousand light-years. And the observable universe? About ninety-two billion light-years across. These pictures cannot all fit on one true scale, so we're using logarithmic jumps: each step changes size by powers of ten. From an atom to the observable universe is roughly thirty-seven powers of ten. The universe beyond what we can observe may be even bigger. Which jump surprised you most?",
+    "hashtags": [
+      "#ScaleOfTheUniverse",
+      "#SpaceScience",
+      "#PhysicsExplained",
+      "#ScienceShorts",
+      "#LearnSomethingNew",
+      "#AdventureOfEducation"
+    ],
+    "sources": [
+      {
+        "organization": "University of Reading",
+        "title": "Introducing atoms — approximate atomic size",
+        "url": "https://www.met.reading.ac.uk/pplato2/h-flap/phys8_1.html"
+      },
+      {
+        "organization": "NCBI Bookshelf",
+        "title": "Molecular Biology of the Cell — typical animal cell size",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK26880/"
+      },
+      {
+        "organization": "NASA",
+        "title": "Facts About Earth",
+        "url": "https://science.nasa.gov/earth/facts/"
+      },
+      {
+        "organization": "NASA Space Place",
+        "title": "How Does Our Sun Compare With Other Stars?",
+        "url": "https://spaceplace.nasa.gov/sun-compare/en/"
+      },
+      {
+        "organization": "NASA Science",
+        "title": "Our Milky Way Galaxy",
+        "url": "https://science.nasa.gov/universe/exoplanets/our-milky-way-galaxy-how-big-is-space/"
+      },
+      {
+        "organization": "NASA",
+        "title": "How Big is Space? We Asked a NASA Expert",
+        "url": "https://www.nasa.gov/science-research/astrophysics/how-big-is-space-we-asked-a-nasa-expert-episode-61/"
+      }
+    ],
+    "fact_check_notes": "FACT-CHECK NOTES\n\n- Atomic dimensions depend on element and on the definition of atomic radius/diameter. A useful order-of-magnitude is 10⁻¹⁰ m; do not portray atoms as hard little balls with a sharp physical edge.\n- NCBI's Molecular Biology of the Cell gives a typical animal-cell diameter of about 10–20 μm. The voiceover uses 10 μm as a representative value, not a universal size.\n- NASA gives Earth's equatorial diameter as about 12,756 km.\n- NASA Space Place gives the Sun's diameter as about 1.392 million km and about 109 Earth diameters.\n- NASA describes the Milky Way as about 100,000 light-years across.\n- NASA's expert explainer estimates the observable universe at about 92 billion light-years across; this is not the same as claiming the entire universe is only that wide.\n- Dividing an approximate observable-universe diameter (~8.7 × 10²⁶ m) by an atomic diameter of 10⁻¹⁰ m gives ~8.7 × 10³⁶, or about 37 powers of ten.\n- All illustrative objects are schematic. The video explicitly marks transitions as logarithmic jumps and not a single proportional scale.",
+    "thumbnail_guidance": "16:9 high contrast cover; dark indigo-to-black space gradient; small glowing atom on the left, Earth/Sun in the centre and spiral galaxy on the right; one giant headline: “37 POWERS OF TEN”; minimal supporting text. Keep every key element legible at phone size. Do not suggest the objects are drawn to one physical scale.",
+    "pinned_comment": "Which scale jump surprised you most: atom to cell, Earth to Sun, or Milky Way to observable universe? The source links are in the description."
   }
 }
