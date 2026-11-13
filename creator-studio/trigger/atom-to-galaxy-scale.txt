@@ -11,3 +11,5 @@ Production direction:
 - Render 1080x1920, 30 fps, H.264 with high visual quality.
 - Include a source-checked YouTube description, captions.srt, quiz.json, thumbnail artwork and review checklist.
 - Do not upload or publish anything. The channel owner will upload manually through YouTube Studio.
+
+Rerun after the Manim ellipse rotation compatibility fix; render and verify the complete package.
