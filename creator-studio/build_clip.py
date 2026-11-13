@@ -500,7 +500,7 @@ def main():
         "Before uploading:\n"
         "[ ] Watch the complete MP4.\n"
         "[ ] Check all subject facts and spelling.\n"
-        "[ ] Record or add the supplied voice-over script if narration is wanted.\n"
+        "[ ] Confirm narration is clear and comfortably audible.\n"
         "[ ] Proofread captions and check timing.\n"
         "[ ] Confirm you own or have permission for every added asset.\n"
         "[ ] Check YouTube title, description, audience and visibility.\n"
@@ -591,7 +591,8 @@ def main():
         "-map", "0:v:0",
         "-filter_complex",
         "[1:a]volume=1.0[voice];[2:a]volume=0.15[music];"
-        "[voice][music]amix=inputs=2:duration=longest:dropout_transition=2[a]",
+        "[voice][music]amix=inputs=2:duration=longest:dropout_transition=2[mix];"
+        "[mix]loudnorm=I=-16:TP=-1.0:LRA=11[a]",
         "-map", "[a]",
         "-vf", f"tpad=stop_mode=clone:stop_duration={pad_seconds:.3f},"
                "scale=1080:1920:flags=lanczos,fps=30,format=yuv420p,"
@@ -601,7 +602,7 @@ def main():
                "Alignment=2,MarginV=45,MarginL=45,MarginR=45,WrapStyle=2'",
         "-c:v", "libx264", "-preset", "medium", "-crf", "18",
         "-pix_fmt", "yuv420p", "-r", "30",
-        "-c:a", "aac", "-b:a", "192k",
+        "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
         "-t", f"{target_seconds:.3f}",
         "-movflags", "+faststart", str(voiced_video)
     ], cwd=ROOT, check=True)
