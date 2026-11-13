@@ -344,57 +344,118 @@ def main():
         draw.text((76, 575), "THE GOLDEN RECORD • 1977", font=font_sub, fill=(216,241,236))
         thumb.save(out / "thumbnail.jpg", quality=94)
     elif args.lesson == "atom-to-galaxy-scale":
-        svg = """<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-<defs><linearGradient id="space" x2="1" y2="1"><stop stop-color="#061225"/><stop offset=".58" stop-color="#102C4B"/><stop offset="1" stop-color="#261B46"/></linearGradient><radialGradient id="sun"><stop stop-color="#FFF0B2"/><stop offset=".65" stop-color="#FFB14F"/><stop offset="1" stop-color="#E65E45"/></radialGradient></defs>
-<rect width="1280" height="720" fill="url(#space)"/>
-<g fill="#D9F2FF" opacity=".8"><circle cx="85" cy="190" r="4"/><circle cx="340" cy="105" r="3"/><circle cx="610" cy="190" r="4"/><circle cx="1180" cy="110" r="4"/><circle cx="1080" cy="600" r="3"/><circle cx="780" cy="90" r="3"/><circle cx="210" cy="565" r="4"/></g>
-<g transform="translate(185 390)"><circle r="105" fill="#44C1D8" opacity=".12"/><circle r="77" fill="none" stroke="#55C5E6" stroke-width="5" opacity=".8"/><circle r="10" fill="#FFD27A"/><circle cx="75" cy="5" r="9" fill="#FFFFFF"/><circle cx="-18" cy="-73" r="8" fill="#FFFFFF"/></g>
-<g transform="translate(650 390)"><circle r="100" fill="#FFB24D" opacity=".13"/><circle r="83" fill="url(#sun)"/><path d="M0 -128V-104M0 104V128M-128 0H-104M104 0H128M-90 -90L-73 -73M90 90L73 73M90 -90L73 -73M-90 90L-73 73" stroke="#FFD27A" stroke-width="9" stroke-linecap="round"/></g>
-<g transform="translate(1030 385)" fill="none" stroke="#8BD8F0"><ellipse rx="150" ry="60" stroke-width="7" transform="rotate(-18)"/><ellipse rx="120" ry="49" stroke-width="5" transform="rotate(38)"/></g>
-<g transform="translate(1030 385)" fill="#FFE2A5"><circle r="25"/><circle cx="-82" cy="-18" r="7"/><circle cx="76" cy="19" r="6"/><circle cx="25" cy="-44" r="5"/><circle cx="-40" cy="37" r="5"/></g>
-<text x="72" y="82" fill="#8BE2D2" font-family="Arial,sans-serif" font-size="34" font-weight="bold" letter-spacing="3">ADVENTURE OF EDUCATION</text>
-<text x="72" y="630" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="92" font-weight="bold">37 POWERS OF TEN</text>
-<text x="76" y="680" fill="#FFD27A" font-family="Arial,sans-serif" font-size="27" font-weight="bold">FROM AN ATOM TO THE OBSERVABLE UNIVERSE</text>
-</svg>"""
-        (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
-        from PIL import Image, ImageDraw, ImageFont
-        thumb = Image.new("RGB", (1280, 720), (6, 18, 38))
+        # A vertical 9:16 Shorts thumbnail. Render at 1080x1920 and upscale
+        # to YouTube's recommended 2160x3840 upload size.
+        import math
+        from PIL import Image, ImageDraw, ImageFont, ImageFilter
+        width, height = 1080, 1920
+        thumb = Image.new("RGB", (width, height))
+        pixels = thumb.load()
+        for y in range(height):
+            t = y / (height - 1)
+            color = (int(6 + 9*t), int(15 + 20*t), int(33 + 30*t))
+            for x in range(width):
+                pixels[x, y] = color
+        nebula = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+        nebula_draw = ImageDraw.Draw(nebula)
+        nebula_draw.ellipse((560, 520, 1170, 1190), fill=(17, 110, 150, 42))
+        nebula_draw.ellipse((-220, 1030, 500, 1740), fill=(120, 70, 150, 28))
+        thumb = Image.alpha_composite(thumb.convert("RGBA"),
+                                      nebula.filter(ImageFilter.GaussianBlur(95)))
         draw = ImageDraw.Draw(thumb)
-        for y in range(720):
-            t = y / 720
-            draw.line((0, y, 1280, y),
-                      fill=(int(6+18*t), int(18+25*t), int(38+42*t)))
-        for x, y, r in [(85,190,4),(340,105,3),(610,190,4),(1180,110,4),
-                        (1080,600,3),(780,90,3),(210,565,4)]:
-            draw.ellipse((x-r,y-r,x+r,y+r), fill=(220,242,255))
-        # Original vector-style icons: atom, Sun and spiral galaxy.
-        draw.ellipse((95,300,275,480), outline=(85,197,230), width=8)
-        draw.ellipse((172,377,198,403), fill=(255,210,122))
-        draw.ellipse((255,380,273,398), fill=(255,255,255))
-        draw.ellipse((565,300,735,470), fill=(255,179,79), outline=(255,220,145), width=5)
-        draw.ellipse((590,325,710,445), fill=(255,195,100))
-        for angle in range(0,360,45):
-            import math
-            import numpy as np
-            x1=650+100*math.cos(math.radians(angle)); y1=385+100*math.sin(math.radians(angle))
-            x2=650+122*math.cos(math.radians(angle)); y2=385+122*math.sin(math.radians(angle))
-            draw.line((x1,y1,x2,y2), fill=(255,210,122), width=5)
-        for j in range(26):
-            import math
-            a=j*0.55; radius=8+j*4.5
-            x=1030+radius*math.cos(a); y=385+radius*0.5*math.sin(a)
-            draw.ellipse((x-3,y-3,x+3,y+3), fill=(255,225,175) if j%3==0 else (135,216,240))
-        try:
-            brand_font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",34)
-            title_font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",82)
-            sub_font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",25)
-        except OSError:
-            brand_font=title_font=sub_font=ImageFont.load_default()
-        draw.text((72,78),"ADVENTURE OF EDUCATION",font=brand_font,fill=(139,226,210))
-        draw.text((72,565),"37 POWERS OF TEN",font=title_font,fill=(255,255,255),
-                  stroke_width=4,stroke_fill=(4,16,32))
-        draw.text((76,666),"ATOM → OBSERVABLE UNIVERSE",font=sub_font,fill=(255,210,122))
-        thumb.save(out / "thumbnail.jpg", quality=95, subsampling=0)
+        rng = __import__("random").Random(37)
+        for _ in range(150):
+            x, y = rng.randrange(25, width-25), rng.randrange(35, height-35)
+            r = rng.choice([1, 1, 2, 3])
+            draw.ellipse((x-r, y-r, x+r, y+r),
+                         fill=(190, 220, 245, rng.randrange(90, 190)))
+        font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+        regular_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+        brand_font = ImageFont.truetype(font_path, 31)
+        small_font = ImageFont.truetype(font_path, 26)
+        headline_font = ImageFont.truetype(font_path, 100)
+        label_font = ImageFont.truetype(font_path, 26)
+        sub_font = ImageFont.truetype(regular_path, 29)
+
+        def centered(text, y, font, fill, stroke_width=0):
+            bounds = draw.textbbox((0, 0), text, font=font,
+                                   stroke_width=stroke_width)
+            x = (width - (bounds[2] - bounds[0])) / 2
+            draw.text((x, y), text, font=font, fill=fill,
+                      stroke_width=stroke_width, stroke_fill=(3, 13, 27))
+
+        centered("ADVENTURE OF EDUCATION", 100, brand_font, (139, 226, 210))
+        centered("37 POWERS", 285, headline_font, (255, 255, 255), 3)
+        centered("OF TEN", 405, headline_font, (255, 255, 255), 3)
+        centered("FROM AN ATOM TO THE COSMOS", 555, small_font, (255, 210, 122))
+
+        # Atom
+        cx, cy = 540, 820
+        for angle, rx, ry, color in [
+            (0, 175, 70, (75, 205, 230)),
+            (math.pi/3, 175, 70, (108, 222, 208)),
+            (-math.pi/3, 175, 70, (151, 188, 255)),
+        ]:
+            layer = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+            ld = ImageDraw.Draw(layer)
+            ld.ellipse((cx-rx, cy-ry, cx+rx, cy+ry),
+                       outline=color+(230,), width=6)
+            thumb = Image.alpha_composite(
+                thumb, layer.rotate(math.degrees(angle), center=(cx, cy),
+                                    resample=Image.Resampling.BICUBIC))
+        draw = ImageDraw.Draw(thumb)
+        draw.ellipse((cx-22, cy-22, cx+22, cy+22), fill=(255, 210, 122))
+        for px, py in [(cx+175, cy), (cx-85, cy-150), (cx-90, cy+150)]:
+            draw.ellipse((px-12, py-12, px+12, py+12), fill=(255, 255, 255))
+
+        # Sun
+        cx, cy = 540, 1190
+        draw.ellipse((cx-165, cy-165, cx+165, cy+165), fill=(255, 167, 68, 36))
+        draw.ellipse((cx-110, cy-110, cx+110, cy+110),
+                     fill=(245, 157, 67), outline=(255, 215, 132), width=8)
+        draw.ellipse((cx-70, cy-70, cx+70, cy+70), fill=(255, 190, 93))
+        for angle in range(0, 360, 30):
+            rad = math.radians(angle)
+            draw.line((cx+130*math.cos(rad), cy+130*math.sin(rad),
+                       cx+155*math.cos(rad), cy+155*math.sin(rad)),
+                      fill=(255, 210, 122), width=7)
+
+        # Spiral galaxy
+        cx, cy = 540, 1535
+        for arm, color in enumerate([(116, 210, 226), (155, 180, 255), (255, 200, 132)]):
+            points = []
+            offset = arm * 2 * math.pi / 3
+            for j in range(120):
+                t = j / 119
+                angle = offset + t * 3.6 * math.pi
+                radius = 8 + 160 * t
+                points.append((cx + radius * math.cos(angle),
+                               cy + radius * 0.53 * math.sin(angle)))
+            draw.line(points, fill=color, width=10)
+        draw.ellipse((cx-24, cy-24, cx+24, cy+24), fill=(255, 226, 168))
+
+        centered("ATOM", 925, label_font, (220, 240, 250))
+        centered("SUN", 1290, label_font, (220, 240, 250))
+        centered("MILKY WAY", 1660, label_font, (220, 240, 250))
+        centered("ZOOM OUT. DISCOVER THE SCALE OF SPACE.",
+                 1800, sub_font, (139, 226, 210))
+        thumb = thumb.convert("RGB").resize((2160, 3840), Image.Resampling.LANCZOS)
+        thumb.save(out / "thumbnail.jpg", quality=96, subsampling=0, optimize=True)
+
+        svg = """<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#060f21"/><stop offset="1" stop-color="#0f233f"/></linearGradient><radialGradient id="sun"><stop stop-color="#ffd07d"/><stop offset="1" stop-color="#f59d43"/></radialGradient></defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<g fill="#d9f2ff" opacity=".7"><circle cx="95" cy="220" r="3"/><circle cx="950" cy="280" r="4"/><circle cx="180" cy="600" r="3"/><circle cx="900" cy="880" r="3"/><circle cx="130" cy="1450" r="4"/><circle cx="940" cy="1660" r="3"/></g>
+<text x="540" y="130" text-anchor="middle" fill="#8be2d2" font-family="Arial" font-size="31" font-weight="bold">ADVENTURE OF EDUCATION</text>
+<text x="540" y="390" text-anchor="middle" fill="white" font-family="Arial" font-size="100" font-weight="bold">37 POWERS</text>
+<text x="540" y="510" text-anchor="middle" fill="white" font-family="Arial" font-size="100" font-weight="bold">OF TEN</text>
+<text x="540" y="600" text-anchor="middle" fill="#ffd27a" font-family="Arial" font-size="26" font-weight="bold">FROM AN ATOM TO THE COSMOS</text>
+<g fill="none" stroke-width="6"><ellipse cx="540" cy="820" rx="175" ry="70" stroke="#4bcde6"/><ellipse cx="540" cy="820" rx="175" ry="70" stroke="#6cddd0" transform="rotate(60 540 820)"/><ellipse cx="540" cy="820" rx="175" ry="70" stroke="#97bcff" transform="rotate(-60 540 820)"/></g><circle cx="540" cy="820" r="22" fill="#ffd27a"/>
+<circle cx="540" cy="1190" r="110" fill="url(#sun)" stroke="#ffd784" stroke-width="8"/>
+<g fill="none" stroke-width="10"><path d="M540 1535 C700 1450 690 1600 540 1535 S390 1640 540 1535" stroke="#74d2e2"/><path d="M540 1535 C690 1435 750 1515 540 1535 S400 1660 540 1535" stroke="#9bb8ff"/><path d="M540 1535 C650 1600 625 1680 540 1535 S420 1410 540 1535" stroke="#ffd084"/></g><circle cx="540" cy="1535" r="24" fill="#ffe2a8"/>
+<g text-anchor="middle" font-family="Arial" font-size="26" font-weight="bold" fill="#e0f0fa"><text x="540" y="925">ATOM</text><text x="540" y="1330">SUN</text><text x="540" y="1700">MILKY WAY</text></g>
+<text x="540" y="1810" text-anchor="middle" fill="#8be2d2" font-family="Arial" font-size="26">ZOOM OUT. DISCOVER THE SCALE OF SPACE.</text></svg>"""
+        (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
     else:
         title = escape(lesson["subject"].upper())
         subtitle = escape(lesson["title"])
