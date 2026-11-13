@@ -17,3 +17,5 @@ Rerun after the Manim ellipse rotation compatibility fix; render and verify the 
 Rebuild after correcting the artifact destination fallback so the video and full creator pack are attached successfully.
 
 Final caption layout fix: use 10pt libass font on its native 288px script canvas, bottom alignment and 42px native margin to avoid oversized/cropped upper captions. Rebuild the full artifact for manual upload.
+
+Final final subtitle fit fix: break captions at max 4 words / 24 characters and use 9pt subtitle font, bottom safe-area margin 45, symmetric side margins. Re-render and verify no clipped lines.
