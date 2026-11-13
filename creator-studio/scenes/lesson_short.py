@@ -973,10 +973,10 @@ def atom_to_galaxy_scale_story(scene, index, step):
         earth = Circle(radius=0.46, color="#55BDE8", stroke_width=4,
                        fill_color="#17659A", fill_opacity=1).move_to(earth_center)
         land = VGroup(
-            Ellipse(width=0.30, height=0.16, angle=0.4, color="#65C78C",
-                    fill_color="#65C78C", fill_opacity=1).move_to(earth_center + LEFT*0.10 + UP*0.12),
-            Ellipse(width=0.18, height=0.28, angle=-0.5, color="#65C78C",
-                    fill_color="#65C78C", fill_opacity=1).move_to(earth_center + RIGHT*0.16 + DOWN*0.08),
+            Ellipse(width=0.30, height=0.16, color="#65C78C",
+                    fill_color="#65C78C", fill_opacity=1).rotate(0.4).move_to(earth_center + LEFT*0.10 + UP*0.12),
+            Ellipse(width=0.18, height=0.28, color="#65C78C",
+                    fill_color="#65C78C", fill_opacity=1).rotate(-0.5).move_to(earth_center + RIGHT*0.16 + DOWN*0.08),
         )
         sun_center = RIGHT*1.28 + UP*0.28
         sun_glow = Circle(radius=0.94, color="#E88D42", stroke_width=2,
