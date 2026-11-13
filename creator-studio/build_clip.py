@@ -35,7 +35,7 @@ def make_srt(lesson, duration=None):
     current = []
     for word in words:
         current.append(word)
-        if len(current) >= 8 or word.endswith((".", "?", "!")):
+        if len(current) >= 5 or word.endswith((".", "?", "!")):
             chunks.append(" ".join(current))
             current = []
     if current:
@@ -341,6 +341,58 @@ def main():
                   stroke_width=3, stroke_fill=(4,18,35))
         draw.text((76, 575), "THE GOLDEN RECORD • 1977", font=font_sub, fill=(216,241,236))
         thumb.save(out / "thumbnail.jpg", quality=94)
+    elif args.lesson == "atom-to-galaxy-scale":
+        svg = """<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<defs><linearGradient id="space" x2="1" y2="1"><stop stop-color="#061225"/><stop offset=".58" stop-color="#102C4B"/><stop offset="1" stop-color="#261B46"/></linearGradient><radialGradient id="sun"><stop stop-color="#FFF0B2"/><stop offset=".65" stop-color="#FFB14F"/><stop offset="1" stop-color="#E65E45"/></radialGradient></defs>
+<rect width="1280" height="720" fill="url(#space)"/>
+<g fill="#D9F2FF" opacity=".8"><circle cx="85" cy="190" r="4"/><circle cx="340" cy="105" r="3"/><circle cx="610" cy="190" r="4"/><circle cx="1180" cy="110" r="4"/><circle cx="1080" cy="600" r="3"/><circle cx="780" cy="90" r="3"/><circle cx="210" cy="565" r="4"/></g>
+<g transform="translate(185 390)"><circle r="105" fill="#44C1D8" opacity=".12"/><circle r="77" fill="none" stroke="#55C5E6" stroke-width="5" opacity=".8"/><circle r="10" fill="#FFD27A"/><circle cx="75" cy="5" r="9" fill="#FFFFFF"/><circle cx="-18" cy="-73" r="8" fill="#FFFFFF"/></g>
+<g transform="translate(650 390)"><circle r="100" fill="#FFB24D" opacity=".13"/><circle r="83" fill="url(#sun)"/><path d="M0 -128V-104M0 104V128M-128 0H-104M104 0H128M-90 -90L-73 -73M90 90L73 73M90 -90L73 -73M-90 90L-73 73" stroke="#FFD27A" stroke-width="9" stroke-linecap="round"/></g>
+<g transform="translate(1030 385)" fill="none" stroke="#8BD8F0"><ellipse rx="150" ry="60" stroke-width="7" transform="rotate(-18)"/><ellipse rx="120" ry="49" stroke-width="5" transform="rotate(38)"/></g>
+<g transform="translate(1030 385)" fill="#FFE2A5"><circle r="25"/><circle cx="-82" cy="-18" r="7"/><circle cx="76" cy="19" r="6"/><circle cx="25" cy="-44" r="5"/><circle cx="-40" cy="37" r="5"/></g>
+<text x="72" y="82" fill="#8BE2D2" font-family="Arial,sans-serif" font-size="34" font-weight="bold" letter-spacing="3">ADVENTURE OF EDUCATION</text>
+<text x="72" y="630" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="92" font-weight="bold">37 POWERS OF TEN</text>
+<text x="76" y="680" fill="#FFD27A" font-family="Arial,sans-serif" font-size="27" font-weight="bold">FROM AN ATOM TO THE OBSERVABLE UNIVERSE</text>
+</svg>"""
+        (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
+        from PIL import Image, ImageDraw, ImageFont
+        thumb = Image.new("RGB", (1280, 720), (6, 18, 38))
+        draw = ImageDraw.Draw(thumb)
+        for y in range(720):
+            t = y / 720
+            draw.line((0, y, 1280, y),
+                      fill=(int(6+18*t), int(18+25*t), int(38+42*t)))
+        for x, y, r in [(85,190,4),(340,105,3),(610,190,4),(1180,110,4),
+                        (1080,600,3),(780,90,3),(210,565,4)]:
+            draw.ellipse((x-r,y-r,x+r,y+r), fill=(220,242,255))
+        # Original vector-style icons: atom, Sun and spiral galaxy.
+        draw.ellipse((95,300,275,480), outline=(85,197,230), width=8)
+        draw.ellipse((172,377,198,403), fill=(255,210,122))
+        draw.ellipse((255,380,273,398), fill=(255,255,255))
+        draw.ellipse((565,300,735,470), fill=(255,179,79), outline=(255,220,145), width=5)
+        draw.ellipse((590,325,710,445), fill=(255,195,100))
+        for angle in range(0,360,45):
+            import math
+            import numpy as np
+            x1=650+100*math.cos(math.radians(angle)); y1=385+100*math.sin(math.radians(angle))
+            x2=650+122*math.cos(math.radians(angle)); y2=385+122*math.sin(math.radians(angle))
+            draw.line((x1,y1,x2,y2), fill=(255,210,122), width=5)
+        for j in range(26):
+            import math
+            a=j*0.55; radius=8+j*4.5
+            x=1030+radius*math.cos(a); y=385+radius*0.5*math.sin(a)
+            draw.ellipse((x-3,y-3,x+3,y+3), fill=(255,225,175) if j%3==0 else (135,216,240))
+        try:
+            brand_font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",34)
+            title_font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",82)
+            sub_font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",25)
+        except OSError:
+            brand_font=title_font=sub_font=ImageFont.load_default()
+        draw.text((72,78),"ADVENTURE OF EDUCATION",font=brand_font,fill=(139,226,210))
+        draw.text((72,565),"37 POWERS OF TEN",font=title_font,fill=(255,255,255),
+                  stroke_width=4,stroke_fill=(4,16,32))
+        draw.text((76,666),"ATOM → OBSERVABLE UNIVERSE",font=sub_font,fill=(255,210,122))
+        thumb.save(out / "thumbnail.jpg", quality=95, subsampling=0)
     else:
         title = escape(lesson["subject"].upper())
         subtitle = escape(lesson["title"])
@@ -481,12 +533,12 @@ def main():
         "-vf", f"tpad=stop_mode=clone:stop_duration={pad_seconds:.3f},"
                "scale=1080:1920:flags=lanczos,fps=30,format=yuv420p,"
                f"subtitles='{(out / 'captions.srt').resolve().as_posix()}':"
-               "force_style='FontName=DejaVu Sans,FontSize=11,PrimaryColour=&H00FFFFFF,"
-               "OutlineColour=&H00000000,BorderStyle=1,Outline=2,Shadow=1,"
-               "Alignment=2,MarginV=32,MarginL=18,MarginR=18'",
-        "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+               "force_style='FontName=DejaVu Sans,FontSize=31,Bold=1,PrimaryColour=&H00FFFFFF,"
+               "OutlineColour=&H00101828,BorderStyle=1,Outline=3,Shadow=1,"
+               "Alignment=2,MarginV=235,MarginL=72,MarginR=175'",
+        "-c:v", "libx264", "-preset", "medium", "-crf", "18",
         "-pix_fmt", "yuv420p", "-r", "30",
-        "-c:a", "aac", "-b:a", "160k",
+        "-c:a", "aac", "-b:a", "192k",
         "-t", f"{target_seconds:.3f}",
         "-movflags", "+faststart", str(voiced_video)
     ], cwd=ROOT, check=True)
