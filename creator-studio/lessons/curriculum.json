@@ -955,5 +955,266 @@
     "fact_check_notes": "FACT-CHECK NOTES\n\n- Atomic dimensions depend on element and on the definition of atomic radius/diameter. A useful order-of-magnitude is 10⁻¹⁰ m; do not portray atoms as hard little balls with a sharp physical edge.\n- NCBI's Molecular Biology of the Cell gives a typical animal-cell diameter of about 10–20 μm. The voiceover uses 10 μm as a representative value, not a universal size.\n- NASA gives Earth's equatorial diameter as about 12,756 km.\n- NASA Space Place gives the Sun's diameter as about 1.392 million km and about 109 Earth diameters.\n- NASA describes the Milky Way as about 100,000 light-years across.\n- NASA's expert explainer estimates the observable universe at about 92 billion light-years across; this is not the same as claiming the entire universe is only that wide.\n- Dividing an approximate observable-universe diameter (~8.7 × 10²⁶ m) by an atomic diameter of 10⁻¹⁰ m gives ~8.7 × 10³⁶, or about 37 powers of ten.\n- All illustrative objects are schematic. The video explicitly marks transitions as logarithmic jumps and not a single proportional scale.",
     "thumbnail_guidance": "Vertical 9:16 YouTube Shorts thumbnail, 2160x3840 JPG. High-contrast deep-space background. Main headline: 37 POWERS OF TEN. Original atom, Sun and Milky Way illustrations stacked vertically with Adventure of Education branding. Keep all text and key elements away from the edges.",
     "pinned_comment": "Which scale jump surprised you most: atom to cell, Earth to Sun, or Milky Way to observable universe? The source links are in the description."
+  },
+  "gps-satellite-navigation": {
+    "subject": "Physics & Technology",
+    "level": "Introductory",
+    "title": "How Does GPS Know Where You Are?",
+    "hook": "Your phone can locate you from space. How?",
+    "concept": "GPS receivers estimate position from the travel time of precisely timed satellite signals. Four satellites normally allow a 3D position and receiver clock error to be solved.",
+    "steps": [
+      {
+        "heading": "SIGNALS FROM SPACE",
+        "body": "GPS satellites broadcast their position and the time each signal was sent. Your phone listens for these signals; it does not need to send your location to the satellites."
+      },
+      {
+        "heading": "TIME BECOMES DISTANCE",
+        "body": "Radio signals travel at the speed of light. Measuring how long each signal took to arrive lets the receiver estimate its distance from that satellite."
+      },
+      {
+        "heading": "FOUR SIGNALS",
+        "body": "At least four satellites normally let a receiver solve for latitude, longitude, altitude and its own clock offset. Buildings and reflections can reduce accuracy."
+      }
+    ],
+    "question": "Why does a GPS receiver usually need at least four satellites?",
+    "options": [
+      "To solve for position and clock error",
+      "To receive photographs",
+      "To charge the phone"
+    ],
+    "answer_index": 0,
+    "explanation": "Four satellite measurements allow a 3D position and receiver clock offset to be calculated.",
+    "voiceover": "Your phone can find you using signals from space. But how? GPS satellites orbit Earth and broadcast where they are and the exact time a signal was sent. Your phone listens. Radio signals travel at the speed of light, so the tiny delay helps calculate distance. One satellite gives a distance, not your exact location. Signals from at least four satellites let the receiver solve for your position and correct its clock. Tall buildings and reflected signals can still confuse the result. Quick challenge: why four satellites? To solve for your position and your phone's clock error. That's GPS.",
+    "hashtags": [
+      "#GPS",
+      "#Technology",
+      "#Physics",
+      "#ScienceShorts",
+      "#AdventureOfEducation"
+    ],
+    "sources": [
+      {
+        "organization": "GPS.gov",
+        "title": "GPS Accuracy",
+        "url": "https://www.gps.gov/systems/gps/performance/accuracy/"
+      },
+      {
+        "organization": "GPS.gov",
+        "title": "Space Segment",
+        "url": "https://www.gps.gov/systems/gps/space/"
+      }
+    ],
+    "fact_check_notes": "GPS satellites broadcast timing and orbit information. Receivers calculate pseudoranges; at least four satellites are normally needed for a 3D fix plus receiver clock bias. A phone receives signals; do not say it sends location to GPS satellites.",
+    "thumbnail_guidance": "Vertical 9:16. Phone map pin, curved Earth and four satellites with signal arcs. Headline: HOW GPS FINDS YOU.",
+    "pinned_comment": "Does your phone send its location to GPS satellites, or mainly receive their signals?"
+  },
+  "bioluminescence-ocean": {
+    "subject": "Biology & Marine Science",
+    "level": "Introductory",
+    "title": "Why Does the Ocean Glow Blue at Night?",
+    "hook": "The sea can glow electric blue. What's causing it?",
+    "concept": "Bioluminescence is light produced by living organisms through chemical reactions. Some marine plankton flash when disturbed.",
+    "steps": [
+      {
+        "heading": "LIVING LIGHT",
+        "body": "Bioluminescence is light made by an organism. In many species, luciferin reacts with oxygen with help from an enzyme called luciferase."
+      },
+      {
+        "heading": "A FLASH IN THE WATER",
+        "body": "Some tiny plankton called dinoflagellates can produce brief blue flashes when waves or movement disturb them."
+      },
+      {
+        "heading": "WHY GLOW?",
+        "body": "Depending on the species, light can help with defence, attracting prey or communication. Not every glowing sea is caused by the same organism."
+      }
+    ],
+    "question": "What is bioluminescence?",
+    "options": [
+      "Light produced by living organisms",
+      "Moonlight reflected by fish",
+      "Heat from volcanoes"
+    ],
+    "answer_index": 0,
+    "explanation": "Bioluminescence is light generated by chemical reactions inside living organisms.",
+    "voiceover": "Imagine a wave breaking at night—and the water flashes electric blue. It looks like magic, but it's biology. Some tiny plankton called dinoflagellates make light when the water around them is disturbed. This is bioluminescence: light produced by living organisms through chemical reactions. In many species, luciferin reacts with oxygen with help from an enzyme. Why glow? Depending on the organism, light can help with defence, attracting prey or communication. Quick question: what is bioluminescence? Light made by living things. The ocean has its own living light show.",
+    "hashtags": [
+      "#Bioluminescence",
+      "#OceanScience",
+      "#MarineBiology",
+      "#ScienceShorts",
+      "#AdventureOfEducation"
+    ],
+    "sources": [
+      {
+        "organization": "NOAA Ocean Exploration",
+        "title": "Bioluminescence",
+        "url": "https://oceanexplorer.noaa.gov/facts/bioluminescence.html"
+      },
+      {
+        "organization": "Smithsonian Ocean",
+        "title": "Bioluminescence",
+        "url": "https://ocean.si.edu/ocean-life/fish/bioluminescence"
+      }
+    ],
+    "fact_check_notes": "Dinoflagellates are one cause of glowing waves, not the only cause of marine bioluminescence. Luciferin/luciferase is a common mechanism but biochemical systems vary.",
+    "thumbnail_guidance": "Vertical night ocean with bright blue glowing wave edges and tiny plankton sparkles. Headline: THE OCEAN GLOWS?!",
+    "pinned_comment": "What would you guess causes the ocean's blue glow?"
+  },
+  "roman-concrete": {
+    "subject": "History & Materials Science",
+    "level": "Introductory",
+    "title": "Why Has Ancient Roman Concrete Lasted So Long?",
+    "hook": "Some Roman concrete structures survived for nearly 2,000 years. What's their secret?",
+    "concept": "Roman marine concrete used volcanic ash, lime and seawater. Reactions involving lime clasts and volcanic materials may help some structures resist cracking.",
+    "steps": [
+      {
+        "heading": "A VOLCANIC RECIPE",
+        "body": "Roman builders mixed lime, volcanic ash and rock fragments. In marine structures, seawater entered the material and drove long-term chemical reactions."
+      },
+      {
+        "heading": "MINERALS GROW",
+        "body": "Researchers found minerals such as aluminous tobermorite in some Roman concrete. These crystals may help resist crack growth."
+      },
+      {
+        "heading": "NOT ONE MAGIC MIX",
+        "body": "Roman concrete varied by place and purpose. Modern concrete has different design requirements, so ancient methods are not automatically better for every project."
+      }
+    ],
+    "question": "Which ingredient was especially important in Roman marine concrete?",
+    "options": [
+      "Volcanic ash",
+      "Plastic fibres",
+      "Modern steel mesh"
+    ],
+    "answer_index": 0,
+    "explanation": "Volcanic ash reacted with lime and seawater to help form durable mineral structures.",
+    "voiceover": "How can concrete survive for almost two thousand years? Some Roman marine structures used a recipe with lime, volcanic ash and pieces of rock. Seawater slowly entered the material and triggered chemical reactions. Scientists found minerals, including a form of tobermorite, growing inside some samples. These crystals may help the concrete resist crack growth. But Roman concrete wasn't one identical recipe, and it isn't automatically better for every modern building. Quick challenge: which ingredient was key to the Roman marine mix? Volcanic ash. Ancient engineering still has lessons to teach.",
+    "hashtags": [
+      "#RomanHistory",
+      "#Engineering",
+      "#MaterialsScience",
+      "#HistoryShorts",
+      "#AdventureOfEducation"
+    ],
+    "sources": [
+      {
+        "organization": "MIT News",
+        "title": "The secret to long-lasting Roman concrete",
+        "url": "https://news.mit.edu/2023/roman-concrete-durability-lime-clasts-0106"
+      },
+      {
+        "organization": "Science Advances",
+        "title": "Hot mixing and ancient Roman concrete",
+        "url": "https://www.science.org/doi/10.1126/sciadv.add1602"
+      }
+    ],
+    "fact_check_notes": "The 2023 MIT/Science Advances study proposes hot-mixing and lime clasts as one mechanism in studied samples. Roman recipes varied; avoid claiming all Roman concrete lasts forever.",
+    "thumbnail_guidance": "Vertical split visual: Roman sea wall and close-up mineral crystals. Headline: 2,000-YEAR CONCRETE?",
+    "pinned_comment": "What mattered most in the Roman marine mix: volcanic ash, seawater, or mixing method?"
+  },
+  "moon-phases": {
+    "subject": "Astronomy",
+    "level": "Introductory",
+    "title": "Why Does the Moon Change Shape?",
+    "hook": "The Moon isn't changing shape. So why does it look like a crescent or full circle?",
+    "concept": "Moon phases occur because we see different portions of the Moon's sunlit half as it orbits Earth. The cycle averages about 29.5 days.",
+    "steps": [
+      {
+        "heading": "THE SUN LIGHTS HALF",
+        "body": "Sunlight illuminates about half of the Moon. The Moon reflects sunlight; it does not make its own visible light."
+      },
+      {
+        "heading": "OUR VIEW CHANGES",
+        "body": "As the Moon orbits Earth, the angle between the Sun, Earth and Moon changes. We see different fractions of its bright half."
+      },
+      {
+        "heading": "NOT EARTH'S SHADOW",
+        "body": "Ordinary phases are not caused by Earth's shadow. Earth's shadow causes a lunar eclipse, a different event."
+      }
+    ],
+    "question": "What causes the ordinary phases of the Moon?",
+    "options": [
+      "We see different portions of its sunlit half",
+      "Earth's shadow covers it nightly",
+      "The Moon changes its shape"
+    ],
+    "answer_index": 0,
+    "explanation": "As the Moon orbits Earth, the fraction of its sunlit hemisphere visible to us changes.",
+    "voiceover": "The Moon looks like it changes shape—but it doesn't. Here's what's really happening. The Sun lights up about half of the Moon. As the Moon orbits Earth, our viewing angle changes. Sometimes we see nearly all of the bright half: that's a full moon. Sometimes we see only a thin curve: a crescent. And sometimes we see half. Here's the common mistake: ordinary Moon phases are not Earth's shadow. Earth's shadow causes a lunar eclipse, a different event. Quick challenge: what causes the phases? We see different portions of the Moon's sunlit half. Look up and spot the phase.",
+    "hashtags": [
+      "#MoonPhases",
+      "#Astronomy",
+      "#SpaceScience",
+      "#ScienceShorts",
+      "#AdventureOfEducation"
+    ],
+    "sources": [
+      {
+        "organization": "NASA Science",
+        "title": "Moon Phases",
+        "url": "https://science.nasa.gov/moon/moon-phases/"
+      },
+      {
+        "organization": "NASA Space Place",
+        "title": "What Are the Moon's Phases?",
+        "url": "https://spaceplace.nasa.gov/moon-phases/en/"
+      }
+    ],
+    "fact_check_notes": "The synodic lunar phase cycle averages about 29.5 days. Ordinary phases are determined by Sun-Earth-Moon geometry, not Earth's shadow.",
+    "thumbnail_guidance": "Vertical sequence of accurate moon phases over dark sky, with sunlight arrow. Headline: THE MOON DOESN'T CHANGE SHAPE.",
+    "pinned_comment": "True or false: a crescent Moon is caused by Earth's shadow?"
+  },
+  "deep-ocean-pressure": {
+    "subject": "Physics & Ocean Science",
+    "level": "Introductory",
+    "title": "What Happens to Pressure Deep in the Ocean?",
+    "hook": "At the deepest trenches, pressure is around a thousand times surface pressure. Why?",
+    "concept": "Water pressure increases with depth because the weight of the water above increases. In seawater, pressure rises roughly one atmosphere per 10 metres.",
+    "steps": [
+      {
+        "heading": "WATER HAS WEIGHT",
+        "body": "Every layer of water presses on the layers below it. The deeper you go, the more water sits above you, so pressure increases."
+      },
+      {
+        "heading": "A HUGE CHANGE",
+        "body": "In seawater, pressure rises by roughly one atmosphere for every 10 metres. Around 10,000 metres deep, pressure is about 1,000 atmospheres above surface pressure."
+      },
+      {
+        "heading": "SPECIALISED EXPLORERS",
+        "body": "Deep-sea submersibles use carefully engineered pressure-resistant hulls. These places require specialised equipment to explore."
+      }
+    ],
+    "question": "Why does water pressure increase as you go deeper?",
+    "options": [
+      "More water is above you",
+      "The water becomes heavier because it is colder",
+      "The ocean floor pulls harder"
+    ],
+    "answer_index": 0,
+    "explanation": "The pressure increases because the weight of the water column above increases with depth.",
+    "voiceover": "The deep ocean is a world of enormous pressure. But why? Water has weight. Every layer presses on the water beneath it, so the deeper you go, the more water is stacked above you. In seawater, pressure rises by roughly one atmosphere every ten metres. At the deepest trenches, pressure can reach around a thousand times surface pressure. That's why deep-sea vehicles need specially engineered pressure-resistant hulls. Quick challenge: why does pressure increase with depth? Because more water is above you. The ocean is not just deep—it's powerful.",
+    "hashtags": [
+      "#DeepOcean",
+      "#OceanScience",
+      "#Physics",
+      "#MarianaTrench",
+      "#ScienceShorts",
+      "#AdventureOfEducation"
+    ],
+    "sources": [
+      {
+        "organization": "NOAA Ocean Exploration",
+        "title": "How does pressure change with ocean depth?",
+        "url": "https://oceanexplorer.noaa.gov/facts/pressure.html"
+      },
+      {
+        "organization": "NOAA Ocean Exploration",
+        "title": "Deepest part of the ocean",
+        "url": "https://oceanexplorer.noaa.gov/facts/deepest.html"
+      }
+    ],
+    "fact_check_notes": "Hydrostatic pressure rises approximately linearly with depth. Seawater pressure increases about 1 atmosphere per 10 m. Values at 10,000 m are approximate; no diving guidance intended.",
+    "thumbnail_guidance": "Vertical ocean cross-section from sunlit surface to dark trench, with submersible and pressure gauge. Headline: 1,000x THE PRESSURE?",
+    "pinned_comment": "About how deep must you go for seawater pressure to rise by one extra atmosphere?"
   }
 }
