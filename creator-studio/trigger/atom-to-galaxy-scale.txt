@@ -1,0 +1,13 @@
+Build the new atom-to-galaxy-scale educational Short.
+
+Use lesson ID: atom-to-galaxy-scale.
+
+Production direction:
+- Create a clear, original, animated explainer, not a generic slideshow.
+- Keep the hook in the first two seconds.
+- Make every animation illustrate the exact fact being narrated.
+- Captions should be short, synchronised, high-contrast, large enough for a phone, and kept clear of platform interface areas.
+- Keep the visual comparisons explicitly marked as schematic/logarithmic, not a single physically proportional drawing.
+- Render 1080x1920, 30 fps, H.264 with high visual quality.
+- Include a source-checked YouTube description, captions.srt, quiz.json, thumbnail artwork and review checklist.
+- Do not upload or publish anything. The channel owner will upload manually through YouTube Studio.
