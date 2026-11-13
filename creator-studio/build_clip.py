@@ -533,9 +533,9 @@ def main():
         "-vf", f"tpad=stop_mode=clone:stop_duration={pad_seconds:.3f},"
                "scale=1080:1920:flags=lanczos,fps=30,format=yuv420p,"
                f"subtitles='{(out / 'captions.srt').resolve().as_posix()}':"
-               "force_style='FontName=DejaVu Sans,FontSize=31,Bold=1,PrimaryColour=&H00FFFFFF,"
-               "OutlineColour=&H00101828,BorderStyle=1,Outline=3,Shadow=1,"
-               "Alignment=2,MarginV=235,MarginL=72,MarginR=175'",
+               "force_style='FontName=DejaVu Sans,FontSize=10,Bold=1,PrimaryColour=&H00FFFFFF,"
+               "OutlineColour=&H00101828,BorderStyle=1,Outline=2,Shadow=1,"
+               "Alignment=2,MarginV=42,MarginL=72,MarginR=175,WrapStyle=2'",
         "-c:v", "libx264", "-preset", "medium", "-crf", "18",
         "-pix_fmt", "yuv420p", "-r", "30",
         "-c:a", "aac", "-b:a", "192k",
