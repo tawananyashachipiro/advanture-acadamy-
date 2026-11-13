@@ -13,3 +13,5 @@ Production direction:
 - Do not upload or publish anything. The channel owner will upload manually through YouTube Studio.
 
 Rerun after the Manim ellipse rotation compatibility fix; render and verify the complete package.
+
+Rebuild after correcting the artifact destination fallback so the video and full creator pack are attached successfully.
