@@ -818,5 +818,69 @@
     "fact_check_notes": "FACT-CHECK NOTES — reviewed against institutional primary sources\n\n- The Event Horizon Telescope result was announced on 10 April 2019 and showed the shadow of the supermassive black hole at the centre of galaxy Messier 87 (M87). Sources: NSF 2019 press release; ALMA Observatory/EHT partner release.\n- The EHT linked eight existing ground-based radio observatories. Very-long-baseline interferometry synchronised observations and used Earth's rotation to form an Earth-sized virtual telescope. Source: NSF 2019 press release.\n- The observations were collected in 2017. ALMA's partner release reports roughly 350 terabytes of data per telescope per day, stored on hard drives and flown to specialist supercomputers for combination. Source: ALMA Observatory.\n- The bright ring is emission from hot gas around the black hole; the dark central region is the black-hole shadow. The image is not a photograph of a solid surface or of light escaping from inside. Sources: NSF 2019 press release; NSF explainer.\n- M87's black hole is about 55 million light-years from Earth and has a mass about 6.5 billion times the Sun's. Sources: NSF 2019 press release; ALMA Observatory.\n\nEditorial guardrail: call it the first image of a black-hole shadow, not a photograph of the black hole's surface. Do not imply that the orange ring is the event horizon itself.",
     "thumbnail_guidance": "Create a high-contrast 16:9 cover: a glowing orange ring around a dark central shadow on a deep-space background, with eight tiny radio-dish icons arranged around a subtle Earth curve. Use the large headline 'FIRST BLACK HOLE IMAGE' and the short supporting line '8 TELESCOPES. ONE PLANET-SIZED EYE.' Keep the Adventure of Education brand visible, avoid tiny text, and do not imply that the black hole itself is glowing.",
     "pinned_comment": "What amazed you more: eight telescopes acting like one giant eye, or the hard drives travelling to supercomputers? Share your answer below. The source links are in the description."
+  },
+  "voyager-golden-record": {
+    "subject": "Space Science & History",
+    "level": "Introductory",
+    "title": "Voyager's Golden Record: A Message from Earth",
+    "hook": "What would you send to the stars? In 1977, NASA sent a record filled with Earth's sounds, images and greetings on two Voyager spacecraft.",
+    "concept": "The Golden Record is a 12-inch gold-plated copper phonograph disc carried by both Voyager spacecraft. It gathers images, natural sounds, music and spoken greetings to represent life and culture on Earth. Its protective cover carries symbolic instructions for playing the disc and locating Earth.",
+    "steps": [
+      {
+        "heading": "Two launches. One message.",
+        "body": "Voyager 2 launched first, on 20 August 1977. Voyager 1 followed on 5 September. Each spacecraft carried an identical Golden Record as it began its journey to explore the outer planets and beyond."
+      },
+      {
+        "heading": "A snapshot of Earth",
+        "body": "The disc carries more than a hundred encoded images, natural sounds such as surf, wind and birds, music from different cultures and eras, and spoken greetings in 55 languages. A committee chaired by astronomer Carl Sagan selected the contents."
+      },
+      {
+        "heading": "A guide for a future finder",
+        "body": "The 12-inch gold-plated copper record sits inside a protective aluminum jacket. Symbols on its cover explain how to play the disc, how to locate Earth, and how to work out how long it has travelled."
+      }
+    ],
+    "question": "What kind of object carries the Golden Record?",
+    "options": [
+      "A 12-inch gold-plated copper phonograph disc",
+      "A radio signal broadcast continuously from Earth",
+      "A digital USB drive"
+    ],
+    "answer_index": 0,
+    "explanation": "Each Voyager carries a 12-inch gold-plated copper phonograph disc. Its protective cover includes symbolic instructions for playing it and locating Earth.",
+    "voiceover": "What would you send to the stars? In 1977, NASA packed a record about Earth and launched it on two spacecraft. Voyager 2 lifted off first on August 20; Voyager 1 followed on September 5. Each carried a twelve-inch, gold-plated copper phonograph record, protected by an aluminum cover. A team chaired by astronomer Carl Sagan selected more than a hundred images, natural sounds such as surf, wind and birds, music from different cultures, and greetings in fifty-five languages. The cover even carries symbolic instructions for playing the record and locating Earth. This was not a radio broadcast. It is a time capsule attached to two spacecraft, waiting for a possible future finder. If someone discovered it, what would you want them to learn about our planet?",
+    "hashtags": [
+      "#AdventureOfEducation",
+      "#Voyager",
+      "#GoldenRecord",
+      "#NASA",
+      "#SpaceExploration",
+      "#ScienceShorts",
+      "#HistoryOfScience"
+    ],
+    "sources": [
+      {
+        "organization": "NASA Science",
+        "title": "Golden Record Overview",
+        "url": "https://science.nasa.gov/mission/voyager/voyager-golden-record-overview/"
+      },
+      {
+        "organization": "NASA Science",
+        "title": "Golden Record Contents",
+        "url": "https://science.nasa.gov/mission/voyager/golden-record-contents/"
+      },
+      {
+        "organization": "NASA Science",
+        "title": "Voyager Fact Sheet",
+        "url": "https://science.nasa.gov/mission/voyager/fact-sheet/"
+      },
+      {
+        "organization": "NASA Jet Propulsion Laboratory",
+        "title": "Howdy, Strangers",
+        "url": "https://www.jpl.nasa.gov/news/howdy-strangers/"
+      }
+    ],
+    "fact_check_notes": "FACT-CHECK NOTES — checked against NASA and NASA/JPL institutional sources\n\n- NASA's Voyager Fact Sheet confirms Voyager 2 launched first on 20 August 1977 and Voyager 1 followed on 5 September 1977.\n- NASA describes each record as a 12-inch gold-plated copper phonograph disc. The cover includes symbolic instructions for playing the record, locating Earth and dating how long it has been in space.\n- NASA's current Golden Record Contents page reports 115 encoded images and greetings in 55 languages. An older NASA/JPL article reports 116 pictures. To avoid repeating a disputed count, the narration and captions say “more than a hundred images.”\n- The contents include natural sounds such as surf, wind, thunder, birds and whales, music from different cultures and eras, and spoken greetings. The contents were selected by a committee chaired by Carl Sagan.\n- The record is physically attached to each spacecraft; it is not a radio broadcast or a guaranteed delivery. NASA notes it would only be encountered and played if an advanced spacefaring civilization found it.\n\nEditorial guardrails: do not claim NASA has detected a recipient, do not imply the record is transmitting a signal, and do not reproduce copyrighted music or greetings from the record. The clip uses only original narration and original background music.",
+    "thumbnail_guidance": "Create a high-contrast 16:9 cover in original pixel-art style: a small Voyager probe carrying a bright gold disc against deep space, with Earth as a tiny blue planet in the distance. Large headline: “EARTH'S MESSAGE TO THE STARS”. Supporting line: “THE GOLDEN RECORD • 1977”. Keep the Adventure of Education brand visible and the text readable on a phone. Do not use alien faces or imply that NASA has received a reply.",
+    "pinned_comment": "If you could add one image, sound or greeting to a message from Earth, what would you choose—and why? The NASA source links are in the description."
   }
 }

@@ -773,6 +773,142 @@ def black_hole_pixel_story(scene, index, step):
     scene.play(FadeOut(caption), run_time=0.35)
 
 
+def voyager_probe_sprite(pixel=0.075):
+    """Original pixel-art Voyager probe for the Golden Record story."""
+    core = pixel_sprite(
+        ["...S...", "..SSS..", ".SSSSS.", "..S.S..", "..S.S..", "...S..."],
+        {"S": "#DCE8EF"}, pixel=pixel
+    )
+    left_panel = pixel_sprite(
+        ["PPPP", "P..P", "PPPP"],
+        {"P": "#2F9E92"}, pixel=pixel
+    ).move_to(LEFT * 0.58)
+    right_panel = pixel_sprite(
+        ["PPPP", "P..P", "PPPP"],
+        {"P": "#2F9E92"}, pixel=pixel
+    ).move_to(RIGHT * 0.58)
+    antenna_stem = Line(UP * 0.25, UP * 0.55, color=MINT, stroke_width=2)
+    antenna = Circle(radius=pixel * 1.9, color=SAND, stroke_width=2).move_to(UP * 0.62)
+    return VGroup(core, left_panel, right_panel, antenna_stem, antenna)
+
+
+def voyager_record_sprite(radius=0.58):
+    """Original illustration of the gold-plated phonograph record."""
+    disc = Circle(
+        radius=radius, color="#FFE7A8", stroke_width=3,
+        fill_color="#C99532", fill_opacity=1
+    )
+    grooves = VGroup(*[
+        Circle(radius=radius * scale, color="#F7D77E", stroke_width=1.1)
+        for scale in (0.82, 0.64, 0.46, 0.28)
+    ])
+    centre = Circle(
+        radius=radius * 0.10, color="#8A5A22",
+        fill_color="#8A5A22", fill_opacity=1
+    )
+    return VGroup(disc, grooves, centre)
+
+
+def voyager_pixel_story(scene, index, step):
+    """Original pixel-art scenes for the Voyager Golden Record story."""
+    heading = fit_line(step["heading"], 24, SAND, BOLD, max_width=4.0)
+    body = fit_paragraph(step["body"], 27, WHITE, max_width=4.0)
+    caption = VGroup(heading, body).arrange(DOWN, buff=0.18).move_to(DOWN * 2.65)
+    scene.play(FadeIn(caption, shift=UP * 0.12), run_time=0.45)
+
+    if index == 1:
+        earth_center = LEFT * 0.88 + UP * 0.55
+        earth = Circle(
+            radius=0.62, color="#4A9AC2",
+            fill_color="#164A70", fill_opacity=1
+        ).move_to(earth_center)
+        land = pixel_sprite(
+            ["...GG...", ".GGGGG..", "GG..GGG.", ".GGGG...", "...G...."],
+            {"G": "#62B889"}, pixel=0.075
+        ).move_to(earth_center)
+        voyager_two = voyager_probe_sprite(0.07).move_to(RIGHT * 0.92 + UP * 0.88)
+        voyager_one = voyager_probe_sprite(0.07).move_to(RIGHT * 0.92 + DOWN * 0.18)
+        trail_two = DashedLine(
+            earth_center + RIGHT * 0.48 + UP * 0.2,
+            RIGHT * 0.55 + UP * 0.88, color=TEAL, stroke_width=2
+        )
+        trail_one = DashedLine(
+            earth_center + RIGHT * 0.48 + DOWN * 0.15,
+            RIGHT * 0.55 + DOWN * 0.18, color=TEAL, stroke_width=2
+        )
+        date_two = fit_line("VOYAGER 2 • 20 AUG 1977", 17, SAND, BOLD, 4.0).move_to(DOWN * 1.18)
+        date_one = fit_line("VOYAGER 1 • 5 SEP 1977", 17, MINT, BOLD, 4.0).move_to(DOWN * 1.62)
+        scene.play(FadeIn(earth), FadeIn(land), Create(trail_two), Create(trail_one), run_time=0.7)
+        scene.play(FadeIn(voyager_two), FadeIn(voyager_one), run_time=0.6)
+        scene.play(
+            voyager_two.animate.shift(RIGHT * 0.32 + UP * 0.12),
+            voyager_one.animate.shift(RIGHT * 0.32 + DOWN * 0.12),
+            run_time=1.0, rate_func=smooth
+        )
+        scene.play(FadeIn(date_two), FadeIn(date_one), run_time=0.35)
+        scene.play(
+            FadeOut(earth), FadeOut(land), FadeOut(voyager_two), FadeOut(voyager_one),
+            FadeOut(trail_two), FadeOut(trail_one), FadeOut(date_two), FadeOut(date_one),
+            run_time=0.4
+        )
+
+    elif index == 2:
+        record = voyager_record_sprite(0.72).move_to(UP * 0.55)
+        picture = Rectangle(width=0.62, height=0.52, color=TEAL, stroke_width=4).move_to(LEFT * 1.32 + UP * 0.55)
+        picture_sun = Circle(radius=0.09, color=SAND, fill_color=SAND, fill_opacity=1).move_to(LEFT * 1.45 + UP * 0.68)
+        picture_hill = VGroup(
+            Line(LEFT * 1.58 + UP * 0.35, LEFT * 1.32 + UP * 0.58, color=MINT, stroke_width=3),
+            Line(LEFT * 1.32 + UP * 0.58, LEFT * 1.06 + UP * 0.35, color=MINT, stroke_width=3)
+        )
+        sound_waves = VGroup(*[
+            Line(
+                RIGHT * (0.95 + offset) + UP * (0.25 + height),
+                RIGHT * (0.95 + offset) + UP * (0.75 - height),
+                color=TEAL, stroke_width=4
+            )
+            for offset, height in ((0.0, 0.16), (0.18, 0.02), (0.36, 0.20), (0.54, 0.08))
+        ])
+        music_note = Text("♪", font_size=64, color=SAND).move_to(RIGHT * 1.34 + DOWN * 0.28)
+        contents = fit_line("IMAGES • EARTH SOUNDS • MUSIC", 16, SAND, BOLD, 4.0).move_to(DOWN * 1.32)
+        languages = fit_line("GREETINGS IN 55 LANGUAGES", 17, MINT, BOLD, 4.0).move_to(DOWN * 1.72)
+        scene.play(FadeIn(record), Create(picture), FadeIn(picture_sun), Create(picture_hill), run_time=0.8)
+        scene.play(Create(sound_waves), FadeIn(music_note), run_time=0.7)
+        scene.play(FadeIn(contents), FadeIn(languages), run_time=0.4)
+        scene.play(
+            FadeOut(record), FadeOut(picture), FadeOut(picture_sun), FadeOut(picture_hill),
+            FadeOut(sound_waves), FadeOut(music_note), FadeOut(contents), FadeOut(languages),
+            run_time=0.4
+        )
+
+    elif index == 3:
+        cover = RoundedRectangle(
+            width=1.55, height=1.55, corner_radius=0.08,
+            color="#C8D4DC", stroke_width=3, fill_color="#AAB9C4", fill_opacity=1
+        ).move_to(LEFT * 0.78 + UP * 0.55)
+        engraved = VGroup(
+            Line(LEFT * 1.25 + UP * 0.92, LEFT * 0.30 + UP * 0.92, color=NAVY, stroke_width=2),
+            Line(LEFT * 1.25 + UP * 0.72, LEFT * 0.30 + UP * 0.72, color=NAVY, stroke_width=2),
+            Circle(radius=0.16, color=NAVY, stroke_width=2).move_to(LEFT * 0.78 + UP * 0.38),
+            Line(LEFT * 1.08 + UP * 0.12, LEFT * 0.48 + UP * 0.12, color=NAVY, stroke_width=2)
+        )
+        arrow = Arrow(LEFT * 0.02 + UP * 0.55, RIGHT * 0.02 + UP * 0.55, color=SAND, buff=0.05, stroke_width=4)
+        record = voyager_record_sprite(0.66).move_to(RIGHT * 0.88 + UP * 0.55)
+        labels = VGroup(
+            fit_line("HOW TO PLAY", 17, MINT, BOLD, 1.8).move_to(LEFT * 0.78 + DOWN * 0.62),
+            fit_line("WHERE EARTH IS", 17, SAND, BOLD, 1.9).move_to(RIGHT * 0.88 + DOWN * 0.62)
+        )
+        time_label = fit_line("A TIME CAPSULE, NOT A BROADCAST", 17, TEAL, BOLD, 4.0).move_to(DOWN * 1.35)
+        scene.play(FadeIn(cover), Create(engraved), FadeIn(record), run_time=0.8)
+        scene.play(Create(arrow), FadeIn(labels), FadeIn(time_label), run_time=0.6)
+        scene.play(record.animate.scale(1.08), run_time=0.6, rate_func=smooth)
+        scene.play(
+            FadeOut(cover), FadeOut(engraved), FadeOut(arrow), FadeOut(record),
+            FadeOut(labels), FadeOut(time_label), run_time=0.4
+        )
+
+    scene.play(FadeOut(caption), run_time=0.35)
+
+
 class AcademyLessonShort(Scene):
     def construct(self):
         lesson_path = os.environ.get("ACADEMY_LESSON_FILE", "creator-studio/lessons/active-lesson.json")
@@ -786,6 +922,7 @@ class AcademyLessonShort(Scene):
         is_apollo = lesson.get("title", "").startswith("Apollo 13:")
         is_hubble = lesson.get("title", "").startswith("Hubble's Blurry Vision:")
         is_black_hole = lesson.get("title", "").startswith("The First Black Hole Image:")
+        is_voyager = lesson.get("title", "").startswith("Voyager's Golden Record:")
         if is_apollo:
             # A short visual cold-open: original pixel-art rocket and Moon.
             # Keep it simple and locally rendered; no stock footage or paid assets.
@@ -878,6 +1015,28 @@ class AcademyLessonShort(Scene):
                       FadeOut(stations), FadeOut(ring), FadeOut(shadow),
                       FadeOut(cold_open), run_time=0.4)
 
+
+        elif is_voyager:
+            earth = Circle(
+                radius=0.48, color="#4A9AC2",
+                fill_color="#164A70", fill_opacity=1
+            ).move_to(LEFT * 0.95 + UP * 0.55)
+            probe = voyager_probe_sprite(0.075).move_to(LEFT * 0.05 + UP * 0.55)
+            record = voyager_record_sprite(0.34).move_to(RIGHT * 1.05 + UP * 0.55)
+            path = DashedLine(LEFT * 0.42 + UP * 0.55, RIGHT * 0.62 + UP * 0.55,
+                              color=TEAL, stroke_width=2)
+            cold_open = fit_paragraph(
+                "A MESSAGE FROM EARTH, PACKED ON A RECORD AND SENT INTO DEEP SPACE.",
+                29, SAND, max_width=4.0
+            ).move_to(DOWN * 1.45)
+            self.play(FadeIn(earth), FadeIn(probe), Create(path), run_time=0.7)
+            self.play(FadeIn(record), FadeIn(cold_open), run_time=0.7)
+            self.play(probe.animate.shift(RIGHT * 0.25), record.animate.scale(1.08),
+                      run_time=0.9, rate_func=smooth)
+            self.wait(1.0)
+            self.play(FadeOut(earth), FadeOut(probe), FadeOut(path),
+                      FadeOut(record), FadeOut(cold_open), run_time=0.4)
+
         title = fit_paragraph(lesson["title"], 38, WHITE)
         title.move_to(UP * 1.05)
         subject = fit_line(lesson["subject"].upper() + " • " + lesson["level"], 19, SAND, BOLD)
@@ -913,6 +1072,8 @@ class AcademyLessonShort(Scene):
                 hubble_pixel_story(self, index, step)
             elif is_black_hole:
                 black_hole_pixel_story(self, index, step)
+            elif is_voyager:
+                voyager_pixel_story(self, index, step)
             elif lesson.get("title", "").startswith("Lightning Explained:"):
                 lightning_physics_story(self, index, step)
             elif lesson.get("title", "").startswith("Why Is the Sky Blue:"):
@@ -969,6 +1130,16 @@ class AcademyLessonShort(Scene):
             self.play(FadeIn(end_card), run_time=0.6)
             self.wait(0.7)
             self.play(FadeOut(end_card), run_time=0.35)
+
+        elif is_voyager:
+            end_card = VGroup(
+                fit_line("ONE PLANET'S HELLO. TWO VOYAGER PROBES.", 21, SAND, BOLD, max_width=4.0),
+                fit_line("THE GOLDEN RECORD • 1977", 20, WHITE, BOLD),
+            ).arrange(DOWN, buff=0.28).move_to(UP * 0.6)
+            self.play(FadeIn(end_card), run_time=0.6)
+            self.wait(0.8)
+            self.play(FadeOut(end_card), run_time=0.35)
+
         outro = VGroup(
             fit_line("MISSION COMPLETE!", 32, SAND, BOLD),
             fit_paragraph("Explore • Learn • Create", 30, WHITE),

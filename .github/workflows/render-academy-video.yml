@@ -27,6 +27,7 @@ on:
           - apollo-13-rescue
           - hubble-repair-mission
           - black-hole-first-image
+          - voyager-golden-record
       use_moneyprinterturbo:
         description: "Also run the optional local-only MoneyPrinterTurbo finishing pass (uses extra Actions minutes)"
         required: false

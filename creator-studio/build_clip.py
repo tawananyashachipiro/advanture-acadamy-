@@ -299,6 +299,48 @@ def main():
         draw.text((78, 570), "8 TELESCOPES • ONE PLANET-SIZED EYE",
                   font=font_sub, fill=(216,241,236))
         thumb.save(out / "thumbnail.jpg", quality=94)
+    elif args.lesson == "voyager-golden-record":
+        svg = """<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<defs><linearGradient id="space" x2="0" y2="1"><stop stop-color="#061326"/><stop offset="1" stop-color="#173B5A"/></linearGradient></defs>
+<rect width="1280" height="720" fill="url(#space)"/>
+<g fill="#D8F1EC"><circle cx="90" cy="170" r="4"/><circle cx="340" cy="100" r="5"/><circle cx="650" cy="170" r="3"/><circle cx="1170" cy="130" r="4"/><circle cx="1080" cy="610" r="4"/></g>
+<circle cx="980" cy="365" r="178" fill="#C99532" stroke="#FFE7A8" stroke-width="10"/>
+<circle cx="980" cy="365" r="142" fill="none" stroke="#F7D77E" stroke-width="3"/>
+<circle cx="980" cy="365" r="100" fill="none" stroke="#F7D77E" stroke-width="3"/>
+<circle cx="980" cy="365" r="18" fill="#8A5A22"/>
+<g fill="#DCE8EF"><rect x="720" y="250" width="20" height="180"/><rect x="640" y="285" width="70" height="110" fill="#2F9E92"/><rect x="750" y="285" width="70" height="110" fill="#2F9E92"/></g>
+<text x="70" y="92" fill="#8BE2D2" font-family="Arial,sans-serif" font-size="38" font-weight="bold">ADVENTURE OF EDUCATION</text>
+<text x="70" y="310" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="70" font-weight="bold">EARTH'S MESSAGE</text>
+<text x="70" y="405" fill="#FFD27A" font-family="Arial,sans-serif" font-size="76" font-weight="bold">TO THE STARS</text>
+<text x="76" y="575" fill="#D8F1EC" font-family="Arial,sans-serif" font-size="34">THE GOLDEN RECORD • 1977</text>
+</svg>"""
+        (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
+        from PIL import Image, ImageDraw, ImageFont
+        thumb = Image.new("RGB", (1280, 720), (6, 19, 38))
+        draw = ImageDraw.Draw(thumb)
+        for x, y, radius in [(90, 170, 4), (340, 100, 5), (650, 170, 3),
+                             (1170, 130, 4), (1080, 610, 4)]:
+            draw.ellipse((x-radius, y-radius, x+radius, y+radius), fill=(216,241,236))
+        draw.ellipse((802, 187, 1158, 543), fill=(201,149,50), outline=(255,231,168), width=10)
+        draw.ellipse((838, 223, 1122, 507), outline=(247,215,126), width=3)
+        draw.ellipse((878, 263, 1082, 467), outline=(247,215,126), width=3)
+        draw.ellipse((962, 347, 998, 383), fill=(138,90,34))
+        draw.rectangle((680, 250, 704, 440), fill=(220,232,239))
+        draw.rectangle((600, 285, 670, 395), fill=(47,158,146))
+        draw.rectangle((714, 285, 784, 395), fill=(47,158,146))
+        try:
+            font_brand = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 34)
+            font_title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 70)
+            font_sub = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 32)
+        except OSError:
+            font_brand = font_title = font_sub = ImageFont.load_default()
+        draw.text((70, 68), "ADVENTURE OF EDUCATION", font=font_brand, fill=(139,226,210))
+        draw.text((70, 245), "EARTH'S MESSAGE", font=font_title, fill="white",
+                  stroke_width=3, stroke_fill=(4,18,35))
+        draw.text((70, 335), "TO THE STARS", font=font_title, fill=(255,210,122),
+                  stroke_width=3, stroke_fill=(4,18,35))
+        draw.text((76, 575), "THE GOLDEN RECORD • 1977", font=font_sub, fill=(216,241,236))
+        thumb.save(out / "thumbnail.jpg", quality=94)
     else:
         title = escape(lesson["subject"].upper())
         subtitle = escape(lesson["title"])
