@@ -1,6 +1,10 @@
 name: Adventure Academy Clip Factory
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "creator-studio/trigger/atom-to-galaxy-scale.txt"
   workflow_dispatch:
     inputs:
       lesson_id:
@@ -28,6 +32,7 @@ on:
           - hubble-repair-mission
           - black-hole-first-image
           - voyager-golden-record
+          - atom-to-galaxy-scale
       use_moneyprinterturbo:
         description: "Also run the optional local-only MoneyPrinterTurbo finishing pass (uses extra Actions minutes)"
         required: false
@@ -67,7 +72,7 @@ jobs:
 
       - name: Build selected lesson package
         env:
-          LESSON_ID: ${{ inputs.lesson_id || 'why-sky-blue' }}
+          LESSON_ID: ${{ inputs.lesson_id || 'atom-to-galaxy-scale' }}
         run: |
           python creator-studio/build_clip.py --lesson "$LESSON_ID"
 
