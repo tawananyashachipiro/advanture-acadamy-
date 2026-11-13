@@ -1056,6 +1056,66 @@ def atom_to_galaxy_scale_story(scene, index, step):
 
 
 
+def modern_topic_visual(scene, lesson_id, index):
+    """Original animated visual motifs for five new Shorts."""
+    if lesson_id == "gps-satellite-navigation":
+        earth = Circle(radius=0.9, color="#3D8BC9", fill_color="#174A78", fill_opacity=1)
+        earth.move_to(DOWN * 0.25)
+        sats = VGroup()
+        beams = VGroup()
+        for pos in [LEFT*1.35+UP*1.7, RIGHT*1.35+UP*1.7, LEFT*1.8+DOWN*0.15, RIGHT*1.8+DOWN*0.15]:
+            sat = VGroup(Rectangle(width=0.28,height=0.18,color=SAND,fill_opacity=1), Line(LEFT*0.42,RIGHT*0.42,color=TEAL,stroke_width=4)).move_to(pos)
+            sats.add(sat)
+            beams.add(DashedLine(pos, earth.get_center(), color=TEAL, dash_length=0.09, stroke_width=2))
+        scene.play(FadeIn(earth), LaggedStart(*[FadeIn(x) for x in sats],lag_ratio=0.12), run_time=0.7)
+        scene.play(*[Create(x) for x in beams], run_time=0.7)
+        scene.play(*[Indicate(x,color=SAND) for x in sats], run_time=0.45)
+        scene.play(FadeOut(VGroup(earth,sats,beams)), run_time=0.3)
+    elif lesson_id == "bioluminescence-ocean":
+        waves=VGroup(*[Arc(radius=1.0+0.28*j,start_angle=PI,end_angle=2*PI,color="#1BC8D5",stroke_width=5).shift(DOWN*0.55+UP*0.17*j) for j in range(3)])
+        plankton=VGroup(*[Dot([((i*17)%31)/10-1.5,((i*11)%19)/10-0.7,0],radius=0.035,color="#72F5FF") for i in range(38)])
+        scene.play(LaggedStart(*[Create(w) for w in waves],lag_ratio=0.15),run_time=0.75)
+        scene.play(LaggedStart(*[FadeIn(p,scale=1.8) for p in plankton],lag_ratio=0.025),run_time=0.7)
+        scene.play(*[Indicate(plankton[i],color=WHITE) for i in range(0,38,4)],run_time=0.6)
+        scene.play(FadeOut(VGroup(waves,plankton)),run_time=0.3)
+    elif lesson_id == "roman-concrete":
+        wall=VGroup()
+        for row in range(4):
+            for col in range(4):
+                brick=Rectangle(width=0.72,height=0.36,color="#D5A96C",fill_color="#A87948",fill_opacity=1,stroke_width=2)
+                brick.move_to([(-1.1+col*0.73)+(0.35 if row%2 else 0),-0.55+row*0.38,0])
+                wall.add(brick)
+        crystals=VGroup(*[Line([0,0,0],[0.12,0.35,0],color="#8DE4E1",stroke_width=4).move_to([(-0.8+(i%3)*0.8),-0.2+(i//3)*0.3,0]) for i in range(9)])
+        scene.play(LaggedStart(*[FadeIn(b,shift=UP*0.08) for b in wall],lag_ratio=0.04),run_time=0.8)
+        scene.play(LaggedStart(*[GrowFromCenter(c) for c in crystals],lag_ratio=0.08),run_time=0.65)
+        scene.play(*[Indicate(crystals[i],color=WHITE) for i in [0,4,8]],run_time=0.5)
+        scene.play(FadeOut(VGroup(wall,crystals)),run_time=0.3)
+    elif lesson_id == "moon-phases":
+        earth=Circle(radius=0.28,color="#4E9FE0",fill_color="#2675B8",fill_opacity=1)
+        orbit=Circle(radius=1.45,color="#7890A5",stroke_opacity=0.65)
+        moons=VGroup()
+        for angle in [0,PI/2,PI,3*PI/2]:
+            m=Circle(radius=0.25,color="#E8E4D8",fill_color="#E8E4D8",fill_opacity=1).move_to([1.45*np.cos(angle),1.45*np.sin(angle),0])
+            shadow=Circle(radius=0.25,color="#4A5260",fill_color="#4A5260",fill_opacity=1).move_to(m.get_center()+LEFT*0.12)
+            moons.add(VGroup(m,shadow))
+        sun=Circle(radius=0.22,color=SAND,fill_color=SAND,fill_opacity=1).move_to(LEFT*2.0)
+        scene.play(FadeIn(sun),Create(orbit),FadeIn(earth),run_time=0.65)
+        scene.play(LaggedStart(*[FadeIn(m,scale=0.7) for m in moons],lag_ratio=0.18),run_time=0.8)
+        scene.play(Rotate(moons,angle=PI/3,about_point=earth.get_center()),run_time=0.8)
+        scene.play(FadeOut(VGroup(sun,orbit,earth,moons)),run_time=0.3)
+    elif lesson_id == "deep-ocean-pressure":
+        layers=VGroup(*[Rectangle(width=4.0,height=0.72,fill_color=["#2586A8","#14617F","#0C3F60","#082943"][i],fill_opacity=1,stroke_width=0).move_to(DOWN*0.35-DOWN*0.72*i) for i in range(4)])
+        sub=VGroup(Circle(radius=0.25,color=SAND,fill_color="#D6A94F",fill_opacity=1),Rectangle(width=0.75,height=0.22,color=SAND,fill_color="#D6A94F",fill_opacity=1)).move_to(UP*1.2)
+        gauge=Circle(radius=0.42,color=WHITE).move_to(RIGHT*1.45+DOWN*0.2)
+        needle=Line(gauge.get_center(),gauge.get_center()+UP*0.28,color="#FF8C69",stroke_width=4)
+        scene.play(LaggedStart(*[FadeIn(x) for x in layers],lag_ratio=0.12),FadeIn(sub),run_time=0.8)
+        scene.play(sub.animate.shift(DOWN*1.5),Create(gauge),GrowFromCenter(needle),run_time=0.9)
+        scene.play(Rotate(needle,angle=-PI/2,about_point=gauge.get_center()),Indicate(sub,color=SAND),run_time=0.65)
+        scene.play(FadeOut(VGroup(layers,sub,gauge,needle)),run_time=0.3)
+
+
+
+
 class AcademyLessonShort(Scene):
     def construct(self):
         lesson_path = os.environ.get("ACADEMY_LESSON_FILE", "creator-studio/lessons/active-lesson.json")
@@ -1244,6 +1304,15 @@ class AcademyLessonShort(Scene):
                 voyager_pixel_story(self, index, step)
             elif is_scale:
                 atom_to_galaxy_scale_story(self, index, step)
+            elif lesson.get("id") in ("gps-satellite-navigation", "bioluminescence-ocean", "roman-concrete", "moon-phases", "deep-ocean-pressure"):
+                modern_topic_visual(self, lesson.get("id"), index)
+                number = fit_line(f"DISCOVERY {index}", 23, TEAL, BOLD)
+                heading = fit_paragraph(step["heading"], 34, SAND)
+                body = fit_paragraph(step["body"], 27, WHITE)
+                card = VGroup(number, heading, body).arrange(DOWN, buff=0.35).move_to(DOWN * 2.2)
+                self.play(FadeIn(card, shift=UP * 0.12), run_time=0.55)
+                self.wait(2.5)
+                self.play(FadeOut(card), run_time=0.3)
             elif lesson.get("title", "").startswith("Lightning Explained:"):
                 lightning_physics_story(self, index, step)
             elif lesson.get("title", "").startswith("Why Is the Sky Blue:"):
