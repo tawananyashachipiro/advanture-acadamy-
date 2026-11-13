@@ -1,2 +1,3 @@
 # Trigger batch rendering for the five new educational Shorts.
 # Rebuild with topic-specific animation and lesson IDs.
+# Rebuild bioluminescence with corrected Arc parameters.
