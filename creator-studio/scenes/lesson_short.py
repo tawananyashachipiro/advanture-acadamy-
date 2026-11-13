@@ -1073,7 +1073,7 @@ def modern_topic_visual(scene, lesson_id, index):
         scene.play(*[Indicate(x,color=SAND) for x in sats], run_time=0.45)
         scene.play(FadeOut(VGroup(earth,sats,beams)), run_time=0.3)
     elif lesson_id == "bioluminescence-ocean":
-        waves=VGroup(*[Arc(radius=1.0+0.28*j,start_angle=PI,end_angle=2*PI,color="#1BC8D5",stroke_width=5).shift(DOWN*0.55+UP*0.17*j) for j in range(3)])
+        waves=VGroup(*[Arc(radius=1.0+0.28*j,start_angle=PI,angle=PI,color="#1BC8D5",stroke_width=5).shift(DOWN*0.55+UP*0.17*j) for j in range(3)])
         plankton=VGroup(*[Dot([((i*17)%31)/10-1.5,((i*11)%19)/10-0.7,0],radius=0.035,color="#72F5FF") for i in range(38)])
         scene.play(LaggedStart(*[Create(w) for w in waves],lag_ratio=0.15),run_time=0.75)
         scene.play(LaggedStart(*[FadeIn(p,scale=1.8) for p in plankton],lag_ratio=0.025),run_time=0.7)
