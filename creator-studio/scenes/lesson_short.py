@@ -918,11 +918,8 @@ def atom_to_galaxy_scale_story(scene, index, step):
     ])
     heading = fit_line(step["heading"], 23, SAND, BOLD, max_width=4.05)
     heading.move_to(UP * 2.15)
-    body = fit_paragraph(step["body"], 22, WHITE, max_width=3.95)
-    body.move_to(DOWN * 2.15)
     scene.add(stars)
-    scene.play(FadeIn(heading, shift=UP * 0.12), FadeIn(body, shift=UP * 0.08),
-               run_time=0.55)
+    scene.play(FadeIn(heading, shift=UP * 0.12), run_time=0.55)
 
     if index == 1:
         atom_center = LEFT * 1.08 + UP * 0.25
@@ -1054,7 +1051,7 @@ def atom_to_galaxy_scale_story(scene, index, step):
                    FadeOut(universe_core), FadeOut(universe_label), FadeOut(size_b),
                    FadeOut(ratio), run_time=0.45)
 
-    scene.play(FadeOut(heading), FadeOut(body), FadeOut(stars), run_time=0.35)
+    scene.play(FadeOut(heading), FadeOut(stars), run_time=0.35)
 
 
 
