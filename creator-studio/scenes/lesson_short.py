@@ -1114,6 +1114,52 @@ def modern_topic_visual(scene, lesson_id, index):
         scene.play(Rotate(needle,angle=-PI/2,about_point=gauge.get_center()),Indicate(sub,color=SAND),run_time=0.65)
         scene.play(FadeOut(VGroup(layers,sub,gauge,needle)),run_time=0.3)
 
+    elif lesson_id == "neptune-math-discovery":
+        if index == 1:
+            orbit = Ellipse(width=3.5, height=1.55, color="#6B879D", stroke_width=2).move_to(UP*0.35)
+            sun = Circle(radius=0.24, color=SAND, fill_color=SAND, fill_opacity=1).move_to(LEFT*1.2+UP*0.35)
+            uranus = Circle(radius=0.25, color="#79C8D8", fill_color="#367F9B", fill_opacity=1).move_to(RIGHT*0.65+UP*1.05)
+            unseen = Circle(radius=0.30, color="#4C83D1", fill_color="#183D78", fill_opacity=1).move_to(RIGHT*1.25+DOWN*0.55)
+            tug = Arrow(unseen.get_left(), uranus.get_right(), color=SAND, buff=0.08, stroke_width=4)
+            label = fit_line("AN UNSEEN PLANET'S GRAVITY", 19, TEAL, BOLD, 4.0).move_to(DOWN*1.45)
+            scene.play(Create(orbit), FadeIn(sun), FadeIn(uranus), FadeIn(unseen), run_time=0.8)
+            scene.play(GrowArrow(tug), Indicate(uranus, color=SAND), FadeIn(label), run_time=0.8)
+            scene.play(FadeOut(VGroup(orbit, sun, uranus, unseen, tug, label)), run_time=0.35)
+        elif index == 2:
+            paper = RoundedRectangle(width=3.45, height=2.1, corner_radius=0.12,
+                                     color="#D9E4E8", fill_color="#D9E4E8", fill_opacity=1).move_to(UP*0.45)
+            lines = VGroup(
+                Text("URANUS ORBIT DATA", font_size=20, color="#17334C", weight=BOLD),
+                Text("NEWTON'S GRAVITY", font_size=22, color="#17334C", weight=BOLD),
+                Text("PREDICTED SKY POSITION", font_size=18, color="#287F83", weight=BOLD),
+            ).arrange(DOWN, buff=0.28).move_to(paper.get_center())
+            pencil = Line(LEFT*1.45+DOWN*1.45, RIGHT*1.45+DOWN*1.45, color=SAND, stroke_width=6)
+            target = Circle(radius=0.17, color="#4C83D1", fill_color="#4C83D1", fill_opacity=1).move_to(RIGHT*1.35+DOWN*1.45)
+            scene.play(FadeIn(paper), LaggedStart(*[FadeIn(line, shift=UP*0.08) for line in lines], lag_ratio=0.18), run_time=0.9)
+            scene.play(Create(pencil), FadeIn(target), Indicate(lines[2], color=TEAL), run_time=0.7)
+            scene.play(FadeOut(VGroup(paper, lines, pencil, target)), run_time=0.35)
+        else:
+            stars = VGroup(*[
+                Dot([((i*17)%35)/10-1.7, ((i*11)%25)/10-0.75, 0], radius=0.025, color=WHITE)
+                for i in range(28)
+            ])
+            telescope = VGroup(
+                Rectangle(width=1.0, height=0.28, color="#B7C9D8", fill_color="#45627A", fill_opacity=1),
+                Circle(radius=0.18, color=SAND, fill_color="#D6B45C", fill_opacity=1).shift(RIGHT*0.55),
+                Line(LEFT*0.15+DOWN*0.12, LEFT*0.45+DOWN*0.72, color=TEAL, stroke_width=4),
+                Line(LEFT*0.15+DOWN*0.12, RIGHT*0.15+DOWN*0.68, color=TEAL, stroke_width=4),
+            ).move_to(LEFT*1.0+UP*0.35)
+            planet = Circle(radius=0.22, color="#76B9F4", fill_color="#2766A8", fill_opacity=1).move_to(RIGHT*1.15+UP*0.65)
+            target = VGroup(
+                Circle(radius=0.43, color=SAND, stroke_width=2).move_to(planet.get_center()),
+                Line(planet.get_center()+LEFT*0.58, planet.get_center()+RIGHT*0.58, color=SAND, stroke_width=2),
+                Line(planet.get_center()+UP*0.58, planet.get_center()+DOWN*0.58, color=SAND, stroke_width=2),
+            )
+            date = fit_line("23 SEPTEMBER 1846", 20, SAND, BOLD, 3.8).move_to(DOWN*1.35)
+            scene.play(FadeIn(stars), FadeIn(telescope), run_time=0.75)
+            scene.play(FadeIn(planet), Create(target), FadeIn(date), run_time=0.75)
+            scene.play(Indicate(planet, color=WHITE), run_time=0.55)
+            scene.play(FadeOut(VGroup(stars, telescope, planet, target, date)), run_time=0.35)
 
 
 
@@ -1131,6 +1177,7 @@ class AcademyLessonShort(Scene):
         is_hubble = lesson.get("title", "").startswith("Hubble's Blurry Vision:")
         is_black_hole = lesson.get("title", "").startswith("The First Black Hole Image:")
         is_voyager = lesson.get("title", "").startswith("Voyager's Golden Record:")
+        is_neptune = lesson.get("id") == "neptune-math-discovery"
         is_scale = lesson.get("title", "").startswith("From an Atom to the Observable Universe:")
         if is_apollo:
             # A short visual cold-open: original pixel-art rocket and Moon.
@@ -1266,6 +1313,23 @@ class AcademyLessonShort(Scene):
             self.play(FadeOut(earth), FadeOut(probe), FadeOut(path),
                       FadeOut(record), FadeOut(cold_open), run_time=0.4)
 
+        elif is_neptune:
+            orbit = Ellipse(width=3.2, height=1.45, color="#6B879D", stroke_width=3).move_to(UP*0.55)
+            uranus = pixel_sprite(["..BBBB..", ".BBBBBB.", "BBBBBBBB", ".BBBBBB.", "..BBBB.."],
+                                  {"B": "#72C4D8"}, pixel=0.10).move_to(LEFT*0.85+UP*0.55)
+            neptune = pixel_sprite(["..NNN..", ".NNNNN.", "NNNNNNN", ".NNNNN.", "..NNN.."],
+                                   {"N": "#3E79C8"}, pixel=0.10).move_to(RIGHT*1.0+UP*0.55)
+            prediction = DashedLine(LEFT*0.15+UP*0.55, RIGHT*0.55+UP*0.55, color=SAND, stroke_width=3)
+            cold_open = fit_paragraph(
+                "A PLANET PREDICTED BY MATHS—THEN FOUND IN THE SKY.",
+                29, SAND, max_width=4.0
+            ).move_to(DOWN*1.35)
+            self.play(Create(orbit), FadeIn(uranus), run_time=0.65)
+            self.play(Create(prediction), FadeIn(neptune), FadeIn(cold_open), run_time=0.8)
+            self.wait(1.0)
+            self.play(FadeOut(orbit), FadeOut(uranus), FadeOut(neptune),
+                      FadeOut(prediction), FadeOut(cold_open), run_time=0.4)
+
         title = fit_paragraph(lesson["title"], 38, WHITE)
         title.move_to(UP * 1.05)
         subject = fit_line(lesson["subject"].upper() + " • " + lesson["level"], 19, SAND, BOLD)
@@ -1305,7 +1369,7 @@ class AcademyLessonShort(Scene):
                 voyager_pixel_story(self, index, step)
             elif is_scale:
                 atom_to_galaxy_scale_story(self, index, step)
-            elif lesson.get("id") in ("gps-satellite-navigation", "bioluminescence-ocean", "roman-concrete", "moon-phases", "deep-ocean-pressure"):
+            elif lesson.get("id") in ("gps-satellite-navigation", "bioluminescence-ocean", "roman-concrete", "moon-phases", "deep-ocean-pressure", "neptune-math-discovery"):
                 modern_topic_visual(self, lesson.get("id"), index)
                 number = fit_line(f"DISCOVERY {index}", 23, TEAL, BOLD)
                 heading = fit_paragraph(step["heading"], 34, SAND)
@@ -1375,6 +1439,15 @@ class AcademyLessonShort(Scene):
             end_card = VGroup(
                 fit_line("ONE PLANET'S HELLO. TWO VOYAGER PROBES.", 21, SAND, BOLD, max_width=4.0),
                 fit_line("THE GOLDEN RECORD • 1977", 20, WHITE, BOLD),
+            ).arrange(DOWN, buff=0.28).move_to(UP * 0.6)
+            self.play(FadeIn(end_card), run_time=0.6)
+            self.wait(0.8)
+            self.play(FadeOut(end_card), run_time=0.35)
+
+        if is_neptune:
+            end_card = VGroup(
+                fit_line("MATHS PREDICTED IT. A TELESCOPE CONFIRMED IT.", 20, SAND, BOLD, max_width=4.0),
+                fit_line("NEPTUNE • 23 SEPTEMBER 1846", 20, WHITE, BOLD),
             ).arrange(DOWN, buff=0.28).move_to(UP * 0.6)
             self.play(FadeIn(end_card), run_time=0.6)
             self.wait(0.8)

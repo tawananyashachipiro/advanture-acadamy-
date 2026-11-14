@@ -1216,5 +1216,68 @@
     "fact_check_notes": "Hydrostatic pressure rises approximately linearly with depth. Seawater pressure increases about 1 atmosphere per 10 m. Values at 10,000 m are approximate; no diving guidance intended.",
     "thumbnail_guidance": "Vertical ocean cross-section from sunlit surface to dark trench, with submersible and pressure gauge. Headline: 1,000x THE PRESSURE?",
     "pinned_comment": "About how deep must you go for seawater pressure to rise by one extra atmosphere?"
+  },
+  "neptune-math-discovery": {
+    "subject": "Astronomy & History of Science",
+    "level": "Introductory",
+    "title": "Neptune: The Planet Found by Mathematics",
+    "hook": "A planet was found because a calculation told astronomers where to look.",
+    "concept": "Uranus's observed motion differed from predictions. Astronomers proposed that the gravity of an unseen planet could explain the difference. Mathematical predictions then guided a telescope search that identified Neptune in 1846.",
+    "steps": [
+      {
+        "heading": "URANUS DIDN'T MATCH",
+        "body": "Astronomers compared Uranus's observed position with calculated positions. The differences suggested that another planet's gravity might be affecting its orbit."
+      },
+      {
+        "heading": "THE MATHS MADE A MAP",
+        "body": "Urbain Le Verrier in France and John Couch Adams in England independently worked on the puzzle. Le Verrier sent his predicted position to the Berlin Observatory."
+      },
+      {
+        "heading": "THE TELESCOPE CHECKED",
+        "body": "On 23 September 1846, Johann Galle and Heinrich d'Arrest found Neptune close to Le Verrier's predicted position—within about one degree."
+      }
+    ],
+    "question": "What clue helped astronomers predict Neptune's existence?",
+    "options": [
+      "Unexplained differences in Uranus's orbit",
+      "A new moon around Earth",
+      "A radio signal from Neptune"
+    ],
+    "answer_index": 0,
+    "explanation": "The gravitational effect of an unseen planet was proposed to explain the differences between Uranus's observed and predicted motion.",
+    "voiceover": "A planet was found because a calculation told astronomers where to look. In the 1800s, Uranus did not move exactly where astronomers expected. Could an unseen planet's gravity be tugging on it? In France, Urbain Le Verrier calculated a possible position. In England, John Couch Adams independently worked on the same puzzle. Le Verrier sent his prediction to Berlin. On 23 September 1846, Johann Galle and Heinrich d'Arrest searched the sky and found Neptune close to the predicted spot. The story needed both mathematics and observation. Quick challenge: what revealed the hidden planet? The way its gravity affected Uranus.",
+    "hashtags": [
+      "#AdventureOfEducation",
+      "#Neptune",
+      "#Astronomy",
+      "#HistoryOfScience",
+      "#SpaceDiscovery",
+      "#ScienceShorts"
+    ],
+    "sources": [
+      {
+        "organization": "NASA Jet Propulsion Laboratory",
+        "title": "Planetary Discovery Circumstances",
+        "url": "https://ssd.jpl.nasa.gov/planets/discovery.html"
+      },
+      {
+        "organization": "Paris Observatory – PSL",
+        "title": "The 170 years of the discovery of Neptune",
+        "url": "https://observatoiredeparis.psl.eu/the-170-years-of-the.html"
+      },
+      {
+        "organization": "American Physical Society",
+        "title": "September 23, 1846: Neptune’s Existence Observationally Confirmed",
+        "url": "https://www.aps.org/apsnews/2020/08/neptunes-existence-confirmed"
+      },
+      {
+        "organization": "Leibniz Institute for Astrophysics Potsdam",
+        "title": "175th anniversary of the discovery of Neptune",
+        "url": "https://www.aip.de/en/news/175th-anniversary-of-the-discovery-of-neptune/"
+      }
+    ],
+    "fact_check_notes": "FACT-CHECK NOTES — checked against NASA/JPL, Paris Observatory, the American Physical Society and the Leibniz Institute for Astrophysics Potsdam.\n\n- NASA/JPL says Neptune's existence was inferred from its effect on Uranus's orbit. Urbain Le Verrier in France and John Couch Adams in England independently predicted a position for the unseen planet.\n- Paris Observatory records Le Verrier's intensive calculations in 1846 and identifies a surviving 1846 manuscript about the search for Neptune.\n- The American Physical Society dates the successful observation to 23 September 1846 and reports that Johann Galle and Heinrich d'Arrest found Neptune within one degree of Le Verrier's predicted location.\n- The Berlin Observatory observation followed Le Verrier's prediction. Do not say Le Verrier physically saw Neptune; Galle and d'Arrest made the confirming observation.\n- Credit is nuanced: Adams independently worked on the problem, while Le Verrier's published prediction prompted the successful Berlin search. Avoid claiming a single person did everything.\n\nEditorial guardrails: describe the orbit discrepancy as evidence that suggested an unseen planet, not as a direct photograph or signal. Keep the distinction between mathematical prediction and telescopic confirmation.",
+    "thumbnail_guidance": "Create an original 16:9 pixel-art cover: a star map with Uranus on a slightly offset orbit, a pencil-like prediction line leading to a small deep-blue Neptune, and a simple telescope silhouette. Large headline: “A PLANET FOUND BY MATHS”. Supporting line: “NEPTUNE • 1846”. Keep the Adventure of Education brand visible and text readable on a phone. Do not imply Neptune was photographed before it was observed.",
+    "pinned_comment": "Would you have trusted a mathematical prediction enough to point a telescope at an unseen planet? The source links are in the description."
   }
 }

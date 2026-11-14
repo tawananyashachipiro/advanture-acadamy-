@@ -1,15 +1,10 @@
 name: Adventure Academy Clip Factory
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "creator-studio/trigger/atom-to-galaxy-scale.txt"
-      - "creator-studio/trigger/build-five-shorts.txt"
   workflow_dispatch:
     inputs:
       lesson_id:
-        description: "Choose the lesson to turn into a YouTube Short"
+        description: "Choose one lesson to render as a YouTube Short"
         required: true
         type: choice
         options:
@@ -39,11 +34,7 @@ on:
           - roman-concrete
           - moon-phases
           - deep-ocean-pressure
-      use_moneyprinterturbo:
-        description: "Also run the optional local-only MoneyPrinterTurbo finishing pass (uses extra Actions minutes)"
-        required: false
-        default: false
-        type: boolean
+          - neptune-math-discovery
 
 permissions:
   contents: read
@@ -54,16 +45,7 @@ concurrency:
 
 jobs:
   build-clip:
-    name: Build ${{ matrix.lesson_id }} video and publishing pack
-    strategy:
-      fail-fast: false
-      matrix:
-        lesson_id:
-          - gps-satellite-navigation
-          - bioluminescence-ocean
-          - roman-concrete
-          - moon-phases
-          - deep-ocean-pressure
+    name: Build \${{ inputs.lesson_id }} video and publishing pack
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -87,50 +69,14 @@ jobs:
 
       - name: Build selected lesson package
         env:
-          LESSON_ID: ${{ matrix.lesson_id }}
+          LESSON_ID: \${{ inputs.lesson_id }}
         run: |
           python creator-studio/build_clip.py --lesson "$LESSON_ID"
-
-      - name: Run MoneyPrinterTurbo local finishing pass
-        if: ${{ inputs.use_moneyprinterturbo == true }}
-        env:
-          LESSON_ID: ${{ matrix.lesson_id }}
-        run: |
-          python -m pip install "mpt==1.3.10"
-          mkdir -p "$RUNNER_TEMP/moneyprinterturbo"
-          cd "$RUNNER_TEMP/moneyprinterturbo"
-          mpt cli \
-            --video-script "$(cat "$GITHUB_WORKSPACE/creator-studio/dist/$LESSON_ID/voiceover-script.txt")" \
-            --video-source local \
-            --video-materials "$GITHUB_WORKSPACE/creator-studio/dist/$LESSON_ID/AdventureAcademyShort-silent.mp4" \
-            --custom-audio-file "$GITHUB_WORKSPACE/creator-studio/dist/$LESSON_ID/voiceover.wav" \
-            --voice-name no-voice \
-            --no-subtitle-enabled \
-            --bgm-type none \
-            --video-aspect 9:16 \
-            --video-count 1
-
-          # MoneyPrinterTurbo writes to HOME, not RUNNER_TEMP. Copy its output
-          # into the artifact staging directory used by upload-artifact.
-          mkdir -p "$RUNNER_TEMP/moneyprinterturbo/storage/tasks"
-          if [ -d "$HOME/.local/share/MoneyPrinterTurbo/storage/tasks" ]; then
-            cp -a "$HOME/.local/share/MoneyPrinterTurbo/storage/tasks/." "$RUNNER_TEMP/moneyprinterturbo/storage/tasks/"
-          fi
-          test -n "$(find "$RUNNER_TEMP/moneyprinterturbo/storage/tasks" -type f -print -quit)"
-
-      - name: Save MoneyPrinterTurbo output
-        if: ${{ inputs.use_moneyprinterturbo == true }}
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.2
-        with:
-          name: moneyprinterturbo-${{ matrix.lesson_id }}
-          path: ${{ runner.temp }}/moneyprinterturbo/storage/tasks/
-          if-no-files-found: error
-          retention-days: 14
 
       - name: Save video and creator pack
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.2
         with:
-          name: academy-clip-${{ matrix.lesson_id }}
-          path: creator-studio/dist/${{ matrix.lesson_id }}/
+          name: academy-clip-\${{ inputs.lesson_id }}
+          path: creator-studio/dist/\${{ inputs.lesson_id }}/
           if-no-files-found: error
           retention-days: 14

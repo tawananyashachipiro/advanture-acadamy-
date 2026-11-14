@@ -344,6 +344,47 @@ def main():
                   stroke_width=3, stroke_fill=(4,18,35))
         draw.text((76, 575), "THE GOLDEN RECORD • 1977", font=font_sub, fill=(216,241,236))
         thumb.save(out / "thumbnail.jpg", quality=94)
+    elif args.lesson == "neptune-math-discovery":
+        svg = """<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<defs><linearGradient id="space" x2="0" y2="1"><stop stop-color="#061326"/><stop offset="1" stop-color="#173B5A"/></linearGradient></defs>
+<rect width="1280" height="720" fill="url(#space)"/>
+<g fill="#D8F1EC" opacity=".85"><circle cx="95" cy="180" r="4"/><circle cx="350" cy="105" r="5"/><circle cx="610" cy="205" r="3"/><circle cx="1160" cy="120" r="4"/><circle cx="1080" cy="600" r="4"/><circle cx="760" cy="90" r="3"/></g>
+<ellipse cx="830" cy="365" rx="260" ry="145" fill="none" stroke="#6B879D" stroke-width="5"/>
+<circle cx="590" cy="365" r="38" fill="#FFD27A"/>
+<circle cx="760" cy="255" r="38" fill="#72C4D8" stroke="#D8F1EC" stroke-width="5"/>
+<circle cx="1035" cy="420" r="46" fill="#2766A8" stroke="#9CCBFF" stroke-width="5"/>
+<path d="M820 315 Q900 260 980 365" fill="none" stroke="#FFD27A" stroke-width="7" stroke-dasharray="14 12"/>
+<g fill="#8BE2D2"><rect x="730" y="210" width="12" height="12"/><rect x="775" y="280" width="12" height="12"/><rect x="1015" y="390" width="12" height="12"/><rect x="1050" y="430" width="12" height="12"/></g>
+<text x="70" y="92" fill="#8BE2D2" font-family="Arial,sans-serif" font-size="38" font-weight="bold">ADVENTURE OF EDUCATION</text>
+<text x="70" y="330" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="64" font-weight="bold">A PLANET FOUND</text>
+<text x="70" y="415" fill="#FFD27A" font-family="Arial,sans-serif" font-size="72" font-weight="bold">BY MATHS</text>
+<text x="76" y="575" fill="#D8F1EC" font-family="Arial,sans-serif" font-size="34">NEPTUNE • 1846</text>
+</svg>"""
+        (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
+        from PIL import Image, ImageDraw, ImageFont
+        thumb = Image.new("RGB", (1280, 720), (6, 19, 38))
+        draw = ImageDraw.Draw(thumb)
+        for x, y, radius in [(95, 180, 4), (350, 105, 5), (610, 205, 3),
+                             (1160, 120, 4), (1080, 600, 4), (760, 90, 3)]:
+            draw.ellipse((x-radius, y-radius, x+radius, y+radius), fill=(216,241,236))
+        draw.ellipse((570, 220, 1090, 510), outline=(107,135,157), width=5)
+        draw.ellipse((552, 327, 628, 403), fill=(255,210,122))
+        draw.ellipse((722, 217, 798, 293), fill=(114,196,216), outline=(216,241,236), width=5)
+        draw.ellipse((989, 374, 1081, 466), fill=(39,102,168), outline=(156,203,255), width=5)
+        draw.line((820, 315, 980, 365), fill=(255,210,122), width=7)
+        try:
+            font_brand = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
+            font_title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 68)
+            font_sub = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 34)
+        except OSError:
+            font_brand = font_title = font_sub = ImageFont.load_default()
+        draw.text((70, 68), "ADVENTURE OF EDUCATION", font=font_brand, fill=(139,226,210))
+        draw.text((70, 275), "A PLANET FOUND", font=font_title, fill="white",
+                  stroke_width=3, stroke_fill=(4,18,35))
+        draw.text((70, 360), "BY MATHS", font=font_title, fill=(255,210,122),
+                  stroke_width=3, stroke_fill=(4,18,35))
+        draw.text((76, 575), "NEPTUNE • 1846", font=font_sub, fill=(216,241,236))
+        thumb.save(out / "thumbnail.jpg", quality=94)
     elif args.lesson == "atom-to-galaxy-scale":
         # A vertical 9:16 Shorts thumbnail. Render at 1080x1920 and upscale
         # to YouTube's recommended 2160x3840 upload size.
