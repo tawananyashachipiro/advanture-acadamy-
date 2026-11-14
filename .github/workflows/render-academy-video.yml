@@ -45,7 +45,7 @@ concurrency:
 
 jobs:
   build-clip:
-    name: Build \${{ inputs.lesson_id }} video and publishing pack
+    name: Build ${{ inputs.lesson_id }} video and publishing pack
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -69,14 +69,14 @@ jobs:
 
       - name: Build selected lesson package
         env:
-          LESSON_ID: \${{ inputs.lesson_id }}
+          LESSON_ID: ${{ inputs.lesson_id }}
         run: |
           python creator-studio/build_clip.py --lesson "$LESSON_ID"
 
       - name: Save video and creator pack
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.2
         with:
-          name: academy-clip-\${{ inputs.lesson_id }}
-          path: creator-studio/dist/\${{ inputs.lesson_id }}/
+          name: academy-clip-${{ inputs.lesson_id }}
+          path: creator-studio/dist/${{ inputs.lesson_id }}/
           if-no-files-found: error
           retention-days: 14
