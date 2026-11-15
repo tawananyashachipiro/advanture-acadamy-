@@ -1058,7 +1058,7 @@ def atom_to_galaxy_scale_story(scene, index, step):
 
 
 def modern_topic_visual(scene, lesson_id, index):
-    """Original animated visual motifs for five new Shorts."""
+    """Original animated visual motifs for additional educational Shorts."""
     if lesson_id == "gps-satellite-navigation":
         earth = Circle(radius=0.9, color="#3D8BC9", fill_color="#174A78", fill_opacity=1)
         earth.move_to(DOWN * 0.25)
@@ -1113,6 +1113,86 @@ def modern_topic_visual(scene, lesson_id, index):
         scene.play(sub.animate.shift(DOWN*1.5),Create(gauge),GrowFromCenter(needle),run_time=0.9)
         scene.play(Rotate(needle,angle=-PI/2,about_point=gauge.get_center()),Indicate(sub,color=SAND),run_time=0.65)
         scene.play(FadeOut(VGroup(layers,sub,gauge,needle)),run_time=0.3)
+
+    elif lesson_id == "jocelyn-bell-pulsar-discovery":
+        if index == 1:
+            dish = pixel_sprite(
+                ["...WWWW...", "..WWWWWW..", ".WWWWWWWW.", "WWWWWWWWWW",
+                 "...W..W...", "...W..W...", "..WW..WW.."],
+                {"W": "#B9CDD9"}, pixel=0.085
+            ).move_to(LEFT * 1.15 + UP * 0.55)
+            chart = RoundedRectangle(
+                width=2.4, height=1.2, corner_radius=0.08,
+                color="#DCE8EF", fill_color="#F3F0DF", fill_opacity=1
+            ).move_to(RIGHT * 0.85 + UP * 0.62)
+            grid = VGroup(*[
+                Line(LEFT * 0.28 + UP * y, RIGHT * 1.98 + UP * y,
+                     color="#B7C9D8", stroke_width=1)
+                for y in (0.28, 0.62, 0.96)
+            ])
+            baseline = Line(LEFT * 0.28 + UP * 0.62,
+                            RIGHT * 1.98 + UP * 0.62,
+                            color="#45627A", stroke_width=2)
+            pulses = VGroup(*[
+                Line([x, 0.36, 0], [x, 0.98, 0],
+                     color="#D58B37", stroke_width=4)
+                for x in (0.05, 0.62, 1.19, 1.76)
+            ])
+            signal_path = DashedLine(dish.get_right(), chart.get_left(),
+                                     color=TEAL, dash_length=0.08, stroke_width=2)
+            label = fit_line("A STRANGE MARK IN THE DATA", 17, SAND, BOLD, 4.0).move_to(DOWN * 1.35)
+            scene.play(FadeIn(dish), FadeIn(chart), Create(grid), Create(signal_path), run_time=0.75)
+            scene.play(Create(baseline), LaggedStart(*[Create(p) for p in pulses], lag_ratio=0.15),
+                       FadeIn(label), run_time=0.85)
+            scene.play(Indicate(pulses, color=SAND), run_time=0.45)
+            scene.play(FadeOut(VGroup(dish, chart, grid, baseline, pulses, signal_path, label)), run_time=0.35)
+        elif index == 2:
+            baseline = Line(LEFT * 1.75 + UP * 0.55, RIGHT * 1.75 + UP * 0.55,
+                            color="#7890A5", stroke_width=3)
+            pulses = VGroup(*[
+                Line([x, 0.55, 0], [x, 1.35, 0], color="#FFD27A", stroke_width=7)
+                for x in (-1.45, -0.48, 0.49, 1.46)
+            ])
+            markers = VGroup(*[
+                Dot([x, 0.55, 0], radius=0.07, color=TEAL)
+                for x in (-1.45, -0.48, 0.49, 1.46)
+            ])
+            period = fit_line("ABOUT 1.3 SECONDS BETWEEN PULSES", 19, SAND, BOLD, 4.0).move_to(DOWN * 0.65)
+            source = fit_line("REGULAR • REPEATING • FROM THE SAME SKY PATCH", 15, MINT, BOLD, 4.0).move_to(DOWN * 1.2)
+            scene.play(Create(baseline), LaggedStart(*[Create(p) for p in pulses], lag_ratio=0.18),
+                       FadeIn(markers), run_time=0.9)
+            scene.play(FadeIn(period), FadeIn(source), run_time=0.5)
+            scene.play(*[Indicate(p, color=WHITE) for p in pulses], run_time=0.65)
+            scene.play(FadeOut(VGroup(baseline, pulses, markers, period, source)), run_time=0.35)
+        else:
+            stars = VGroup(*[
+                Dot([((i * 19) % 35) / 10 - 1.7, ((i * 13) % 25) / 10 - 0.75, 0],
+                    radius=0.025, color=PALE)
+                for i in range(28)
+            ])
+            centre = LEFT * 0.72 + UP * 0.55
+            neutron = pixel_sprite(
+                ["....NN....", "...NNNN...", ".NNNNNNNN.", "NNNNNNNNNN",
+                 "NNNNNNNNNN", ".NNNNNNNN.", "...NNNN...", "....NN...."],
+                {"N": "#D8F1EC"}, pixel=0.075
+            ).move_to(centre)
+            halo = Circle(radius=0.42, color=TEAL, stroke_width=3).move_to(centre)
+            earth_center = RIGHT * 1.72 + UP * 0.42
+            beams = VGroup(
+                Line(centre + RIGHT * 0.18, earth_center, color=SAND, stroke_width=7),
+                Line(centre + RIGHT * 0.18, RIGHT * 1.95 + DOWN * 0.25,
+                     color=SAND, stroke_width=7)
+            )
+            earth = Circle(radius=0.22, color="#4E9FE0",
+                           fill_color="#2675B8", fill_opacity=1).move_to(earth_center)
+            earth_label = fit_line("EARTH", 16, MINT, BOLD, 1.0).next_to(earth, DOWN, buff=0.15)
+            label = fit_line("A ROTATING STAR SENDS A SWEEPING BEAM", 17, SAND, BOLD, 4.0).move_to(DOWN * 1.3)
+            scene.play(FadeIn(stars), FadeIn(neutron), Create(halo), run_time=0.7)
+            scene.play(Create(beams), FadeIn(earth), FadeIn(earth_label), run_time=0.75)
+            scene.play(Rotate(beams, angle=-0.25, about_point=centre),
+                       Indicate(earth, color=TEAL), run_time=0.75)
+            scene.play(FadeIn(label), run_time=0.35)
+            scene.play(FadeOut(VGroup(stars, neutron, halo, beams, earth, earth_label, label)), run_time=0.4)
 
     elif lesson_id == "neptune-math-discovery":
         if index == 1:
@@ -1178,6 +1258,7 @@ class AcademyLessonShort(Scene):
         is_black_hole = lesson.get("title", "").startswith("The First Black Hole Image:")
         is_voyager = lesson.get("title", "").startswith("Voyager's Golden Record:")
         is_neptune = lesson.get("id") == "neptune-math-discovery"
+        is_pulsar = lesson.get("id") == "jocelyn-bell-pulsar-discovery"
         is_scale = lesson.get("title", "").startswith("From an Atom to the Observable Universe:")
         if is_apollo:
             # A short visual cold-open: original pixel-art rocket and Moon.
@@ -1330,6 +1411,27 @@ class AcademyLessonShort(Scene):
             self.play(FadeOut(orbit), FadeOut(uranus), FadeOut(neptune),
                       FadeOut(prediction), FadeOut(cold_open), run_time=0.4)
 
+        elif is_pulsar:
+            chart = RoundedRectangle(
+                width=2.65, height=1.0, corner_radius=0.08,
+                color="#DCE8EF", fill_color="#F3F0DF", fill_opacity=1
+            ).move_to(UP * 0.72)
+            baseline = Line(LEFT * 1.1 + UP * 0.72, RIGHT * 1.1 + UP * 0.72,
+                            color="#45627A", stroke_width=2)
+            pulses = VGroup(*[
+                Line([x, 0.48, 0], [x, 1.0, 0], color="#D58B37", stroke_width=5)
+                for x in (-0.82, -0.27, 0.28, 0.83)
+            ])
+            cold_open = fit_paragraph(
+                "A STRANGE SIGNAL TICKED EVERY 1.3 SECONDS.",
+                29, SAND, max_width=4.0
+            ).move_to(DOWN * 1.1)
+            self.play(FadeIn(chart), Create(baseline), run_time=0.55)
+            self.play(LaggedStart(*[Create(p) for p in pulses], lag_ratio=0.14),
+                      FadeIn(cold_open), run_time=0.75)
+            self.wait(0.8)
+            self.play(FadeOut(VGroup(chart, baseline, pulses, cold_open)), run_time=0.35)
+
         title = fit_paragraph(lesson["title"], 38, WHITE)
         title.move_to(UP * 1.05)
         subject = fit_line(lesson["subject"].upper() + " • " + lesson["level"], 19, SAND, BOLD)
@@ -1369,7 +1471,7 @@ class AcademyLessonShort(Scene):
                 voyager_pixel_story(self, index, step)
             elif is_scale:
                 atom_to_galaxy_scale_story(self, index, step)
-            elif lesson.get("id") in ("gps-satellite-navigation", "bioluminescence-ocean", "roman-concrete", "moon-phases", "deep-ocean-pressure", "neptune-math-discovery"):
+            elif lesson.get("id") in ("gps-satellite-navigation", "bioluminescence-ocean", "roman-concrete", "moon-phases", "deep-ocean-pressure", "neptune-math-discovery", "jocelyn-bell-pulsar-discovery"):
                 modern_topic_visual(self, lesson.get("id"), index)
                 number = fit_line(f"DISCOVERY {index}", 23, TEAL, BOLD)
                 heading = fit_paragraph(step["heading"], 34, SAND)
@@ -1448,6 +1550,15 @@ class AcademyLessonShort(Scene):
             end_card = VGroup(
                 fit_line("MATHS PREDICTED IT. A TELESCOPE CONFIRMED IT.", 20, SAND, BOLD, max_width=4.0),
                 fit_line("NEPTUNE • 23 SEPTEMBER 1846", 20, WHITE, BOLD),
+            ).arrange(DOWN, buff=0.28).move_to(UP * 0.6)
+            self.play(FadeIn(end_card), run_time=0.6)
+            self.wait(0.8)
+            self.play(FadeOut(end_card), run_time=0.35)
+
+        if is_pulsar:
+            end_card = VGroup(
+                fit_line("A TINY MARK. A COSMIC DISCOVERY.", 22, SAND, BOLD, max_width=4.0),
+                fit_line("JOCELYN BELL • PULSAR • 1967", 19, WHITE, BOLD, max_width=4.0),
             ).arrange(DOWN, buff=0.28).move_to(UP * 0.6)
             self.play(FadeIn(end_card), run_time=0.6)
             self.wait(0.8)

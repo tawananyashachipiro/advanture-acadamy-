@@ -385,6 +385,78 @@ def main():
                   stroke_width=3, stroke_fill=(4,18,35))
         draw.text((76, 575), "NEPTUNE • 1846", font=font_sub, fill=(216,241,236))
         thumb.save(out / "thumbnail.jpg", quality=94)
+    elif args.lesson == "jocelyn-bell-pulsar-discovery":
+        from PIL import Image, ImageDraw, ImageFont
+        width, height = 1080, 1920
+        thumb = Image.new("RGB", (width, height))
+        pixels = thumb.load()
+        for y in range(height):
+            t = y / (height - 1)
+            shade = (int(5 + 8*t), int(13 + 20*t), int(30 + 34*t))
+            for x in range(width):
+                pixels[x, y] = shade
+        draw = ImageDraw.Draw(thumb)
+        rng = __import__("random").Random(1967)
+        for _ in range(145):
+            x, y = rng.randrange(28, width-28), rng.randrange(35, height-35)
+            radius = rng.choice((1, 1, 2, 3))
+            draw.ellipse((x-radius, y-radius, x+radius, y+radius),
+                         fill=(190, 220, 245))
+        font_bold = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+        font_regular = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+        brand_font = ImageFont.truetype(font_bold, 31)
+        title_font = ImageFont.truetype(font_bold, 77)
+        label_font = ImageFont.truetype(font_bold, 27)
+        small_font = ImageFont.truetype(font_regular, 25)
+
+        def centered(text, y, font, fill, stroke_width=0):
+            bounds = draw.textbbox((0, 0), text, font=font, stroke_width=stroke_width)
+            x = (width - (bounds[2] - bounds[0])) / 2
+            draw.text((x, y), text, font=font, fill=fill,
+                      stroke_width=stroke_width, stroke_fill=(3, 12, 27))
+
+        centered("ADVENTURE OF EDUCATION", 95, brand_font, (139, 226, 210))
+        centered("THE 1.3-SECOND", 265, title_font, (255, 255, 255), 3)
+        centered("SIGNAL", 365, title_font, (255, 210, 122), 3)
+
+        # Paper chart with a repeated radio pulse.
+        draw.rounded_rectangle((150, 570, 930, 900), radius=28,
+                               fill=(239, 240, 224), outline=(190, 210, 220), width=8)
+        for y in (650, 730, 810):
+            draw.line((205, y, 875, y), fill=(188, 202, 211), width=3)
+        draw.line((205, 735, 875, 735), fill=(63, 91, 116), width=5)
+        for x in (285, 455, 625, 795):
+            draw.line((x, 735, x, 650), fill=(205, 129, 51), width=12)
+        centered("A REPEATING TRACE IN THE DATA", 930, small_font, (216, 241, 236))
+
+        # Stylised neutron star and a lighthouse-like radio beam.
+        draw.polygon([(440, 1220), (640, 1100), (890, 1380), (540, 1320)],
+                     fill=(92, 80, 55))
+        draw.polygon([(440, 1220), (650, 1325), (900, 1510), (545, 1365)],
+                     fill=(36, 78, 74))
+        draw.ellipse((360, 1110, 620, 1370), fill=(47, 158, 146),
+                     outline=(216, 241, 236), width=10)
+        draw.ellipse((415, 1165, 565, 1315), fill=(216, 241, 236))
+        draw.ellipse((455, 1205, 525, 1275), fill=(255, 210, 122))
+        draw.ellipse((805, 1320, 925, 1440), fill=(39, 102, 168),
+                     outline=(139, 226, 210), width=8)
+        centered("JOCELYN BELL • 1967", 1580, label_font, (255, 210, 122))
+        centered("A DISCOVERY HIDDEN IN A PAPER CHART", 1640, small_font, (216, 241, 236))
+        thumb = thumb.resize((2160, 3840), Image.Resampling.LANCZOS)
+        thumb.save(out / "thumbnail.jpg", quality=96, subsampling=0, optimize=True)
+
+        svg = """<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#050d1e"/><stop offset="1" stop-color="#0d2138"/></linearGradient></defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<g fill="#d9f2ff" opacity=".75"><circle cx="95" cy="220" r="3"/><circle cx="950" cy="280" r="4"/><circle cx="180" cy="600" r="3"/><circle cx="900" cy="880" r="3"/><circle cx="130" cy="1450" r="4"/><circle cx="940" cy="1660" r="3"/></g>
+<g text-anchor="middle" font-family="Arial" font-weight="bold"><text x="540" y="130" fill="#8be2d2" font-size="31">ADVENTURE OF EDUCATION</text><text x="540" y="350" fill="#ffffff" font-size="77">THE 1.3-SECOND</text><text x="540" y="455" fill="#ffd27a" font-size="90">SIGNAL</text></g>
+<rect x="150" y="570" width="780" height="330" rx="28" fill="#eff0e0" stroke="#bed2dc" stroke-width="8"/>
+<g stroke="#bccad3" stroke-width="3"><path d="M205 650H875 M205 730H875 M205 810H875"/></g><path d="M205 735H875 M285 735V650 M455 735V650 M625 735V650 M795 735V650" fill="none" stroke="#cd8133" stroke-width="12"/>
+<path d="M440 1220L640 1100L890 1380L540 1320Z" fill="#5c5037"/><path d="M440 1220L650 1325L900 1510L545 1365Z" fill="#244e4a"/>
+<circle cx="490" cy="1240" r="130" fill="#2f9e92" stroke="#d8f1ec" stroke-width="10"/><circle cx="490" cy="1240" r="75" fill="#d8f1ec"/><circle cx="490" cy="1240" r="35" fill="#ffd27a"/><circle cx="865" cy="1380" r="60" fill="#2766a8" stroke="#8be2d2" stroke-width="8"/>
+<g text-anchor="middle" font-family="Arial"><text x="540" y="1580" fill="#ffd27a" font-size="27" font-weight="bold">JOCELYN BELL • 1967</text><text x="540" y="1640" fill="#d8f1ec" font-size="25">A DISCOVERY HIDDEN IN A PAPER CHART</text></g>
+</svg>"""
+        (out / "thumbnail.svg").write_text(svg, encoding="utf-8")
     elif args.lesson == "atom-to-galaxy-scale":
         # A vertical 9:16 Shorts thumbnail. Render at 1080x1920 and upscale
         # to YouTube's recommended 2160x3840 upload size.

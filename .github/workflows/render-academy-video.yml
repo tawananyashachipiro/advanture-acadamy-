@@ -35,6 +35,7 @@ on:
           - moon-phases
           - deep-ocean-pressure
           - neptune-math-discovery
+          - jocelyn-bell-pulsar-discovery
 
 permissions:
   contents: read

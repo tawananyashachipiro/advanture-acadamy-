@@ -1279,5 +1279,70 @@
     "fact_check_notes": "FACT-CHECK NOTES — checked against NASA/JPL, Paris Observatory, the American Physical Society and the Leibniz Institute for Astrophysics Potsdam.\n\n- NASA/JPL says Neptune's existence was inferred from its effect on Uranus's orbit. Urbain Le Verrier in France and John Couch Adams in England independently predicted a position for the unseen planet.\n- Paris Observatory records Le Verrier's intensive calculations in 1846 and identifies a surviving 1846 manuscript about the search for Neptune.\n- The American Physical Society dates the successful observation to 23 September 1846 and reports that Johann Galle and Heinrich d'Arrest found Neptune within one degree of Le Verrier's predicted location.\n- The Berlin Observatory observation followed Le Verrier's prediction. Do not say Le Verrier physically saw Neptune; Galle and d'Arrest made the confirming observation.\n- Credit is nuanced: Adams independently worked on the problem, while Le Verrier's published prediction prompted the successful Berlin search. Avoid claiming a single person did everything.\n\nEditorial guardrails: describe the orbit discrepancy as evidence that suggested an unseen planet, not as a direct photograph or signal. Keep the distinction between mathematical prediction and telescopic confirmation.",
     "thumbnail_guidance": "Create an original 16:9 pixel-art cover: a star map with Uranus on a slightly offset orbit, a pencil-like prediction line leading to a small deep-blue Neptune, and a simple telescope silhouette. Large headline: “A PLANET FOUND BY MATHS”. Supporting line: “NEPTUNE • 1846”. Keep the Adventure of Education brand visible and text readable on a phone. Do not imply Neptune was photographed before it was observed.",
     "pinned_comment": "Would you have trusted a mathematical prediction enough to point a telescope at an unseen planet? The source links are in the description."
+  },
+  "jocelyn-bell-pulsar-discovery": {
+    "subject": "Astronomy & History of Science",
+    "level": "Introductory",
+    "title": "The 1.3-Second Mystery: Jocelyn Bell's Pulsar Discovery",
+    "hook": "A radio telescope picked up a signal ticking every 1.3 seconds. What was it?",
+    "concept": "A pulsar is a rapidly rotating neutron star. Its beams of radiation sweep through space; when a beam crosses Earth, radio telescopes can detect regular pulses.",
+    "steps": [
+      {
+        "heading": "A mark on the chart",
+        "body": "In 1967, Cambridge graduate student Jocelyn Bell was analysing long paper recordings from a radio telescope she had helped build. She noticed an unusual signal in the data."
+      },
+      {
+        "heading": "A signal with a rhythm",
+        "body": "On 28 November 1967, a clearer recording showed pulses repeating about every 1.3 seconds. Bell and her supervisor Antony Hewish investigated the signal and checked for other explanations."
+      },
+      {
+        "heading": "A cosmic lighthouse",
+        "body": "The signal came from a pulsar: a rapidly spinning neutron star whose narrow radio beam sweeps across space. Bell and colleagues published their discovery in Nature in February 1968."
+      }
+    ],
+    "question": "What produces the regular radio pulses detected from a pulsar?",
+    "options": [
+      "A rotating neutron star's beam sweeping past Earth",
+      "A planet blocking the star every second",
+      "A message sent by a spacecraft"
+    ],
+    "answer_index": 0,
+    "explanation": "A pulsar rotates rapidly. Its radiation beam sweeps through space, and when it crosses Earth's direction, a radio telescope can detect a pulse.",
+    "voiceover": "One tiny squiggle on a paper chart helped reveal a new kind of star. In 1967, Cambridge graduate student Jocelyn Bell was checking long paper recordings from a radio telescope she had helped build. She spotted a strange signal that kept returning from the same patch of sky. On 28 November, a clearer recording showed pulses arriving about every 1.3 seconds. The team jokingly nicknamed it LGM-1, for “little green men,” while they checked what could explain it. The answer was a pulsar: a rapidly spinning neutron star whose narrow radio beam sweeps past Earth like a lighthouse. Bell and her colleagues published the discovery in Nature in February 1968. Careful attention to a tiny mark had opened a new window on the universe.",
+    "hashtags": [
+      "#JocelynBellBurnell",
+      "#Pulsars",
+      "#Astronomy",
+      "#SpaceScience",
+      "#ScienceHistory",
+      "#WomenInScience",
+      "#AdventureOfEducation",
+      "#Shorts"
+    ],
+    "sources": [
+      {
+        "organization": "NASA",
+        "title": "NASA Continues to Study Pulsars, 50 Years After Their Chance Discovery",
+        "url": "https://www.nasa.gov/missions/station/nasa-continues-to-study-pulsars-50-years-after-their-chance-discovery/"
+      },
+      {
+        "organization": "American Institute of Physics / Physics Today",
+        "title": "Detection of the First Pulsar",
+        "url": "https://physicstoday.aip.org/news/detection-of-the-first-pulsar"
+      },
+      {
+        "organization": "Nature",
+        "title": "Observation of a Rapidly Pulsating Radio Source (1968)",
+        "url": "https://www.nature.com/articles/217709a0"
+      },
+      {
+        "organization": "American Institute of Physics",
+        "title": "A Pulsar Discovery: Moments of Discovery archival exhibit",
+        "url": "https://history.aip.org/exhibits/mod/pulsar/pulsar1/01.html"
+      }
+    ],
+    "fact_check_notes": "NASA describes the first pulsar discovery as Jocelyn Bell's chance detection in Cambridge in 1967. The telescope's paper recorder showed an unusual repeating signal.\nThe American Institute of Physics / Physics Today identifies 28 November 1967 as the date Bell made the first detection and reports a period of about 1.3 seconds in the clearer recording.\nThe LGM-1 nickname was a joke referring to 'little green men'; it was not evidence of extraterrestrial life.\nNASA explains that pulsars are rapidly rotating neutron stars with narrow beams of radiation that sweep across space. A radio telescope detects pulses when a beam crosses Earth's direction.\nThe Nature paper was published on 24 February 1968. Its author list includes A. Hewish, S. J. Bell, J. D. H. Pilkington, P. F. Scott and R. A. Collins.\nAttribution note: credit Bell with first detecting the signal and with co-authoring the team's published discovery. Do not claim she worked alone. The 1974 Nobel Prize in Physics went to Antony Hewish and Martin Ryle, not Bell Burnell; this short does not simplify that debated history into a single-sentence claim.",
+    "thumbnail_guidance": "Create a vertical 9:16 cover with a dark star field, a cream paper chart showing one clear repeating pulse, and an original pixel-art neutron star with a sweeping radio beam. Use large two-line text: THE 1.3-SECOND / SIGNAL. Add JOCELYN BELL • 1967 in smaller type. Keep all text inside the central mobile-safe area, use high contrast, and use only original vector/pixel artwork.",
+    "pinned_comment": "A pulsar is a spinning neutron star whose radio beam sweeps past Earth like a lighthouse. What other tiny clues in scientific data might lead to a big discovery?"
   }
 }
