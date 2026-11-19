@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build a reviewed, YouTube-Shorts-ready Adventure Academy lesson package."""
 import argparse
+import hashlib
 import json
 import re
 import shutil
@@ -657,12 +658,16 @@ def main():
     piper_config = out / "en_US-amy-medium.onnx.json"
     try:
         for path, url in [
-            (piper_model, "https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/amy/medium/en_US-amy-medium.onnx"),
-            (piper_config, "https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/amy/medium/en_US-amy-medium.onnx.json"),
+            (piper_model, "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/amy/medium/en_US-amy-medium.onnx"),
+            (piper_config, "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/amy/medium/en_US-amy-medium.onnx.json"),
         ]:
             request = urllib.request.Request(url, headers={"User-Agent": "AdventureAcademyClipFactory/1.0"})
             with urllib.request.urlopen(request, timeout=60) as response, path.open("wb") as output:
                 shutil.copyfileobj(response, output)
+        expected_model_sha256 = "b3a6e47b57b8c7fbe6a0ce2518161a50f59a9cdd8a50835c02cb02bdd6206c18"
+        actual_model_sha256 = hashlib.sha256(piper_model.read_bytes()).hexdigest()
+        if actual_model_sha256 != expected_model_sha256:
+            raise ValueError("Downloaded Piper voice model failed SHA-256 verification.")
         subprocess.run([
             sys.executable, "-m", "piper", "--model", str(piper_model),
             "--output_file", str(voice_audio), "--length-scale", "1.12",
