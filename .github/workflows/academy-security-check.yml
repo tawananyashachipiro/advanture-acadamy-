@@ -8,6 +8,11 @@ on:
       - "creator-studio/**"
       - ".github/workflows/**"
       - "requirements*.txt"
+      - "index.html"
+      - "script.js"
+      - "styles.css"
+      - "firebase-sync.js"
+      - "firestore.rules"
   schedule:
     - cron: "23 6 * * 1"
 
